@@ -89,9 +89,9 @@ export default {
           // autoFetch: true
         },
         endpoints: {
-          login: { url: '/user/login', method: 'post' },
-          logout: { url: '/user/admin/logout', method: 'get' },
-          user: { url: '/user/admin/profile', method: 'get' },
+          login: { url: '/auth/login', method: 'post' },
+          logout: { url: '', method: 'get' },
+          user: { url: '/auth/profile', method: 'get' },
         },
       },
     },
@@ -103,12 +103,29 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    proxy: true,
-    prefix: '/api/',
+    baseURL: process.env.baseUrl,
+    // proxy: true,
+    // prefix: '/api/',
   },
+  // proxy: {
+  //   '/api/': process.env.baseUrl,
+  // },
 
-  proxy: {
-    '/api/': process.env.baseUrl,
+  // publicRuntimeConfig: {
+  //   axios: {
+  //     browserBaseURL: process.env.BROWSER_BASE_URL,
+  //   },
+  // },
+
+  // privateRuntimeConfig: {
+  //   axios: {
+  //     baseURL: process.env.BASE_URL,
+  //   },
+  // },
+
+  env: {
+    // url: process.env.baseUrl.replace('/api/', '/'),
+    baseUrl: process.env.baseUrl,
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa

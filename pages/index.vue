@@ -41,41 +41,42 @@
 
         <!-- form sectionn -->
         <div class="mx-auto max-w-96">
-          <FormulateInput
-            label="Email"
-            type="email"
-            placeholder="tulis_email@mail.co.id"
-            validation="required|email"
-            validation-name="Email"
-            outer-class="mb-4"
-            label-class="font-semibold"
-            input-class="border border-gray-400 rounded px-3 py-2 leading-none focus:border-primary outline-none border-box w-full duration-200 ease-out transition"
-            errors-class="text-danger"
-          />
-          <FormulateInput
-            label="Password"
-            type="password"
-            placeholder="*******"
-            validation="required|min:6,length"
-            validation-name="Password"
-          />
-          <!-- bagian ingat password dan lupa pass -->
-          <div class="grid grid-cols-2 font-semibold my-4">
-            <div>Ingatkan Password</div>
-            <div class="text-right">Lupa Password?</div>
-          </div>
+          <form @submit.prevent="login">
+            <FormulateInput
+              v-model="loginData.username"
+              label="Username"
+              type="text"
+              placeholder="username"
+              validation="required"
+              outer-class="mb-4"
+              label-class="font-semibold"
+              input-class="border border-gray-400 rounded px-3 py-2 leading-none focus:border-primary outline-none border-box w-full duration-200 ease-out transition"
+              errors-class="text-danger"
+            />
+            <FormulateInput
+              v-model="loginData.password"
+              label="Password"
+              type="password"
+              placeholder="*******"
+              validation="required|min:6,length"
+              validation-name="Password"
+            />
+            <!-- bagian ingat password dan lupa pass -->
+            <div class="grid grid-cols-2 font-semibold my-4">
+              <div>Ingatkan Password</div>
+              <div class="text-right">Lupa Password?</div>
+            </div>
 
-          <!-- button login -->
-          <div class="flex flex-col">
-            <button
-              class="bg-primary px-6 !block text-white p-4 rounded-lg hover:bg-primary-shade transition duration-300 ease-out"
-            >Masuk</button>
-            <div class="m-4"></div>
-            <kunci-button class>Masuk</kunci-button>
-          </div>
+            <!-- button login -->
+            <div class="flex flex-col">
+              <button
+                type="submit"
+                class="bg-primary px-6 !block text-white p-4 rounded-lg hover:bg-primary-shade transition duration-300 ease-out"
+              >Masuk</button>
+            </div>
+          </form>
         </div>
       </div>
-
       <!-- bagian author -->
       <div class="text-center">Copyright Kunci Transformasi Digital 2021</div>
     </div>
@@ -85,5 +86,30 @@
 <script>
 export default {
   auth: false,
+
+  data() {
+    return {
+      env: process.env.baseUrl,
+      loginData: {
+        username: null,
+        password: null,
+      },
+    }
+  },
+  methods: {
+    login() {
+      this.$auth.loginWith('local', { data: this.loginData }).then((res) => {
+        // eslint-disable-next-line no-console
+        console.log(res.data)
+        this.$router.push('/dashboard')
+      }).catch(err => {
+        // eslint-disable-next-line no-console
+        console.log(err)
+
+        // this.$router.push('/dashboard')
+        // this.$router.push('/login')
+      })
+    }
+  },
 }
 </script>

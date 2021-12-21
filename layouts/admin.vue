@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>ini adalah admin layout</h1>
-    <nuxt />
+    <kunci-sidebar />
+    <div class="bg-latar min-h-screen pl-72 pt-5">
+      <Nuxt />
+    </div>
   </div>
 </template>

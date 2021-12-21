@@ -15,6 +15,7 @@ module.exports = {
         dark: '#222831',
         orange: '#EE712B',
         primaryDark: '#222831',
+        latar: '#F3F3F7',
       },
       fontFamily: {
         sans: ['Poppins', ...defaultTheme.fontFamily.sans],

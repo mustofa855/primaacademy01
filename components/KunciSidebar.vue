@@ -21,13 +21,13 @@
         v-for="(item, index) in slug"
         :key="index"
         :to="item.to"
-        class="flex flex-row items-center hover:text-primary transition duration-200 ease-out my-2 hover:border-primary"
-        :class="$route.path == item.to ? 'text-primary' : ''"
+        class="flex flex-row items-center hover:text-primary transition duration-200 ease-out my-4 hover:border-primary after:absolute after:-right-4 after:h-10 after:w-6 after:rounded-md hover:after:bg-primary hover:after:transition-all after:duration-200 after:ease-out"
+        :class="$route.path == item.to ? 'text-primary after:bg-primary' : ''"
       >
-        <div class="max-w-5 flex mr-8 ml-4" v-html="item.icon"></div>
+        <div class="max-w-xs flex mr-8 ml-4" v-html="item.icon"></div>
         <div
           :to="item.to"
-          class="py-2 text-lg transition-all ease-out duration-200 flex group after:absolute after:-right-4 after:h-8 after:w-6 after:rounded-md after:content-[''] hover:after:bg-primary hover:after:transition-all after:duration-200 after:ease-out"
+          class="py-2 text-base transition-all ease-out duration-200 flex group"
           :class="$route.path == item.to ? 'after:bg-primary' : ''"
         >
           {{ item.text }}

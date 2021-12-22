@@ -1,6 +1,6 @@
 <template>
   <div>
-    <title-bar :title="title" :subtitle="$moment(subtitle).format('LLLL')" />
+    <title-bar :title="title" />
   </div>
 </template>
 
@@ -16,9 +16,6 @@ export default {
     }
   },
   methods: {
-    updateSubtitle() {
-      this.subtitle = new Date().toLocaleString()
-    },
   },
 }
 </script>

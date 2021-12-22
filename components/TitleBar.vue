@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-8">
     <!-- title section -->
     <div class="text-2xl font-bold">{{ title }}</div>
     <!-- subtitle section -->

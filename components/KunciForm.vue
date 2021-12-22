@@ -1,6 +1,6 @@
 <template>
-  <FormulateForm :values="items" @submit="confirm">
-    <slot />
+  <FormulateForm v-slot="{ hasErrors }" :values="items" @submit="confirm">
+    <slot v-bind="{  hasErrors  }" />
   </FormulateForm>
 </template>
 

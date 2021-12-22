@@ -22,7 +22,7 @@
         :key="index"
         :to="item.to"
         class="flex flex-row items-center hover:text-primary transition duration-200 ease-out my-4 hover:border-primary after:absolute after:-right-4 after:h-10 after:w-6 after:rounded-md hover:after:bg-primary hover:after:transition-all after:duration-200 after:ease-out"
-        :class="$route.path == item.to ? 'text-primary after:bg-primary' : ''"
+        :class="isActive == item.to ? 'text-primary after:bg-primary' : ''"
       >
         <div class="max-w-xs flex mr-8 ml-4" v-html="item.icon"></div>
         <div
@@ -64,9 +64,30 @@ export default {
       },]
     }
   },
+  computed: {
+    isActive() {
+      const split = this.$route.path.split('/')
+      return '/' + split[1]
+    }
+  },
   mounted() {
     // // eslint-disable-next-line no-console
     // console.log(this.$route);
   },
 }
 </script>
+<style scoped>
+.garis::after {
+  /* @apply after:absolute after:-right-4 after:h-10 after:w-6 after:rounded-md hover:after:bg-primary hover:after:transition-all after:duration-200 after:ease-out after:bg-primary; */
+  content: "";
+  position: absolute;
+  right: -24px;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  transition: all;
+  background-color: blue;
+  animation-duration: 200ms;
+  animation-timing-function: ease-out;
+}
+</style>

@@ -12,6 +12,9 @@
     <kunci-table :header-table="tableHeader" :data="data">
       <template #no="{ index }">{{ index + 1 }}</template>
     </kunci-table>
+    <pagination :pagination="pagination" />
+
+    <!-- <div class="after:content-['*'] after:absolute after:text-primary">asdlkjasd</div> -->
   </div>
 </template>
 
@@ -19,8 +22,9 @@
 import ControlBar from '~/components/ControlBar.vue'
 import KunciTable from '~/components/KunciTable.vue'
 import TitleBar from '~/components/TitleBar.vue'
+import Pagination from '~/components/Pagination.vue'
 export default {
-  components: { TitleBar, ControlBar, KunciTable },
+  components: { TitleBar, ControlBar, KunciTable, Pagination },
   layout: 'admin',
   data() {
     return {
@@ -101,8 +105,20 @@ export default {
         //   key: 'action',
         // },
       ],
-
       data: null,
+      pagination: {
+        current_page: 1,
+        first_page_url: '',
+        from: 1,
+        last_page: 1,
+        last_page_url: '',
+        next_page_url: null,
+        path: '',
+        per_page: 10,
+        prev_page_url: null,
+        to: 2,
+        total: 2,
+      }
     }
   },
   mounted() {
@@ -116,6 +132,7 @@ export default {
       await this.$axios.get('/assessor/').then(res => {
         // eslint-disable-next-line no-console
         console.log(res.data.data)
+        this.pagination.total = res.data.data.count
 
         this.data = res.data.data.rows
       })

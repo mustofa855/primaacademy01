@@ -1,7 +1,10 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  content: ['./formulate.config.js'],
+  content: ['./formulate.config.js', './src/**/*.{html,js}'],
+  experimental: {
+    applyComplexClasses: true,
+  },
   theme: {
     extend: {
       colors: {
@@ -27,7 +30,7 @@ module.exports = {
       backgroundColor: ['active'],
     },
   },
-  // mode: 'jit',
+  mode: 'jit',
   apply: {
     kbtn: {
       color: '',

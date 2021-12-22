@@ -1,7 +1,7 @@
 <template>
   <button
     class="bg-primary p-2 px-4 text-white rounded-md shadow-md hover:bg-primary-shade duration-200 ease-out transition"
-    :class="(disabled ? '!bg-gray-300 hover:cursor-not-allowed' : '!bg-gray-300 hover:cursor-not-allowed')"
+    :class="(disabled ? '!bg-gray-300 hover:cursor-not-allowed' : '')"
     @click="click"
   >
     <slot></slot>

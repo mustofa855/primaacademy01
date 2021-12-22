@@ -4,7 +4,7 @@
     <!-- content section -->
     <div class="flex">
       <kunci-card-chip :title="'Assesor'" :to="'assesor'" />
-      <kunci-card-chip :title="'Skema Sertifikasi'" />
+      <kunci-card-chip :title="'Skema Sertifikasi'" to="certificate" />
     </div>
   </div>
 </template>

@@ -1,6 +1,8 @@
 <template>
   <div
-    class="hover:cursor-pointer hover:bg-gray-100 duration-200 ease-out transition max-w-xs w-80 bg-white p-4 shadow-md rounded-lg mr-4 flex items-center"
+    class="hover:bg-gray-100 duration-200 ease-out transition max-w-xs w-80 bg-white p-4 shadow-md rounded-lg mr-4 flex items-center"
+    :class="to ? 'hover:cursor-pointer' : ''"
+    @click="toPage(to)"
   >
     <!-- icon -->
     <div class="bg-primary rounded-full w-12 h-12 flex mr-4">
@@ -31,6 +33,16 @@ export default {
       type: String,
       default: 'paper.svg',
     },
+    to: {
+      type: String,
+      default: '',
+    },
+  },
+  methods: {
+    toPage(e) {
+      if (e)
+        this.$router.push(this.$route.name + '/' + e)
+    }
   },
 }
 </script>

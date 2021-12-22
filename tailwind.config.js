@@ -27,7 +27,7 @@ module.exports = {
       backgroundColor: ['active'],
     },
   },
-  mode: 'jit',
+  // mode: 'jit',
   apply: {
     kbtn: {
       color: '',

@@ -1,7 +1,7 @@
 <template>
   <div
     class="hover:bg-gray-100 duration-200 ease-out transition max-w-xs w-80 bg-white p-4 shadow-md rounded-lg mr-4 flex items-center"
-    :class="to ? 'hover:cursor-pointer' : ''"
+    :class="to ? 'cursor-pointer' : ''"
     @click="toPage(to)"
   >
     <!-- icon -->

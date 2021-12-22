@@ -1,5 +1,7 @@
 <template>
-  <form @submit.prevent="submit"></form>
+  <FormulateForm :values="items" @submit="confirm">
+    <slot />
+  </FormulateForm>
 </template>
 
 <script>
@@ -21,32 +23,101 @@ export default {
       default: '',
       required: false,
     },
+    redirect: {
+      type: String,
+      default: '',
+      required: false,
+    }
+  },
+
+  computed: {
+    hasErrors() {
+      return this.$refs.default.hasErrors
+    },
   },
 
   methods: {
     submit() {
-      const formData = new FormData(this.$el);
+      const formData = new FormData();
       const data = {};
-      formData.forEach((value, key) => {
-        data[key] = value;
-      });
+      // formData.forEach((value, key) => {
+      //   data[key] = value;
+      // });
+      for (const prop in this.items) {
+        formData.append(prop, this.items[prop]);
+      }
+
+
       if (this.itemUpdateId) {
         data.id = this.itemUpdateId;
-        this.$axios.post(`${this.endpoint}/${this.itemUpdateId}`, data).then(() => {
+        this.$axios.post(`${this.endpoint}/${this.itemUpdateId}`, formData).then((res) => {
           this.$emit('submit');
+          this.$swal({
+            title: res.message,
+            text: 'Data berhasil ditambahkan',
+            type: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.$router.push(this.redirect);
         }).catch((error) => {
           // eslint-disable-next-line no-console
           console.log(error);
+          this.$swal({
+            title: 'Gagal',
+            icon: 'error',
+            text: error.response.data.message,
+            type: 'error',
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
       } else {
-        this.$axios.post(this.endpoint, data).then(() => {
+        this.$axios.post(this.endpoint, formData).then((res) => {
           this.$emit('submit');
+
+          this.$swal({
+            title: res.message,
+            icon: 'success',
+            text: 'Data berhasil ditambahkan',
+            type: 'success',
+            showConfirmButton: false,
+            timer: 2000,
+          }).then(() => {
+            this.$router.push(this.redirect);
+          });
         }).catch((error) => {
           // eslint-disable-next-line no-console
           console.log(error);
+          this.$swal({
+            title: 'Gagal',
+            icon: 'error',
+            text: error.response.data.error,
+            type: 'error',
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
       }
     },
+
+    confirm() {
+      this.$swal(
+        {
+          title: 'Data akan ditambahkan?',
+          text: "Data sudah benar?",
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonText: 'Tambahkan',
+          cancelButtonText: 'Batalkan',
+          reverseButtons: true
+        }
+      ).then(res => {
+        if (res.isConfirmed) {
+          this.submit();
+        }
+      });
+    }
   },
 }
 </script>

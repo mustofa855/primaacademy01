@@ -74,12 +74,19 @@ export default {
 
     // moment module
     '@nuxtjs/moment',
+
+    'vue-sweetalert2/nuxt',
   ],
 
   // moment config
   moment: {
     defaultLocale: 'id',
     locales: ['id'],
+  },
+
+  sweetalert: {
+    confirmButtonColor: '#1476EB',
+    cancelButtonColor: '#ff7674',
   },
 
   auth: {

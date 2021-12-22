@@ -1,5 +1,9 @@
 <template>
-  <button class="kbtn" :class="(dense ? 'py-1 my-1' : '') || (text ? 'kbtn-text' : '')">
+  <button
+    class="bg-primary p-2 px-4 text-white rounded-md shadow-md hover:bg-primary-shade duration-200 ease-out transition"
+    :class="(disabled ? '!bg-gray-300 hover:cursor-not-allowed' : '!bg-gray-300 hover:cursor-not-allowed')"
+    @click="click"
+  >
     <slot></slot>
     <!-- <router-link v-if="to" :to="to"></router-link> -->
   </button>
@@ -27,7 +31,15 @@ export default {
       type: Boolean,
       default: false,
     },
-
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  methods: {
+    click() {
+      this.$emit('click')
+    }
   },
 
 }

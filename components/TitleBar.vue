@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-8">
+  <div :class="isControlbar ? 'mb-2' : 'mb-8'">
     <div v-if="back" class="mb-2">
       <!-- <router-link :to="goBack">Kembali</router-link> -->
       <nuxt-link
@@ -29,6 +29,10 @@ export default {
     back: {
       type: String,
       default: '',
+    },
+    isControlbar: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

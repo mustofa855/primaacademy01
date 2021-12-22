@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="h-screen w-64 overflow-hidden bg-white rounded-tr-md rounded-br-md shadow-card z-10 fixed top-0 group transition-all duration-200 ease-out shadow-2xl"
+    class="h-screen w-64 overflow-hidden bg-white rounded-tr-md rounded-br-md shadow-card z-10 fixed top-0 group transition-all duration-200 ease-out shadow-lg"
   >
     <!-- image title -->
     <div class="flex flex-col px-5 py-2"></div>

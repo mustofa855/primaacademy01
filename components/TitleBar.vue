@@ -1,5 +1,12 @@
 <template>
   <div class="mb-8">
+    <div v-if="back" class="mb-2">
+      <!-- <router-link :to="goBack">Kembali</router-link> -->
+      <nuxt-link
+        :to="back"
+        class="p-2 hover:text-white duration-200 transition ease-out hover:bg-primary rounded-md"
+      >Kembali</nuxt-link>
+    </div>
     <!-- title section -->
     <div class="text-2xl font-bold">{{ title }}</div>
     <!-- subtitle section -->
@@ -19,11 +26,18 @@ export default {
       type: String,
       default: '',
     },
+    back: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
       time: new Date(),
     }
+  },
+
+  mounted() {
   },
 }
 </script>

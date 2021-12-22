@@ -3,7 +3,7 @@
     <title-bar :title="'Data Master'" :subtitle="'Anda Dapat Mengelola data master'" />
     <!-- content section -->
     <div class="flex">
-      <kunci-card-chip :title="'Assesor'" />
+      <kunci-card-chip :title="'Assesor'" :to="'assesor'" />
       <kunci-card-chip :title="'Skema Sertifikasi'" />
     </div>
   </div>

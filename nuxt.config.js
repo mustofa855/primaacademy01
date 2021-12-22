@@ -71,7 +71,16 @@ export default {
     '@nuxtjs/pwa',
 
     '@nuxtjs/auth-next',
+
+    // moment module
+    '@nuxtjs/moment',
   ],
+
+  // moment config
+  moment: {
+    defaultLocale: 'id',
+    locales: ['id'],
+  },
 
   auth: {
     // Options
@@ -94,6 +103,10 @@ export default {
           user: { url: '/auth/profile', method: 'get' },
         },
       },
+    },
+    redirect: {
+      login: '/',
+      logout: '/',
     },
   },
 

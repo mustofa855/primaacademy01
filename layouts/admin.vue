@@ -1,7 +1,7 @@
 <template>
   <div>
     <kunci-sidebar />
-    <div class="bg-latar min-h-screen pl-72 pt-5">
+    <div class="bg-latar min-h-screen pl-72 pt-8">
       <Nuxt />
     </div>
   </div>

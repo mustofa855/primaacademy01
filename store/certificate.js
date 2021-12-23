@@ -4,6 +4,8 @@ export const state = () => ({
   certificateName: null,
   certificateNumber: null,
   competencyId: null,
+  competencyName: null,
+  competencyNumber: null,
   elementId: null,
   criteriaId: null,
 })
@@ -14,8 +16,10 @@ export const mutations = {
     state.certificateNumber = payload.number
     state.certificateName = payload.name
   },
-  SET_COMPETENCY_ID(state, payload) {
-    state.competencyId = payload
+  SET_COMPETENCY(state, payload) {
+    state.competencyId = payload.id
+    state.competencyName = payload.title
+    state.competencyNumber = payload.code
   },
   SET_ELEMENT_ID(state, payload) {
     state.elementId = payload

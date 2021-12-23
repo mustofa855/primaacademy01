@@ -1,27 +1,22 @@
 <template>
   <div>
     <title-bar
-      :back="'/master-data/certificate'"
+      :back="`/master-data/certificate/${$route.params.competency}`"
       :title="title"
       :subtitle="subtitle"
       is-controlbar
     />
-    <control-bar button-name="Tambah Unit Kompetensi" @buttonClick="showModal = !showModal" />
+    <control-bar button-name="Tambah Elemen" @buttonClick="showModal = !showModal" />
 
     <!-- data table -->
     <div>
       <kunci-table :header-table="header" :data="items">
         <template #no="{ index }">{{ index + pagination.from }}</template>
         <template #action="{ item }">
-          <kunci-button
-            :dense="true"
-            class="bg-success hover:bg-success-shade"
-            tooltip="Elemen"
-            @click="toElemen(item)"
-          >
+          <kunci-button :dense="true" class="bg-success hover:bg-success-shade" tooltip="Kriteria">
             <img class="w-4" :src="('/edit.svg')" />
           </kunci-button>
-          <delete-button :id="item.id" endpoint="unit-competetion/delete" @deleted="fetchData" />
+          <delete-button :id="item.id" endpoint="element/delete" @deleted="fetchData" />
         </template>
       </kunci-table>
 
@@ -31,23 +26,15 @@
     <kunci-modal
       :show="showModal"
       :items="input"
-      endpoint="unit-competetion/create"
-      title="Form Tambah Unit Kompetensi"
+      endpoint="element/create"
+      title="Form Tambah Elemen"
       @closed="showModal = !showModal; fetchData()"
     >
       <FormulateInput
-        v-model="input.title"
+        v-model="input.name"
         type="text"
-        label="Judul Unit"
-        placeholder="Judul Unit"
-        validation="required"
-        error-behavior="live"
-      />
-      <FormulateInput
-        v-model="input.code"
-        type="text"
-        label="Kode Unit"
-        placeholder="Kode Unit"
+        label="Nama Elemen"
+        placeholder="Nama Elemen"
         validation="required"
         error-behavior="live"
       />
@@ -89,12 +76,8 @@ export default {
           key: 'no',
         },
         {
-          text: 'Judul Unit',
-          key: 'title',
-        },
-        {
-          text: 'Kode Unit',
-          key: 'code',
+          text: 'Elemen',
+          key: 'name',
         },
         {
           text: 'Aksi',
@@ -108,15 +91,19 @@ export default {
 
       // input
       input: {
-        certification_id: '',
-        title: '',
-        code: '',
+        unit_competetion_id: '',
+        name: '',
       }
     }
   },
   fetch() {
     this.getDetail()
     this.fetchData();
+  },
+  mounted() {
+
+    // eslint-disable-next-line no-console
+    console.log(this.$route);
   },
   watch: {
     pagination: {
@@ -136,12 +123,12 @@ export default {
     },
 
     async fetchData(currentPage) {
-      await this.$axios.$get('unit-competetion', {
+      await this.$axios.$get('element', {
         params: {
           page: currentPage || this.pagination.current_page,
           search: this.search,
           limit: this.pagination.per_page,
-          certification_id: this.input.certification_id
+          unit_competetion_id: this.input.unit_competetion_id
         }
       }).then(res => {
         if (res) {
@@ -162,20 +149,10 @@ export default {
     },
 
     getDetail() {
-      this.title = this.$store.state.certificate.certificateName
-      this.subtitle = this.$store.state.certificate.certificateNumber
+      this.title = this.$store.state.certificate.competencyName
+      this.subtitle = this.$store.state.certificate.competencyNumber
 
-      this.input.certification_id = this.$store.state.certificate.certificateId
-    },
-
-    toElemen(item) {
-      // eslint-disable-next-line no-console
-      console.log(item);
-
-      this.$store.commit('certificate/SET_COMPETENCY', item);
-      this.$router.push({
-        path: `${this.$route.path}/${item.title}`,
-      })
+      this.input.unit_competetion_id = this.$store.state.certificate.competencyId
     }
   },
 }

@@ -27,7 +27,7 @@
       :items="input"
       endpoint="unit-competetion/create"
       title="Form Tambah Unit Kompetensi"
-      @closed="showModal = !showModal"
+      @closed="showModal = !showModal; fetchData()"
     >
       <FormulateInput
         v-model="input.title"

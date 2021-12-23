@@ -10,7 +10,7 @@
 
     <!-- data table -->
     <div>
-      <kunci-table :headerTable="header" :data="items">
+      <kunci-table :header-table="header" :data="items">
         <template #no="{ index }">{{ index + 1 }}</template>
         <template #is_active="{ item }">
           <div

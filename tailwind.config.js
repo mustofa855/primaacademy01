@@ -14,6 +14,7 @@ module.exports = {
         'primary-shade': '#105CB7',
         secondary: '#ABCCEA',
         danger: '#F12D2D',
+        'danger-shade': '#D80E0E',
         success: '#3EC8AC',
         'success-shade': '#2EA089',
         dark: '#222831',

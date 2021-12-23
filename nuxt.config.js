@@ -86,7 +86,7 @@ export default {
 
   sweetalert: {
     confirmButtonColor: '#1476EB',
-    cancelButtonColor: '#ff7674',
+    cancelButtonColor: '#F12D2D',
   },
 
   auth: {

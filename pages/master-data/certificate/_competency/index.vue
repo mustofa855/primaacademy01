@@ -12,10 +12,11 @@
     <div>
       <kunci-table :header-table="header" :data="items">
         <template #no="{ index }">{{ index + pagination.from }}</template>
-        <template #action>
+        <template #action="{ item }">
           <kunci-button :dense="true" class="bg-success hover:bg-success-shade" tooltip="Elemen">
             <img class="w-4" :src="('/edit.svg')" />
           </kunci-button>
+          <delete-button :id="item.id" endpoint="unit-competetion/delete" @deleted="fetchData" />
         </template>
       </kunci-table>
 
@@ -56,8 +57,9 @@ import Pagination from '~/components/Pagination.vue'
 import KunciTable from '~/components/KunciTable.vue'
 import KunciButton from '~/components/KunciButton.vue'
 import KunciModal from '~/components/KunciModal.vue'
+import DeleteButton from '~/components/DeleteButton.vue'
 export default {
-  components: { TitleBar, ControlBar, Pagination, KunciTable, KunciModal },
+  components: { TitleBar, ControlBar, Pagination, KunciTable, KunciModal, DeleteButton },
   layout: 'admin',
   KunciButton,
   data() {

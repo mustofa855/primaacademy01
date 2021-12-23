@@ -81,10 +81,6 @@ export default {
           key: 'year',
         },
         {
-          text: 'Tahun',
-          key: 'year',
-        },
-        {
           text: 'Status Aktif',
           key: 'is_active',
         },

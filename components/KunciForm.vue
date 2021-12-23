@@ -84,7 +84,9 @@ export default {
             showConfirmButton: false,
             timer: 2000,
           }).then(() => {
-            this.$router.push(this.redirect);
+            this.$emit('submited');
+            if(this.redirect)
+              this.$router.push(this.redirect);
           });
         }).catch((error) => {
           // eslint-disable-next-line no-console

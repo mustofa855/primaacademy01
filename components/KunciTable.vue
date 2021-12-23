@@ -11,7 +11,7 @@
         v-for="(item, index) in data"
         :key="index"
         class="bg-white px-4"
-        :class="index % 2 == 0 ? 'bg-gray-100' : ''"
+        :class="index % 2 == 0 ? '' : 'bg-gray-100'"
       >
         <td
           v-for="(itemHeader, indexHeader) in headerTable"

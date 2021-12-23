@@ -1,14 +1,18 @@
 export const state = () => ({
   // store data
-  cerficateId: null,
+  certificateId: null,
+  certificateName: null,
+  certificateNumber: null,
   competencyId: null,
   elementId: null,
   criteriaId: null,
 })
 
 export const mutations = {
-  SET_CERFICATE_ID(state, payload) {
-    state.cerficateId = payload
+  SET_CERTIFICATE(state, payload) {
+    state.certificateId = payload.id
+    state.certificateNumber = payload.number
+    state.certificateName = payload.name
   },
   SET_COMPETENCY_ID(state, payload) {
     state.competencyId = payload

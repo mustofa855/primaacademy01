@@ -1,29 +1,19 @@
 <template>
   <div>
     <title-bar
-      :back="'/master-data'"
-      :title="'Skema Serifikasi'"
-      :subtitle="'Anda dapat mengelola skema serifikasi'"
+      :back="'/master-data/certificate'"
+      :title="title"
+      :subtitle="subtitle"
       is-controlbar
     />
-    <control-bar button-name="Tambah Skema Baru" @buttonClick="click" />
+    <control-bar button-name="Tambah Unit Kompetensi" @buttonClick="showModal = !showModal" />
 
     <!-- data table -->
     <div>
       <kunci-table :header-table="header" :data="items">
         <template #no="{ index }">{{ index + pagination.from }}</template>
-        <template #is_active="{ item }">
-          <div
-            :class="`${item.is_active ? 'text-primary' : 'text-danger'}`"
-          >{{ item.is_active ? 'Aktif' : 'Tidak Aktif' }}</div>
-        </template>
-        <template #action="{ item }">
-          <kunci-button
-            :dense="true"
-            class="bg-success hover:bg-success-shade"
-            tooltip="Unit Kompetensi"
-            @click="toCompetency(item)"
-          >
+        <template #action>
+          <kunci-button :dense="true" class="bg-success hover:bg-success-shade" tooltip="Elemen">
             <img class="w-4" :src="('/edit.svg')" />
           </kunci-button>
         </template>
@@ -32,15 +22,30 @@
       <pagination :pagination="pagination" @refetch="paginate" @paginate="paginate" />
     </div>
 
-    <!-- modal -->
-    <!-- <div class="min-h-screen max-h-screen absolute z-10 top-0 left-0 w-screen">
-      <div class="bg-gray-700 absolute w-screen h-screen opacity-40 blur-[15px]"></div>
-      <div class="relative">
-        <div class="flex min-h-screen">
-          <div class="min-w-96 m-auto my-auto bg-white min-h-44 p-4 rounded-md">ini adalah tulisan</div>
-        </div>
-      </div>
-    </div>-->
+    <kunci-modal
+      :show="showModal"
+      :items="input"
+      endpoint="unit-competetion/create"
+      title="Form Tambah Unit Kompetensi"
+      @closed="showModal = !showModal"
+    >
+      <FormulateInput
+        v-model="input.title"
+        type="text"
+        label="Judul Unit"
+        placeholder="Judul Unit"
+        validation="required"
+        error-behavior="live"
+      />
+      <FormulateInput
+        v-model="input.code"
+        type="text"
+        label="Kode Unit"
+        placeholder="Kode Unit"
+        validation="required"
+        error-behavior="live"
+      />
+    </kunci-modal>
   </div>
 </template>
 
@@ -50,8 +55,9 @@ import TitleBar from '~/components/TitleBar.vue'
 import Pagination from '~/components/Pagination.vue'
 import KunciTable from '~/components/KunciTable.vue'
 import KunciButton from '~/components/KunciButton.vue'
+import KunciModal from '~/components/KunciModal.vue'
 export default {
-  components: { TitleBar, ControlBar, Pagination, KunciTable },
+  components: { TitleBar, ControlBar, Pagination, KunciTable, KunciModal },
   layout: 'admin',
   KunciButton,
   data() {
@@ -76,20 +82,12 @@ export default {
           key: 'no',
         },
         {
-          text: 'Nama Skema',
-          key: 'name',
+          text: 'Judul Unit',
+          key: 'title',
         },
         {
-          text: 'Nomor',
-          key: 'number',
-        },
-        {
-          text: 'Tahun',
-          key: 'year',
-        },
-        {
-          text: 'Status Aktif',
-          key: 'is_active',
+          text: 'Kode Unit',
+          key: 'code',
         },
         {
           text: 'Aksi',
@@ -97,9 +95,20 @@ export default {
         },
       ],
       search: null,
+      title: '',
+      subtitle: '',
+      showModal: false,
+
+      // input
+      input: {
+        certification_id: '',
+        title: '',
+        code: '',
+      }
     }
   },
   fetch() {
+    this.getDetail()
     this.fetchData();
   },
   watch: {
@@ -112,7 +121,7 @@ export default {
   },
   methods: {
     click() {
-      this.$router.push('/master-data/certificate/create')
+      // this.$router.push('/master-data/certificate/create')
     },
 
     paginate(e) {
@@ -120,11 +129,12 @@ export default {
     },
 
     async fetchData(currentPage) {
-      await this.$axios.$get('certification-scheme', {
+      await this.$axios.$get('unit-competetion', {
         params: {
           page: currentPage || this.pagination.current_page,
           search: this.search,
           limit: this.pagination.per_page,
+          certification_id: this.input.certification_id
         }
       }).then(res => {
         if (res) {
@@ -144,14 +154,11 @@ export default {
       })
     },
 
-    toCompetency(item) {
-      // eslint-disable-next-line no-console
-      console.log(item);
+    getDetail() {
+      this.title = this.$store.state.certificate.certificateName
+      this.subtitle = this.$store.state.certificate.certificateNumber
 
-      this.$store.commit('certificate/SET_CERTIFICATE', item);
-      this.$router.push({
-        path: `${this.$route.path}/${item.name}`,
-      })
+      this.input.certification_id = this.$store.state.certificate.certificateId
     }
   },
 }

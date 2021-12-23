@@ -1,9 +1,13 @@
 <template>
   <button
-    class="bg-primary p-2 px-4 text-white rounded-md shadow-md hover:bg-primary-shade duration-200 ease-out transition"
+    class="p-2 px-4 text-white rounded-md shadow-md duration-200 ease-out transition bg-primary hover:bg-primary-shade relative group"
     :class="`${disabled ? '!bg-gray-300 hover:cursor-not-allowed' : ''} ${dense ? 'p-1' : ''}`"
     @click="click"
   >
+    <span
+      v-if="tooltip"
+      class="absolute object-top bg-gray-900 rounded-md p-2 text-xs -top-9 w-max -translate-x-1/2 mx-auto invisible group-hover:visible"
+    >{{ tooltip }}</span>
     <slot></slot>
     <!-- <router-link v-if="to" :to="to"></router-link> -->
   </button>
@@ -14,10 +18,6 @@ export default {
     to: {
       type: [String, Object],
       default: '',
-    },
-    btnColor: {
-      type: String,
-      default: 'primary',
     },
     dense: {
       type: Boolean,
@@ -34,6 +34,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
+    },
+    tooltip: {
+      type: String,
+      default: '',
     },
   },
   methods: {

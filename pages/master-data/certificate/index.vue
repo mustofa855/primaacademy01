@@ -11,14 +11,18 @@
     <!-- data table -->
     <div>
       <kunci-table :header-table="header" :data="items">
-        <template #no="{ index }">{{ index + 1 }}</template>
+        <template #no="{ index }">{{ index + pagination.from }}</template>
         <template #is_active="{ item }">
           <div
             :class="`${item.is_active ? 'text-primary' : 'text-danger'}`"
           >{{ item.is_active ? 'Aktif' : 'Tidak Aktif' }}</div>
         </template>
         <template #action>
-          <kunci-button :dense="true">i</kunci-button>
+          <kunci-button
+            :dense="true"
+            class="bg-success hover:bg-success-shade"
+            tooltip="Unit Kompetensi"
+          >i</kunci-button>
         </template>
       </kunci-table>
 
@@ -125,6 +129,11 @@ export default {
           this.pagination.current_page = res.data.current_page
           this.pagination.total = res.data.total_items
           this.pagination.last_page = res.data.total_pages
+
+          const split = res.data.displayed_items.split('-')
+
+          this.pagination.from = parseInt(split[0])
+          this.pagination.to = parseInt(split[1])
         }
       }).catch(err => {
         // eslint-disable-next-line no-console

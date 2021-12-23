@@ -191,19 +191,19 @@ export default {
   methods: {
     nextPage() {
       if (this.pagination.current_page !== this.pagination.last_page)
-        this.$emit('refetch', this.pagination.next_page_url)
+        this.$emit('refetch', this.pagination.current_page + 1)
     },
     prevPage() {
       if (this.pagination.current_page !== 1)
-        this.$emit('refetch', this.pagination.prev_page_url)
+        this.$emit('refetch', this.pagination.current_page - 1)
     },
     firstPage() {
       if (this.pagination.current_page !== 1)
-        this.$emit('refetch', this.pagination.first_page_url)
+        this.$emit('refetch', this.pagination.from)
     },
     lastPage() {
       if (this.pagination.current_page !== this.pagination.last_page)
-        this.$emit('refetch', this.pagination.last_page_url)
+        this.$emit('refetch', this.pagination.total_page)
     },
   },
 }

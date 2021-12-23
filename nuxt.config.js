@@ -115,6 +115,12 @@ export default {
       login: '/',
       logout: '/',
     },
+    cookie: {
+      options: {
+        secure: true,
+        expires: 10,
+      },
+    },
   },
 
   router: {

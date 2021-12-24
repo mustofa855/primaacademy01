@@ -2,7 +2,17 @@
   <table class="w-full">
     <!-- create table head -->
     <thead>
-      <tr class="bg-primary text-left text-white">
+      <!-- extra head / double head -->
+      <tr v-if="extraHeader" class="bg-primary text-left text-white !rounded-xl">
+        <th
+          v-for="(item, index) in extraHeaderTable"
+          :key="index"
+          :colspan="item.colspan"
+          class="py-2 px-4"
+        >{{ item.text }}</th>
+      </tr>
+      <!-- primary head -->
+      <tr class="bg-primary text-left text-white !rounded-xl">
         <th v-for="(item, index) in headerTable" :key="index" class="py-2 px-4">{{ item.text }}</th>
       </tr>
     </thead>
@@ -38,6 +48,14 @@ export default {
     data: {
       type: Array,
       required: true,
+    },
+    extraHeader: {
+      type: Boolean,
+      default: false,
+    },
+    extraHeaderTable: {
+      type: Array,
+      default: () => [],
     },
   },
 }

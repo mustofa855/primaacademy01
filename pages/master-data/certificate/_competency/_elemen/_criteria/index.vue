@@ -13,7 +13,12 @@
       <kunci-table :header-table="header" :data="items">
         <template #no="{ index }">{{ index + pagination.from }}</template>
         <template #action="{ item }">
-          <kunci-button :dense="true" class="bg-success hover:bg-success-shade" tooltip="Bukti">
+          <kunci-button
+            :dense="true"
+            class="bg-success hover:bg-success-shade"
+            tooltip="Bukti"
+            @click="toEvidence(item)"
+          >
             <img class="w-4" :src="('/edit.svg')" />
           </kunci-button>
           <delete-button :id="item.id" endpoint="criteria-for-work/delete" @deleted="fetchData" />
@@ -143,6 +148,16 @@ export default {
       }).catch(err => {
         // eslint-disable-next-line no-console
         console.log(err.response);
+      })
+    },
+
+    toEvidence(item) {
+      // eslint-disable-next-line no-console
+      console.log(item);
+
+      this.$store.commit('certificate/SET_CRITERIA', item);
+      this.$router.push({
+        path: `${this.$route.path}/${item.name}`,
       })
     },
 

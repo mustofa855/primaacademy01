@@ -9,6 +9,7 @@ export const state = () => ({
   elementId: null,
   elementName: null,
   criteriaId: null,
+  criteriaName: null,
 })
 
 export const mutations = {
@@ -26,7 +27,8 @@ export const mutations = {
     state.elementId = payload.id
     state.elementName = payload.name
   },
-  SET_CRITERIA_ID(state, payload) {
-    state.criteriaId = payload
+  SET_CRITERIA(state, payload) {
+    state.criteriaId = payload.id
+    state.criteriaName = payload.name
   },
 }

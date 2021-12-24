@@ -10,7 +10,7 @@ export default {
   classes: {
     outer: 'mb-4',
     input:
-      'border border-gray-400 rounded px-3 py-2 leading-none focus:border-primary outline-none border-box w-full duration-200 ease-out transition',
+      'border border-gray-400 rounded px-3 py-2 focus:border-primary outline-none border-box w-full duration-200 ease-out transition',
     label: 'font-semibold',
     errors: 'text-danger',
   },

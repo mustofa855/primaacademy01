@@ -54,7 +54,7 @@ export default {
           this.$emit('submit');
           this.$swal({
             title: res.message,
-            text: 'Data berhasil ditambahkan',
+            text: 'Data Berhasil Diperbarui',
             type: 'success',
             showConfirmButton: false,
             timer: 1500,
@@ -79,7 +79,7 @@ export default {
           this.$swal({
             title: res.message,
             icon: 'success',
-            text: 'Data berhasil ditambahkan',
+            text: 'Data Berhasil Ditambahkan',
             type: 'success',
             showConfirmButton: false,
             timer: 2000,

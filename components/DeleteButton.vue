@@ -41,7 +41,7 @@ export default {
       this.$axios.$delete(this.endpoint + '/' + this.id).then(res => {
         this.$emit('deleted');
         this.$swal({
-          title: res.message,
+          title: "Berhasil",
           icon: 'success',
           text: 'Data berhasil dihapus',
           type: 'success',

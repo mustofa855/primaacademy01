@@ -33,7 +33,7 @@
       :items="input"
       endpoint="unit-competetion/create"
       title="Form Tambah Unit Kompetensi"
-      @closed="showModal = !showModal; fetchData()"
+      @closed="showModal = !showModal; fetchData(); resetInput()"
     >
       <FormulateInput
         v-model="input.title"
@@ -176,6 +176,10 @@ export default {
       this.$router.push({
         path: `${this.$route.path}/${item.title}`,
       })
+    },
+    resetInput() {
+      this.input.title = ''
+      this.input.code = ''
     }
   },
 }

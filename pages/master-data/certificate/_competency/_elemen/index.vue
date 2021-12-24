@@ -13,7 +13,12 @@
       <kunci-table :header-table="header" :data="items">
         <template #no="{ index }">{{ index + pagination.from }}</template>
         <template #action="{ item }">
-          <kunci-button :dense="true" class="bg-success hover:bg-success-shade" tooltip="Kriteria">
+          <kunci-button
+            :dense="true"
+            class="bg-success hover:bg-success-shade"
+            tooltip="Kriteria"
+            @click="toCriteria(item)"
+          >
             <img class="w-4" :src="('/edit.svg')" />
           </kunci-button>
           <delete-button :id="item.id" endpoint="element/delete" @deleted="fetchData" />
@@ -28,7 +33,7 @@
       :items="input"
       endpoint="element/create"
       title="Form Tambah Elemen"
-      @closed="showModal = !showModal; fetchData()"
+      @closed="showModal = !showModal; fetchData(); resetInput()"
     >
       <FormulateInput
         v-model="input.name"
@@ -100,11 +105,6 @@ export default {
     this.getDetail()
     this.fetchData();
   },
-  mounted() {
-
-    // eslint-disable-next-line no-console
-    console.log(this.$route);
-  },
   watch: {
     pagination: {
       handler() {
@@ -112,6 +112,11 @@ export default {
       },
       deep: true,
     }
+  },
+  mounted() {
+
+    // eslint-disable-next-line no-console
+    console.log(this.$route);
   },
   methods: {
     click() {
@@ -153,6 +158,20 @@ export default {
       this.subtitle = this.$store.state.certificate.competencyNumber
 
       this.input.unit_competetion_id = this.$store.state.certificate.competencyId
+    },
+
+    toCriteria(item) {
+      // eslint-disable-next-line no-console
+      console.log(item);
+
+      this.$store.commit('certificate/SET_ELEMENT', item);
+      this.$router.push({
+        path: `${this.$route.path}/${item.name}`,
+      })
+    },
+
+    resetInput(){
+      this.input.name = ''
     }
   },
 }

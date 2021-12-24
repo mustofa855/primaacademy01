@@ -100,7 +100,6 @@ export default {
     }
   },
   fetch() {
-    this.fetchData();
   },
   watch: {
     pagination: {
@@ -109,6 +108,10 @@ export default {
       },
       deep: true,
     }
+  },
+  mounted() {
+
+    this.fetchData();
   },
   methods: {
     click() {

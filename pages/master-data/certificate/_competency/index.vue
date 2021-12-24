@@ -116,7 +116,6 @@ export default {
   },
   fetch() {
     this.getDetail()
-    this.fetchData();
   },
   watch: {
     pagination: {
@@ -125,6 +124,9 @@ export default {
       },
       deep: true,
     }
+  },
+  mounted() {
+    this.fetchData();
   },
   methods: {
     click() {
@@ -136,29 +138,34 @@ export default {
     },
 
     async fetchData(currentPage) {
-      await this.$axios.$get('unit-competetion', {
-        params: {
-          page: currentPage || this.pagination.current_page,
-          search: this.search,
-          limit: this.pagination.per_page,
-          certification_id: this.input.certification_id
-        }
-      }).then(res => {
-        if (res) {
-          this.items = res.data.rows;
-          this.pagination.current_page = res.data.current_page
-          this.pagination.total = res.data.total_items
-          this.pagination.last_page = res.data.total_pages
+      if (this.input.certification_id) {
+        await this.$axios.$get('unit-competetion', {
+          params: {
+            page: currentPage || this.pagination.current_page,
+            search: this.search,
+            limit: this.pagination.per_page,
+            certification_id: this.input.certification_id
+          }
+        }).then(res => {
+          if (res) {
+            this.items = res.data.rows;
+            this.pagination.current_page = res.data.current_page
+            this.pagination.total = res.data.total_items
+            this.pagination.last_page = res.data.total_pages
 
-          const split = res.data.displayed_items.split('-')
+            const split = res.data.displayed_items.split('-')
 
-          this.pagination.from = parseInt(split[0])
-          this.pagination.to = parseInt(split[1])
-        }
-      }).catch(err => {
+            this.pagination.from = parseInt(split[0])
+            this.pagination.to = parseInt(split[1])
+          }
+        }).catch(err => {
+          // eslint-disable-next-line no-console
+          console.log(err.response);
+        })
+      } else {
         // eslint-disable-next-line no-console
-        console.log(err.response);
-      })
+        console.log('no certification id')
+      }
     },
 
     getDetail() {

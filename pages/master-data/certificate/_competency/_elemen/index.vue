@@ -103,7 +103,6 @@ export default {
   },
   fetch() {
     this.getDetail()
-    this.fetchData();
   },
   watch: {
     pagination: {
@@ -114,9 +113,7 @@ export default {
     }
   },
   mounted() {
-
-    // eslint-disable-next-line no-console
-    console.log(this.$route);
+    this.fetchData();
   },
   methods: {
     click() {
@@ -170,7 +167,7 @@ export default {
       })
     },
 
-    resetInput(){
+    resetInput() {
       this.input.name = ''
     }
   },

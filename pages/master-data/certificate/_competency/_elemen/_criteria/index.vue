@@ -13,7 +13,7 @@
       <kunci-table :header-table="header" :data="items">
         <template #no="{ index }">{{ index + pagination.from }}</template>
         <template #action="{ item }">
-          <kunci-button :dense="true" class="bg-success hover:bg-success-shade" tooltip="Kriteria">
+          <kunci-button :dense="true" class="bg-success hover:bg-success-shade" tooltip="Bukti">
             <img class="w-4" :src="('/edit.svg')" />
           </kunci-button>
           <delete-button :id="item.id" endpoint="criteria-for-work/delete" @deleted="fetchData" />
@@ -28,7 +28,7 @@
       :items="input"
       endpoint="criteria-for-work/create"
       title="Form Tambah Kriteria"
-      @closed="showModal = !showModal; fetchData();resetInput()"
+      @closed="showModal = !showModal; fetchData(); resetInput()"
     >
       <FormulateInput
         v-model="input.name"
@@ -154,7 +154,7 @@ export default {
 
       this.input.element_id = this.$store.state.certificate.elementId
     },
-    resetInput(){
+    resetInput() {
       this.input.name = ''
     }
   },

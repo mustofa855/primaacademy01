@@ -20,7 +20,7 @@
             :dense="true"
             class="bg-success hover:bg-success-shade w"
             tooltip="Detail"
-            @click="showModal = !showModal; click(item.id)"
+            @click="showModal = !showModal; click(item)"
           >
             <img class="w-4 w" :src="('/edit.svg')" />
           </kunci-button>
@@ -280,7 +280,17 @@ export default {
   },
   methods: {
     click(e) {
-      this.id = e
+      this.id = e.id
+      this.input.name = e.name
+      this.input.tof_l = e.tof_l
+      this.input.tof_tl = e.tof_tl
+      this.input.tof_t = e.tof_t
+      this.input.method_ol = e.method_ol
+      this.input.method_ks = e.method_ks
+      this.input.method_tj = e.method_tj
+      this.input.method_vp = e.method_vp
+      this.input.method_rp = e.method_rp
+      this.input.method_other = e.method_other
     },
 
     paginate(e) {

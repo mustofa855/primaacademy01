@@ -34,6 +34,34 @@
         validation="required"
         error-behavior="live"
       />
+
+      <div class="font-semibold">
+        <p>Credential</p>
+      </div>
+      <FormulateInput
+        v-model="items.username"
+        type="text"
+        label="Username"
+        placeholder="Username"
+        validation="required"
+        error-behavior="live"
+      />
+      <FormulateInput
+        v-model="items.password"
+        type="password"
+        label="Password"
+        placeholder="Password"
+        validation="required|min:8,length"
+        error-behavior="live"
+      />
+      <FormulateInput
+        v-model="items.confirm_password"
+        type="password"
+        label="Konfirmasi Password"
+        placeholder="Konfirmasi Password"
+        validation="required|min:8,length"
+        error-behavior="live"
+      />
     </create-page>
   </div>
 </template>
@@ -49,6 +77,9 @@ export default {
         name: '',
         email: '',
         is_active: '',
+        username: '',
+        password: '',
+        confirm_password: '',
       }
     }
   },

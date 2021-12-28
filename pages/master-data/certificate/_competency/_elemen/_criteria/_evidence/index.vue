@@ -85,7 +85,7 @@
           :options="methodItems"
           type="select"
           placeholder="Oservasi Langsung"
-          label="Which of your children is your favorite?"
+          label="Oservasi Langsung"
           validation="required"
           error-behavior="live"
         />
@@ -93,8 +93,8 @@
           v-model="input.method_ks"
           :options="methodItems"
           type="select"
-          placeholder="Kegiata Struktur"
-          label="Which of your children is your favorite?"
+          placeholder="Kegiatan Struktur"
+          label="Kegiatan Struktur"
           validation="required"
           error-behavior="live"
         />
@@ -103,7 +103,7 @@
           :options="methodItems"
           type="select"
           placeholder="Tanya Jawab"
-          label="Which of your children is your favorite?"
+          label="Tanya Jawab"
           validation="required"
           error-behavior="live"
         />
@@ -112,7 +112,7 @@
           :options="methodItems"
           type="select"
           placeholder="Verifikasi Portofolio"
-          label="Which of your children is your favorite?"
+          label="Verifikasi Portofolio"
           validation="required"
           error-behavior="live"
         />
@@ -121,7 +121,7 @@
           :options="methodItems"
           type="select"
           placeholder="Ulasan Produk"
-          label="Which of your children is your favorite?"
+          label="Ulasan Produk"
           validation="required"
           error-behavior="live"
         />
@@ -130,7 +130,7 @@
           :options="methodItems"
           type="select"
           placeholder="Lainnya"
-          label="Which of your children is your favorite?"
+          label="Lainnya"
           validation="required"
           error-behavior="live"
         />

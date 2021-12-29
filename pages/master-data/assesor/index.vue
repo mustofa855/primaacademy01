@@ -9,10 +9,15 @@
     <control-bar :button-name="'Tambah Asesor'" @buttonClick="click" />
 
     <!-- data tabel -->
-    <kunci-table :header-table="tableHeader" :data="data">
-      <template #no="{ index }">{{ index + 1 }}</template>
+    <kunci-table :header-table="tableHeader" :data="items">
+      <template #no="{ index }">{{ index + pagination.from }}</template>
+      <template #is_active="{ item }">
+        <div
+          :class="`${item.is_active ? 'text-primary' : 'text-danger'}`"
+        >{{ item.is_active ? 'Aktif' : 'Tidak Aktif' }}</div>
+      </template>
     </kunci-table>
-    <pagination :pagination="pagination" />
+    <pagination :pagination="pagination" @refetch="paginate" @paginate="paginate" />
 
     <!-- <div class="after:content-['*'] after:absolute after:text-primary">asdlkjasd</div> -->
   </div>
@@ -94,11 +99,10 @@ export default {
           text: 'Email',
           key: 'email',
         },
-        // {
-        //   text: 'Status',
-
-        //   key: 'status',
-        // },
+        {
+          text: 'Status',
+          key: 'is_active',
+        },
         // {
         //   text: 'Aksi',
 
@@ -118,7 +122,17 @@ export default {
         prev_page_url: null,
         to: 2,
         total: 2,
-      }
+      },
+      search: null,
+      items: [],
+    }
+  },
+  watch: {
+    pagination: {
+      handler() {
+        this.fetchData(this.pagination.current_page)
+      },
+      deep: true,
     }
   },
   mounted() {
@@ -128,13 +142,35 @@ export default {
     click() {
       this.$router.push('/master-data/assesor/create')
     },
-    async fetchData() {
-      await this.$axios.get('/assessor/').then(res => {
-        // eslint-disable-next-line no-console
-        console.log(res.data.data)
-        this.pagination.total = res.data.data.count
 
-        this.data = res.data.data.rows
+    paginate(e) {
+      this.pagination.current_page = e
+    },
+    async fetchData(currentPage) {
+      await this.$axios.$get('assessor', {
+        params: {
+          page: currentPage || this.pagination.current_page,
+          search: this.search,
+          limit: this.pagination.per_page,
+        }
+      }).then(res => {
+        if (res) {
+          this.items = res.data.rows;
+          this.pagination.current_page = res.data.current_page
+          this.pagination.total = res.data.total_items
+          this.pagination.last_page = res.data.total_pages
+
+          const split = res.data.displayed_items.split('-')
+          // const split = res.data.displayed_items
+
+          // eslint-disable-next-line no-console
+          console.log(split)
+          // eslint-disable-next-line no-console
+          console.log(res)
+
+          this.pagination.from = parseInt(split[0])
+          this.pagination.to = parseInt(split[1])
+        }
       })
     }
   },

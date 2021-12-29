@@ -161,12 +161,6 @@ export default {
           this.pagination.last_page = res.data.total_pages
 
           const split = res.data.displayed_items.split('-')
-          // const split = res.data.displayed_items
-
-          // eslint-disable-next-line no-console
-          console.log(split)
-          // eslint-disable-next-line no-console
-          console.log(res)
 
           this.pagination.from = parseInt(split[0])
           this.pagination.to = parseInt(split[1])

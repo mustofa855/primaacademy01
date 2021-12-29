@@ -199,11 +199,11 @@ export default {
     },
     firstPage() {
       if (this.pagination.current_page !== 1)
-        this.$emit('refetch', this.pagination.from)
+        this.$emit('refetch', 1)
     },
     lastPage() {
       if (this.pagination.current_page !== this.pagination.last_page)
-        this.$emit('refetch', this.pagination.total_page)
+        this.$emit('refetch', this.pagination.last_page)
     },
   },
 }

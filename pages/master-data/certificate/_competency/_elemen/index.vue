@@ -158,8 +158,6 @@ export default {
     },
 
     toCriteria(item) {
-      // eslint-disable-next-line no-console
-      console.log(item);
 
       this.$store.commit('certificate/SET_ELEMENT', item);
       this.$router.push({

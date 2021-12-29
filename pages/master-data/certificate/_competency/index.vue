@@ -176,8 +176,7 @@ export default {
     },
 
     toElemen(item) {
-      // eslint-disable-next-line no-console
-      console.log(item);
+
 
       this.$store.commit('certificate/SET_COMPETENCY', item);
       this.$router.push({

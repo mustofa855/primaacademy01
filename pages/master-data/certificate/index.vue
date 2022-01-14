@@ -6,7 +6,7 @@
       :subtitle="'Anda dapat mengelola skema serifikasi'"
       is-controlbar
     />
-    <control-bar button-name="Tambah Skema Baru" @buttonClick="click" />
+    <control-bar v-model="search" button-name="Tambah Skema Baru" @buttonClick="click" />
 
     <!-- data table -->
     <div>
@@ -107,7 +107,13 @@ export default {
         this.fetchData(this.pagination.current_page)
       },
       deep: true,
-    }
+    },
+    search: {
+      handler() {
+        this.fetchData(this.pagination.current_page)
+      },
+      deep: true,
+    },
   },
   mounted() {
 

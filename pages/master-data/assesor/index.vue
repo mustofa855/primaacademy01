@@ -6,7 +6,7 @@
       :subtitle="'Anda dapat mengelola sesor'"
       :back="'/master-data'"
     />
-    <control-bar :button-name="'Tambah Asesor'" @buttonClick="click" />
+    <control-bar v-model="search" :button-name="'Tambah Asesor'" @buttonClick="click" />
 
     <!-- data tabel -->
     <kunci-table :header-table="tableHeader" :data="items">
@@ -133,7 +133,13 @@ export default {
         this.fetchData(this.pagination.current_page)
       },
       deep: true,
-    }
+    },
+    search: {
+      handler() {
+        this.fetchData(this.pagination.current_page)
+      },
+      deep: true,
+    },
   },
   mounted() {
     this.fetchData()

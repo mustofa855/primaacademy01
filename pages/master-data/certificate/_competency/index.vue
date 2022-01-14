@@ -6,7 +6,11 @@
       :subtitle="subtitle"
       is-controlbar
     />
-    <control-bar button-name="Tambah Unit Kompetensi" @buttonClick="showModal = !showModal" />
+    <control-bar
+      v-model="search"
+      button-name="Tambah Unit Kompetensi"
+      @buttonClick="showModal = !showModal"
+    />
 
     <!-- data table -->
     <div>
@@ -123,7 +127,13 @@ export default {
         this.fetchData(this.pagination.current_page)
       },
       deep: true,
-    }
+    },
+    search: {
+      handler() {
+        this.fetchData(this.pagination.current_page)
+      },
+      deep: true,
+    },
   },
   mounted() {
     this.fetchData();

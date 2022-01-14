@@ -43,7 +43,7 @@
     <!-- start loading -->
     <div v-if="isLoading" class="m-4 flex justify-center justify-items-center items-center">
       <div
-        class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-8 w-8 border-t-primary animate-spin"
+        class="ease-linear rounded-full border-4 border-t-4 border-gray-200 h-8 w-8 border-t-primary animate-spin"
       ></div>
       <p class="font-semibold mx-2">Tunggu Sebentar</p>
     </div>
@@ -77,6 +77,18 @@ export default {
       setTimeout: false,
       isLoading: false,
     };
+  },
+  watch: {
+    data: {
+      handler(e) {
+        if (e || Array.isArray(e) || e) {
+          this.loading(false);
+        } else {
+          this.loading(true);
+        }
+      },
+      deep: true,
+    },
   },
   mounted() {
     this.loading()

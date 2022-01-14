@@ -4,8 +4,10 @@
     <div class>
       <input
         type="text"
+        :value="value"
         placeholder="Cari Data"
         class="w-80 shadow-md rounded-md p-2 px-4 transition focus:ring focus:ring-primary outline-none"
+        @input="$emit('input', $event.target.value)"
       />
     </div>
 
@@ -24,6 +26,10 @@ export default {
     buttonName: {
       type: String,
       default: 'Tambah Asset baru',
+    },
+    value: {
+      type: String,
+      default: '',
     },
   },
   methods: {

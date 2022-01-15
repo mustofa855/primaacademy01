@@ -1,5 +1,5 @@
 <template>
-  <div class="py-2 my-2 relative">
+  <div class="relative">
     <!-- <div class="font-bold">{{ label }}</div> -->
     <!-- <div class="flex items-center relative">
       <input
@@ -16,16 +16,19 @@
     </div>-->
     <!-- this input using vue formulate -->
     <FormulateInput
+      v-model="value"
       type="text"
       :label="label"
       :placeholder="placeholder"
       validation="required"
       error-behavior="live"
       @input="$emit('search', $event); showList = true; searchInput = $event; log($event)"
+      @blur-context="hideDataList(); isLoading = true"
+      @click="showList = true; $emit('click', $event); startLoading()"
     />
     <!-- containter data list-->
     <div
-      class="bg-white top-3/4 z-10 rounded border-primary border-2 mx-auto max-h-xs overflow-auto w-full absolute transition-all"
+      class="bg-white top-3/4 shadow-lg z-10 rounded border-primary border-2 mx-auto max-h-xs overflow-auto w-full absolute transition-all"
       :class="showList ? 'block' : 'hidden'"
     >
       <div v-if="options.length > 0">
@@ -35,6 +38,12 @@
           class="w-full hover:bg-primary cursor-pointer hover:text-white p-2 transition duration-200 ease-out"
           @click="updateValue(item.value, item.label)"
         >{{ options.length > 0 ? item.label : 'Data tidak ditemukan' }}</p>
+      </div>
+      <div v-if="isLoading" class="m-4 flex justify-center justify-items-center items-center">
+        <div
+          class="ease-linear rounded-full border-4 border-t-4 border-gray-200 h-8 w-8 border-t-primary animate-spin"
+        ></div>
+        <p class="font-semibold mx-2">Tunggu Sebentar</p>
       </div>
       <div v-else>
         <p class="w-full text-center p-2 transition duration-200 ease-out">Data Tidak Ditemukan</p>
@@ -58,11 +67,29 @@ export default {
       type: Array,
       default: () => [],
     },
+    timeOut: {
+      type: Number,
+      default: 3000,
+    },
   },
   data() {
     return {
       showList: false,
       searchInput: '',
+      value: '',
+      isLoading: true,
+    }
+  },
+  watch: {
+    options(newVal, oldVal) {
+      if (newVal.length > 0) {
+        clearTimeout();
+        this.isLoading = false;
+      } else {
+        setTimeout(() => {
+          this.isLoading = true;
+        }, this.timeOut);
+      }
     }
   },
   methods: {
@@ -73,7 +100,7 @@ export default {
     updateValue(value, searchValue) {
       // eslint-disable-next-line no-console
       console.log(value)
-
+      this.value = value
       this.showList = false
       this.searchInput = searchValue
       this.$emit('selected', value)
@@ -81,11 +108,16 @@ export default {
     hideDataList() {
       setTimeout(() => {
         this.showList = false
-      }, 200)
+      }, 1)
     },
     log(e) {
       // eslint-disable-next-line no-console
       console.log(e);
+    },
+    startLoading() {
+      setTimeout(() => {
+        this.isLoading = false
+      }, this.timeOut);
     }
   },
 }

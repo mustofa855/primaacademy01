@@ -22,9 +22,9 @@
       :placeholder="placeholder"
       validation="required"
       error-behavior="live"
-      @input="$emit('search', $event); showList = true; searchInput = $event; log($event)"
-      @blur-context="hideDataList(); isLoading = true"
-      @click="showList = true; $emit('click', $event); startLoading()"
+      @input="$emit('search', $event); showList = true; searchInput = $event; log($event); startLoading();"
+      @blur-context="hideDataList(); clearLoading()"
+      @click.prevent="showList = true; $emit('click', $event); startLoading()"
     />
     <!-- containter data list-->
     <div
@@ -77,18 +77,23 @@ export default {
       showList: false,
       searchInput: '',
       value: '',
-      isLoading: true,
+      isLoading: false,
     }
   },
   watch: {
-    options(newVal, oldVal) {
-      if (newVal.length > 0) {
-        clearTimeout();
-        this.isLoading = false;
-      } else {
-        setTimeout(() => {
-          this.isLoading = true;
-        }, this.timeOut);
+    options: {
+      handler(e) {
+        if (e.length > 0) {
+          this.clearLoading()
+        } else {
+          this.startLoading()
+        }
+      },
+      deep: true
+    },
+    value: {
+      handler(e) {
+        this.startLoading()
       }
     }
   },
@@ -115,9 +120,14 @@ export default {
       console.log(e);
     },
     startLoading() {
+      this.isLoading = true
       setTimeout(() => {
-        this.isLoading = false
+        this.clearLoading()
       }, this.timeOut);
+    },
+    clearLoading() {
+      clearTimeout();
+      this.isLoading = false;
     }
   },
 }

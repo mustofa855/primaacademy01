@@ -12,7 +12,7 @@
     </div>
 
     <!-- action button -->
-    <div>
+    <div v-if="!disabledButton">
       <kunci-button @click="click">{{ buttonName }}</kunci-button>
     </div>
   </div>
@@ -30,6 +30,10 @@ export default {
     value: {
       type: String,
       default: '',
+    },
+    disabledButton: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {

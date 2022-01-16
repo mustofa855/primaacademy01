@@ -11,7 +11,7 @@ export const state = () => ({
 export const mutations = {
   SET_ASSESSMENT(state, payload) {
     state.assessmentId = payload.id
-    state.assessmentName = payload.name
+    state.assessmentName = payload.hash_name
   },
   SET_STUDENT(state, payload) {
     state.studentId = payload.id

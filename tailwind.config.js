@@ -18,6 +18,8 @@ module.exports = {
         success: '#3EC8AC',
         'success-shade': '#2EA089',
         dark: '#222831',
+        warning: '#FFA900',
+        'warning-shade': '#C78400',
         orange: '#EE712B',
         primaryDark: '#222831',
         latar: '#F3F3F7',

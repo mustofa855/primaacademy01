@@ -11,6 +11,23 @@
           :class="`${toLower(item.status) == 'aktif' ? 'text-primary' : 'text-danger'}`"
         >{{ toLower(item.status) == 'aktif' ? 'Aktif' : 'Tidak Aktif' }}</div>
       </template>
+      <template #action="{ item }">
+        <kunci-button
+          :dense="true"
+          class="bg-success hover:bg-success-shade"
+          tooltip="Unit Kompetensi"
+        >
+          <img class="w-4" :src="('/edit.svg')" />
+        </kunci-button>
+        <kunci-button
+          :dense="true"
+          class="!bg-warning hover:!bg-warning-shade"
+          tooltip="Siswa Terdaftar"
+          @click="toStudent(item)"
+        >
+          <img class="w-4" :src="('/receipt.svg')" />
+        </kunci-button>
+      </template>
     </kunci-table>
     <!-- pagination -->
     <pagination :pagination="pagination" @refetch="paginate" @paginate="paginate" />
@@ -128,6 +145,10 @@ export default {
     // to lowercase
     toLower(e) {
       return e.toLowerCase()
+    },
+    toStudent(e) {
+      this.$store.commit('assement/SET_ASSESSMENT', e)
+      this.$router.push(`/assessment/${e.hash_name}`)
     },
   },
 }

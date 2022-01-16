@@ -18,20 +18,22 @@
     <FormulateInput
       v-model="value"
       type="text"
+      :value="searchInput"
       :label="label"
       :placeholder="placeholder"
       validation="required"
       error-behavior="live"
+      autocomplete="no"
       @input="$emit('search', $event); showList = true; searchInput = $event; log($event); startLoading();"
-      @blur-context="hideDataList(); clearLoading()"
-      @click.prevent="showList = true; $emit('click', $event); startLoading()"
+      @blur-context="clearLoading(); hideDataList(); "
+      @click.prevent="showList = true; $emit('clicked'); startLoading()"
     />
     <!-- containter data list-->
     <div
       class="bg-white top-3/4 shadow-lg z-10 rounded border-primary border-2 mx-auto max-h-xs overflow-auto w-full absolute transition-all"
       :class="showList ? 'block' : 'hidden'"
     >
-      <div v-if="options.length > 0">
+      <div v-if="options.length > 0 && !isLoading">
         <p
           v-for="(item, index) in options"
           :key="index"
@@ -43,9 +45,9 @@
         <div
           class="ease-linear rounded-full border-4 border-t-4 border-gray-200 h-8 w-8 border-t-primary animate-spin"
         ></div>
-        <p class="font-semibold mx-2">Tunggu Sebentar</p>
+        <p class="mx-2">Tunggu Sebentar</p>
       </div>
-      <div v-else>
+      <div v-else-if="options.length < 1 && !isLoading">
         <p class="w-full text-center p-2 transition duration-200 ease-out">Data Tidak Ditemukan</p>
       </div>
     </div>
@@ -81,15 +83,12 @@ export default {
     }
   },
   watch: {
-    options: {
-      handler(e) {
-        if (e.length > 0) {
-          this.clearLoading()
-        } else {
-          this.startLoading()
-        }
-      },
-      deep: true
+    options(newVal, oldVal) {
+      if (newVal.length > 0) {
+        this.clearLoading()
+      } else {
+        this.startLoading()
+      }
     },
     value: {
       handler(e) {
@@ -98,26 +97,22 @@ export default {
     }
   },
   methods: {
-    /**
-     * if isDatalist is true, then use event for set new value
-     * @param value $event
-     */
     updateValue(value, searchValue) {
-      // eslint-disable-next-line no-console
-      console.log(value)
-      this.value = value
-      this.showList = false
+
+      this.value = searchValue
       this.searchInput = searchValue
       this.$emit('selected', value)
+      // this.showList = false
+      this.hideDataList()
     },
     hideDataList() {
       setTimeout(() => {
         this.showList = false
-      }, 1)
+      }, 200)
     },
     log(e) {
-      // eslint-disable-next-line no-console
-      console.log(e);
+      // // eslint-disable-next-line no-console
+      // console.log(e);
     },
     startLoading() {
       this.isLoading = true

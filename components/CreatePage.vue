@@ -13,14 +13,19 @@
           :item-update-id="itemUpdateId"
           :redirect="redirect"
         >
-          <div class="p-4 px-12">
-            <div class="text-xl font-bold mb-6 mt-4">{{ formTitle }}</div>
-            <slot />
-          </div>
-          <div class="text-right p-4 px-12">
-            <kunci-button type="button" @click="goBack">Kembali</kunci-button>
-            <kunci-button type="submit" :disabled="hasErrors">Tambah</kunci-button>
-          </div>
+          <card :title="formTitle">
+            <template #default>
+              <slot />
+            </template>
+            <template #actions>
+              <kunci-button
+                class="!bg-white text-gray-600 border-gray-600 border shadow-none hover:!bg-gray-600 hover:text-white"
+                type="button"
+                @click="goBack"
+              >Kembali</kunci-button>
+              <kunci-button type="submit" :disabled="hasErrors">Tambah</kunci-button>
+            </template>
+          </card>
         </kunci-form>
       </div>
     </div>
@@ -30,8 +35,9 @@
 <script>
 import KunciButton from './KunciButton.vue'
 import KunciForm from './KunciForm.vue'
+import Card from './Card.vue'
 export default {
-  components: { KunciForm, KunciButton },
+  components: { KunciForm, KunciButton, Card },
   props: {
     title: {
       type: String,

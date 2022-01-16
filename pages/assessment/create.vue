@@ -124,10 +124,11 @@
   </div>
 </template>
 <script>
+import CreatePage from '~/components/CreatePage.vue';
 import InputSelect from '~/components/InputSelect.vue'
 import KunciButton from '~/components/KunciButton.vue';
 export default {
-  components: { InputSelect, KunciButton },
+  components: { InputSelect, KunciButton, CreatePage },
   layout: 'admin',
   data() {
     return {

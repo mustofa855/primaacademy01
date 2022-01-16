@@ -5,8 +5,7 @@
     <div class="p-4 px-12">
       <CardTitle v-if="title">{{ title }}</CardTitle>
       <slot />
-
-      <div class="text-right p-4 px-12">
+      <div class="pb-4" :class="`text-${position}`">
         <slot name="actions" />
       </div>
     </div>
@@ -21,6 +20,10 @@ export default {
     title: {
       type: String,
       default: "",
+    },
+    position: {
+      type: String,
+      default: "right",
     },
   },
 }

@@ -22,6 +22,7 @@
             />
             <FormulateInput
               type="number"
+              label="NIK"
               placeholder="NIK"
               validation="required"
               error-behavior="live"

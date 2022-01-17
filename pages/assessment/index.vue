@@ -12,7 +12,12 @@
         >{{ toLower(item.status) == 'aktif' ? 'Aktif' : 'Tidak Aktif' }}</div>
       </template>
       <template #action="{ item }">
-        <kunci-button :dense="true" class="bg-success hover:bg-success-shade" tooltip="Ubah">
+        <kunci-button
+          :dense="true"
+          class="bg-success hover:bg-success-shade"
+          tooltip="Ubah"
+          @click="toUpdate(item)"
+        >
           <img class="w-4" :src="('/edit.svg')" />
         </kunci-button>
         <kunci-button

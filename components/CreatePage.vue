@@ -19,7 +19,7 @@
             </template>
             <template #actions>
               <kunci-button
-                class="!bg-white text-gray-600 border-gray-600 border shadow-none hover:!bg-gray-600 hover:text-white"
+                class="!bg-white !text-gray-600 border-gray-600 border shadow-none hover:!bg-gray-600 hover:!text-white"
                 type="button"
                 @click="goBack"
               >Kembali</kunci-button>

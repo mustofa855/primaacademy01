@@ -49,7 +49,7 @@
               error-behavior="live"
             />
 
-            <div>
+            <div class="mt-28">
               <card-title class="mb-4">Tujuan Asesmen</card-title>
               <FormulateInput
                 type="text"
@@ -57,6 +57,7 @@
                 placeholder="Tujuan Asesmen"
                 validation="required"
                 error-behavior="live"
+                :disabled="true"
               />
             </div>
           </div>

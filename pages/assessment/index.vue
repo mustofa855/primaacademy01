@@ -151,6 +151,10 @@ export default {
       this.$store.commit('assement/SET_ASSESSMENT', e)
       this.$router.push(`/assessment/${e.hash_name}`)
     },
+    toUpdate(e) {
+      this.$store.commit('assement/SET_ASSESSMENT', e)
+      this.$router.push(`/assessment/update`)
+    }
   },
 }
 </script>

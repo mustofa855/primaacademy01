@@ -4,7 +4,7 @@
       :title="'Tambah Asesmen Baru'"
       :subtitle="'Anda dapat menambah asesmen'"
       :form-title="'Form Tambah Asesmen'"
-      endpoint="assessment/create"
+      :endpoint="`assessment/update/${id}`"
       :items="items"
       :redirect="'/assessment'"
       :back="'/assessment'"
@@ -145,6 +145,7 @@ export default {
         date_start: '',
         date_finish: '',
         assessor: [''], // 1 is initial value for looping
+        id: this.$store.state.asseessmennt.assessmentId
       },
       skemaItems: [],
       assessorItems: [],
@@ -160,9 +161,7 @@ export default {
     async fetchSkema(search) {
       await this.$axios.$get('certification-scheme', {
         params: {
-          // page: currentPage || this.pagination.current_page,
           search,
-          // limit: this.pagination.per_page,
         }
       }).then(res => {
         if (res) {
@@ -172,14 +171,6 @@ export default {
               label: item.name,
             }
           });
-          // this.pagination.current_page = res.data.current_page
-          // this.pagination.total = res.data.total_items
-          // this.pagination.last_page = res.data.total_pages
-
-          // const split = res.data.displayed_items.split('-')
-
-          // this.pagination.from = parseInt(split[0])
-          // this.pagination.to = parseInt(split[1])
         }
       })
     },
@@ -193,9 +184,7 @@ export default {
     async fetchAssessor(search) {
       await this.$axios.$get('assessor', {
         params: {
-          // page: currentPage || this.pagination.current_page,
           search,
-          // limit: this.pagination.per_page,
         }
       }).then(res => {
         if (res) {
@@ -205,14 +194,6 @@ export default {
               label: item.name,
             }
           });
-          // this.pagination.current_page = res.data.current_page
-          // this.pagination.total = res.data.total_items
-          // this.pagination.last_page = res.data.total_pages
-
-          // const split = res.data.displayed_items.split('-')
-
-          // this.pagination.from = parseInt(split[0])
-          // this.pagination.to = parseInt(split[1])
         }
       })
     },

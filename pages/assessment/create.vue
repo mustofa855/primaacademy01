@@ -8,6 +8,7 @@
       :items="items"
       :redirect="'/assessment'"
       :back="'/assessment'"
+      :select2="true"
     >
       <div class="grid grid-cols-2 gap-4">
         <!-- section 1 -->
@@ -129,13 +130,22 @@
 </template>
 <script>
 import CreatePage from '~/components/CreatePage.vue';
-import InputSelect from '~/components/InputSelect.vue'
+// import InputSelect from '~/components/InputSelect.vue'
 import KunciButton from '~/components/KunciButton.vue';
 export default {
-  components: { InputSelect, KunciButton, CreatePage },
+  components: {
+    // InputSelect,
+    KunciButton,
+    CreatePage,
+  },
   layout: 'admin',
   data() {
     return {
+      options: [
+        'foo',
+        'bar',
+        'baz'
+      ],
       items: {
         certification_id: '',
         name: '',
@@ -154,24 +164,57 @@ export default {
     minDate() {
       return new Date().toISOString().substr(0, 10)
     }
+  }, mounted() {
+    setTimeout(() => {
+      this.options.pop()
+      // this.skemaItems.push({
+      //   value: '0',
+      //   label: 'Pilih Skema Sertifikasi',
+      // })
+    }, 2000);
   },
   methods: {
     // fetch skema
     async fetchSkema(search) {
-      await this.$axios.$get('certification-scheme', {
+      // this.$axios.$get('certification-scheme', {
+      //   params: {
+      //     search,
+      //   }
+      // }).then(res => {
+      //   // eslint-disable-next-line no-console
+      //   console.log(res);
+      //   if (res) {
+      //     this.skemaItems = [{
+      //       value: '',
+      //       label: 'Pilih Skema Sertifikasi',
+      //     }]
+      //     setTimeout(() => {
+
+      //       this.skemaItems = res.data.rows.map(item => {
+      //         return {
+      //           value: item.id,
+      //           label: item.name,
+      //         }
+      //       });
+      //       // eslint-disable-next-line no-console
+      //       console.log(this.skemaItems);
+      //     }, 2000);
+      //   }
+      // })
+      const data = await this.$axios.$get('certification-scheme', {
         params: {
           search,
         }
-      }).then(res => {
-        if (res) {
-          this.skemaItems = res.data.rows.map(item => {
-            return {
-              value: item.id,
-              label: item.name,
-            }
-          });
+      });
+      this.skemaItems = data.data.rows.map(item => {
+        return {
+          value: item.id,
+          label: item.name,
         }
-      })
+      });
+      // eslint-disable-next-line no-console
+      console.log(this.skemaItems);
+
     },
 
     // selected schema for item input

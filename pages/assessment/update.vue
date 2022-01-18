@@ -1,13 +1,14 @@
 <template>
   <div>
     <create-page
-      :title="'Tambah Asesmen Baru'"
+      :title="'Ubah Asesmen Baru'"
       :subtitle="'Anda dapat menambah asesmen'"
-      :form-title="'Form Tambah Asesmen'"
+      :form-title="'Form Ubah Asesmen'"
       :endpoint="`assessment/update/${id}`"
       :items="items"
       :redirect="'/assessment'"
       :back="'/assessment'"
+      :select2="true"
     >
       <div class="grid grid-cols-2 gap-4">
         <!-- section 1 -->
@@ -106,7 +107,7 @@
                 v-if="items.assessor.length - 1 == index"
                 type="button"
                 class="!bg-success hover:!bg-success-shade"
-                tooltip="Tambah Data"
+                tooltip="Ubah Data"
                 @click="addAssessor"
               >+</kunci-button>
 
@@ -132,7 +133,11 @@ import CreatePage from '~/components/CreatePage.vue';
 import InputSelect from '~/components/InputSelect.vue'
 import KunciButton from '~/components/KunciButton.vue';
 export default {
-  components: { InputSelect, KunciButton, CreatePage },
+  components: {
+    InputSelect,
+    KunciButton,
+    CreatePage
+  },
   layout: 'admin',
   data() {
     return {
@@ -145,7 +150,7 @@ export default {
         date_start: '',
         date_finish: '',
         assessor: [''], // 1 is initial value for looping
-        id: this.$store.state.asseessmennt.assessmentId
+        id: this.$store.state.asseessmennt?.assessmentId || '',
       },
       skemaItems: [],
       assessorItems: [],

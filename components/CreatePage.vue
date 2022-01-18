@@ -6,27 +6,53 @@
     <div class>
       <div class="bg-white shadow-md rounded-md">
         <!-- form title section -->
-        <kunci-form
-          v-slot="{ hasErrors }"
-          :items="items"
-          :endpoint="endpoint"
-          :item-update-id="itemUpdateId"
-          :redirect="redirect"
-        >
+
+        <div v-if="select2">
           <card :title="formTitle">
             <template #default>
               <slot />
             </template>
             <template #actions>
-              <kunci-button
-                class="!bg-white !text-gray-600 border-gray-600 border shadow-none hover:!bg-gray-600 hover:!text-white"
-                type="button"
-                @click="goBack"
-              >Kembali</kunci-button>
-              <kunci-button type="submit" :disabled="hasErrors">Tambah</kunci-button>
+              <kunci-form
+                v-slot="{ hasErrors }"
+                :items="items"
+                :endpoint="endpoint"
+                :item-update-id="itemUpdateId"
+                :redirect="redirect"
+              >
+                <kunci-button
+                  class="!bg-white !text-gray-600 border-gray-600 border shadow-none hover:!bg-gray-600 hover:!text-white"
+                  type="button"
+                  @click="goBack"
+                >Kembali</kunci-button>
+                <kunci-button type="submit" :disabled="hasErrors">Tambah</kunci-button>
+              </kunci-form>
             </template>
           </card>
-        </kunci-form>
+        </div>
+        <div v-else>
+          <kunci-form
+            v-slot="{ hasErrors }"
+            :items="items"
+            :endpoint="endpoint"
+            :item-update-id="itemUpdateId"
+            :redirect="redirect"
+          >
+            <card :title="formTitle">
+              <template #default>
+                <slot />
+              </template>
+              <template #actions>
+                <kunci-button
+                  class="!bg-white !text-gray-600 border-gray-600 border shadow-none hover:!bg-gray-600 hover:!text-white"
+                  type="button"
+                  @click="goBack"
+                >Kembali</kunci-button>
+                <kunci-button type="submit" :disabled="hasErrors">Tambah</kunci-button>
+              </template>
+            </card>
+          </kunci-form>
+        </div>
       </div>
     </div>
   </div>
@@ -80,6 +106,10 @@ export default {
       default: '',
       required: false,
     },
+    select2: {
+      type: Boolean,
+      default: false,
+    }
   },
   methods: {
     goBack() {

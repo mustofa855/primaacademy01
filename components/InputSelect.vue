@@ -7,9 +7,9 @@
         list="datalist"
         :placeholder="placeholder"
         :value="searchInput"
-        @blur="hideDataList"
-        @input="$emit('search', $event.target.value); showList = true; searchInput = $event.target.value"
-        @click="showList = true"
+        @blur="clearLoading(); hideDataList(); "
+        @input="$emit('search', $event.target.value); showList = true; searchInput = $event.target.value; log($event.target.value); startLoading();"
+        @click.prevent="showList = true; $emit('clicked'); startLoading()"
       />
 
       <mdi:search class="w-max m-2 absolute right-1" />
@@ -18,7 +18,6 @@
     <FormulateInput
       v-model="value"
       type="text"
-      :value="searchInput"
       :label="label"
       :placeholder="placeholder"
       validation="required"
@@ -26,20 +25,20 @@
       autocomplete="no"
       @input="$emit('search', $event); showList = true; searchInput = $event; log($event); startLoading();"
       @blur-context="clearLoading(); hideDataList(); "
-      @click.prevent="showList = true; $emit('clicked'); startLoading()"
+      @click="showList = true; $emit('clicked'); startLoading()"
     />
     <!-- containter data list-->
     <div
       class="bg-white top-3/4 shadow-lg z-10 rounded border-primary border-2 mx-auto max-h-xs overflow-auto w-full absolute transition-all"
       :class="showList ? 'block' : 'hidden'"
     >
-      <div v-if="options.length > 0 && !isLoading">
+      <div v-if="eee.length > 0 && !isLoading">
         <p
-          v-for="(item, index) in options"
+          v-for="(item, index) in eee"
           :key="index"
           class="w-full hover:bg-primary cursor-pointer hover:text-white p-2 transition duration-200 ease-out"
           @click="updateValue(item.value, item.label)"
-        >{{ options.length > 0 ? item.label : 'Data tidak ditemukan' }}</p>
+        >{{ eee.length > 0 ? item.label : 'Data tidak ditemukan' }}</p>
       </div>
       <div v-if="isLoading" class="m-4 flex justify-center justify-items-center items-center">
         <div
@@ -80,19 +79,32 @@ export default {
       searchInput: '',
       value: '',
       isLoading: false,
+      eee: this.options
     }
   },
   watch: {
-    options(newVal, oldVal) {
-      if (newVal.length > 0) {
-        this.clearLoading()
-      } else {
-        this.startLoading()
+    options: {
+      handler(newVal) {
+        if (newVal.length > 0) {
+          this.clearLoading()
+        } else {
+          this.startLoading()
+        }
+        this.eee = this.options
       }
+      , deep: true
+      , immediate: true
     },
     value: {
       handler(e) {
         this.startLoading()
+      }
+    },
+    eee: {
+      handler(e) {
+        // this.startLoading()
+        // eslint-disable-next-line no-console
+        console.log('eeee', e);
       }
     }
   },

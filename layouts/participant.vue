@@ -2,7 +2,9 @@
   <div>
     <!-- <kunci-sidebar /> -->
     <div class="bg-latar min-h-screen pt-8 overflow-auto">
-      <Nuxt />
+      <div class="max-w-xl mx-auto text-center">
+        <Nuxt />
+      </div>
     </div>
   </div>
 </template>

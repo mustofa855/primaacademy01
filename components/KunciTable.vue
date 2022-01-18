@@ -95,10 +95,12 @@ export default {
   },
   methods: {
     loading(e) {
-      if (this.data || Array.isArray(this.data) || this.data) {
-        this.timeOut(false)
+      // check if data not empty
+      if (this.data.length > 0) {
+        this.timeOut()
         this.isLoading = e || false
       }
+      // check if data empty
       else {
         this.timeOut(true)
         this.isLoading = e || true

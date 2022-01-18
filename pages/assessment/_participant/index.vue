@@ -97,6 +97,7 @@ export default {
         to: 0,
         total: 0,
       },
+      items: [],
     }
   },
 }

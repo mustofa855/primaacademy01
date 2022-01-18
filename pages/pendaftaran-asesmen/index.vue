@@ -1,7 +1,7 @@
 <template>
   <div>
     <title-asesmen :title="'Asemen'" :subtitle="'Silahkan pilih asesmen yang diinginkan'" />
-    <search-input class="my-4"></search-input>
+    <search-input class="my-4 text-center"></search-input>
 
     <!-- data tabel -->
     <kunci-table :header-table="header" :data="items">

@@ -150,7 +150,7 @@ export default {
         date_start: '',
         date_finish: '',
         assessor: [''], // 1 is initial value for looping
-        id: this.$store.state.asseessmennt?.assessmentId || '',
+        id: this.$store.state.asseessment?.assessmentId || '',
       },
       skemaItems: [],
       assessorItems: [],

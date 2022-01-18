@@ -1,7 +1,18 @@
 <template>
   <div>
     <title-bar
-      :back="'/master-data'"
+      :breadcrumbs="[
+        {
+          label: 'Master Data',
+          active: true,
+          to: '/master-data',
+        },
+        {
+          label: 'Skema Sertifikasi',
+          active: false,
+          to: '',
+        },
+      ]"
       :title="'Skema Serifikasi'"
       :subtitle="'Anda dapat mengelola skema serifikasi'"
       is-controlbar

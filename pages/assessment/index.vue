@@ -148,11 +148,11 @@ export default {
       return e.toLowerCase()
     },
     toStudent(e) {
-      this.$store.commit('assement/SET_ASSESSMENT', e)
+      this.$store.commit('assessment/SET_ASSESSMENT', e)
       this.$router.push(`/assessment/${e.hash_name}`)
     },
     toUpdate(e) {
-      this.$store.commit('assement/SET_ASSESSMENT', e)
+      this.$store.commit('assessment/SET_ASSESSMENT', e)
       this.$router.push(`/assessment/update`)
     }
   },

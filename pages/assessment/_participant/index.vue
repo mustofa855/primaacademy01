@@ -1,10 +1,21 @@
 <template>
   <div>
     <title-bar
-      :back="'/assessment'"
       is-controlbar
       :title="'Asesmen'"
       :subtitle="'Anda dapat mengelola asesmen'"
+      :breadcrumbs="[
+        {
+          label: 'Asesment',
+          active: true,
+          to: '/assessment',
+        },
+        {
+          label: $store.state.assessment.assessmentName,
+          active: false,
+          to: '/assessment/{{ $participant->id }}',
+        },
+      ]"
     />
     <control-bar
       v-model="search"
@@ -49,6 +60,7 @@ import ControlBar from '~/components/ControlBar.vue'
 import KunciTable from '~/components/KunciTable.vue'
 import Pagination from '~/components/Pagination.vue'
 import TitleBar from '~/components/TitleBar.vue'
+// import Breadcrumbs from '~/components/Breadcrumbs.vue'
 export default {
   components: { TitleBar, ControlBar, Pagination, KunciTable },
   layout: 'admin',

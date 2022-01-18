@@ -1,7 +1,33 @@
 <template>
   <div>
     <title-bar
-      :back="`/master-data/certificate/${$route.params.competency}/${$route.params.element}`"
+      :breadcrumbs="[
+        {
+          label: 'Master Data',
+          active: true,
+          to: '/master-data',
+        },
+        {
+          label: 'Skema Sertifikasi',
+          active: true,
+          to: '/master-data/certificate',
+        },
+        {
+          label: $store.state.certificate.certificateName,
+          active: true,
+          to: `/master-data/certificate/${$store.state.certificate.certificateName}`,
+        },
+        {
+          label: $store.state.certificate.competencyName,
+          active: true,
+          to: `/master-data/certificate/${$store.state.certificate.certificateName}/${$store.state.certificate.competencyName}`,
+        },
+        {
+          label: $store.state.certificate.elementName,
+          active: false,
+          to: `/master-data/certificate/${$store.state.certificate.elementName}`,
+        },
+      ]"
       :title="title"
       :subtitle="subtitle"
       is-controlbar

@@ -4,7 +4,18 @@
       is-controlbar
       :title="'Asesor'"
       :subtitle="'Anda dapat mengelola sesor'"
-      :back="'/master-data'"
+      :breadcrumbs="[
+        {
+          label: 'Master Data',
+          active: true,
+          to: '/master-data',
+        },
+        {
+          label: 'Asesor',
+          active: false,
+          to: '',
+        },
+      ]"
     />
     <control-bar v-model="search" :button-name="'Tambah Asesor'" @buttonClick="click" />
 

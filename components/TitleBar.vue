@@ -1,5 +1,6 @@
 <template>
   <div :class="isControlbar ? 'mb-2' : 'mb-8'">
+    <!-- button back -->
     <div v-if="back" class="mb-2">
       <!-- <router-link :to="goBack">Kembali</router-link> -->
       <nuxt-link
@@ -7,6 +8,10 @@
         class="p-2 hover:text-white duration-200 transition ease-out hover:bg-primary rounded-md"
       >Kembali</nuxt-link>
     </div>
+
+    <!-- bredcrumbs -->
+    <breadcrumbs v-if="breadcrumbs.length > 0" :items="breadcrumbs" />
+
     <!-- title section -->
     <div class="text-2xl font-bold">{{ title }}</div>
     <!-- subtitle section -->
@@ -33,6 +38,10 @@ export default {
     isControlbar: {
       type: Boolean,
       default: false,
+    },
+    breadcrumbs: {
+      type: Array,
+      default: () => [],
     },
   },
   data() {

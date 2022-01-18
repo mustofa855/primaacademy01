@@ -9,6 +9,7 @@
       :redirect="'/assessment'"
       :back="'/assessment'"
       :select2="true"
+      is-form-data
     >
       <div class="grid grid-cols-2 gap-4">
         <!-- section 1 -->
@@ -31,11 +32,12 @@
           />
           <!-- pertanggalan -->
           <div>
-            <div class="font-semibold">Tanggal Pelaksanaan</div>
+            <div class="font-semibold mb-2">Tanggal Pelaksanaan</div>
             <div class="grid grid-cols-2">
               <FormulateInput
                 v-model="items.date_start"
                 type="date"
+                label="Tanggal Mulai"
                 placeholder="Tanggal Mulai"
                 validation="required"
                 error-behavior="live"
@@ -45,6 +47,7 @@
               <FormulateInput
                 v-model="items.date_finish"
                 type="date"
+                label="Tanggal Selesai"
                 placeholder="Tanggal Selesai"
                 validation="required"
                 error-behavior="live"
@@ -54,11 +57,12 @@
             </div>
           </div>
           <div>
-            <div class="font-semibold">Tanggal Pendataran</div>
+            <div class="font-semibold mb-2">Tanggal Pendataran</div>
             <div class="grid grid-cols-2">
               <FormulateInput
                 v-model="items.date_start_registration"
                 type="date"
+                label="Tanggal Mulai"
                 placeholder="Tanggal Mulai"
                 validation="required"
                 error-behavior="live"
@@ -68,6 +72,7 @@
               <FormulateInput
                 v-model="items.date_finish_registration"
                 type="date"
+                label="Tanggal Selesai"
                 placeholder="Tanggal Selesai"
                 validation="required"
                 error-behavior="live"

@@ -81,13 +81,24 @@ export default {
   watch: {
     data: {
       handler(e) {
-        if (e || Array.isArray(e) || e) {
-          this.loading(false);
+        if (e) {
+          this.timeOut(false)
         } else {
-          this.loading(true);
+          this.loading();
         }
       },
       deep: true,
+    },
+    isLoading: {
+      handler(e) {
+        // eslint-disable-next-line no-console
+        console.log(e);
+        if (e) {
+          this.setTimeout = false;
+        } else if (this.data.length === 0 && !e) {
+          this.setTimeout = true;
+        }
+      }
     },
   },
   mounted() {
@@ -110,7 +121,6 @@ export default {
       // check time out
       if (e) {
         setTimeout(() => {
-          this.setTimeout = true;
           this.isLoading = false
         }, 3000);
       }

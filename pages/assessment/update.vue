@@ -9,6 +9,7 @@
       :redirect="'/assessment'"
       :back="'/assessment'"
       :select2="true"
+      is-form-data
     >
       <div class="grid grid-cols-2 gap-4">
         <!-- section 1 -->

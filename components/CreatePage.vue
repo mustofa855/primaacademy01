@@ -109,7 +109,12 @@ export default {
     select2: {
       type: Boolean,
       default: false,
-    }
+    },
+    isFormData: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
   },
   methods: {
     goBack() {

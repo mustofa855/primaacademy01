@@ -27,7 +27,12 @@ export default {
       type: String,
       default: '',
       required: false,
-    }
+    },
+    isFormData: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
   },
 
   computed: {
@@ -73,7 +78,11 @@ export default {
           });
         });
       } else {
-        this.$axios.post(this.endpoint, formData).then((res) => {
+        // eslint-disable-next-line no-console
+        console.log(formData);
+        // eslint-disable-next-line no-console
+        console.log(this.items);
+        this.$axios.post(this.endpoint, this.isFormData ? formData : this.items).then((res) => {
           this.$emit('submit');
 
           this.$swal({
@@ -85,7 +94,7 @@ export default {
             timer: 2000,
           }).then(() => {
             this.$emit('submited');
-            if(this.redirect)
+            if (this.redirect)
               this.$router.push(this.redirect);
           });
         }).catch((error) => {

@@ -72,6 +72,7 @@
         error-behavior="live"
       />
     </kunci-modal>
+    {{ asd }}
   </div>
 </template>
 
@@ -131,7 +132,8 @@ export default {
         certification_id: '',
         title: '',
         code: '',
-      }
+      },
+      asd: this.$store.state.certificate.certificateName
     }
   },
   fetch() {

@@ -8,6 +8,7 @@
       :items="items"
       :redirect="'/master-data/assesor'"
       :back="'/master-data/assesor'"
+      :select2="true"
     >
       <FormulateInput
         v-model="items.name"

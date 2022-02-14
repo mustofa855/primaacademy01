@@ -1,6 +1,6 @@
 <template>
   <ol class="list-reset flex text-grey-dark">
-    <div v-for="(item) in items" :key="item">
+    <div v-for="(item, index) in items" :key="index">
       <div v-if="item.active" class="flex">
         <li>
           <nuxt-link :to="item.to">{{ item.label }}</nuxt-link>

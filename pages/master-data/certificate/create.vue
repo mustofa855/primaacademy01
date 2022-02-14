@@ -8,6 +8,7 @@
       :items="items"
       :redirect="'/master-data/certificate'"
       :back="'/master-data/certificate'"
+      :select2="true"
     >
       <FormulateInput
         v-model="items.name"

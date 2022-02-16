@@ -117,7 +117,6 @@
           type="select"
           placeholder="Oservasi Langsung"
           label="Oservasi Langsung"
-          validation="required"
           error-behavior="live"
         />
         <FormulateInput
@@ -126,7 +125,6 @@
           type="select"
           placeholder="Kegiatan Struktur"
           label="Kegiatan Struktur"
-          validation="required"
           error-behavior="live"
         />
         <FormulateInput
@@ -135,7 +133,6 @@
           type="select"
           placeholder="Tanya Jawab"
           label="Tanya Jawab"
-          validation="required"
           error-behavior="live"
         />
         <FormulateInput
@@ -144,7 +141,6 @@
           type="select"
           placeholder="Verifikasi Portofolio"
           label="Verifikasi Portofolio"
-          validation="required"
           error-behavior="live"
         />
         <FormulateInput
@@ -153,7 +149,6 @@
           type="select"
           placeholder="Ulasan Produk"
           label="Ulasan Produk"
-          validation="required"
           error-behavior="live"
         />
         <FormulateInput
@@ -162,7 +157,6 @@
           type="select"
           placeholder="Lainnya"
           label="Lainnya"
-          validation="required"
           error-behavior="live"
         />
       </div>

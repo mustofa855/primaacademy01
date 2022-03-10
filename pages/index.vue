@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-cols-6 h-screen <sm:grid-cols-1 <sm:grid-cols-1">
     <!-- illustratio section -->
-    <div class="col-span-4 flex flex-1 bg-primary">
+    <div class="col-span-4 flex flex-1 bg">
       <!-- <div class="my-auto mx-16">
         <img :src="('./loginimage.svg')" alt="Logo Kunci" class="my-4 mx-4" />
         <div class="mx-4 text-white">
@@ -113,3 +113,13 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./static/loginimage.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+</style>

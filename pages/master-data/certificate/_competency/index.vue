@@ -209,7 +209,7 @@ export default {
       this.$store.commit('certificate/SET_COMPETENCY', item);
 
       // remove special character
-      const elementName = item.name.replace(/[^a-zA-Z0-9]/g, '');
+      const elementName = item.title.replace(/[^a-zA-Z0-9]/g, '');
 
       this.$router.push({
         path: `${this.$route.path}/${elementName}`,

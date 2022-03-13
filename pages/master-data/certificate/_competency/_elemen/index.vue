@@ -15,12 +15,12 @@
         {
           label: $store.state.certificate.certificateName,
           active: true,
-          to: `/master-data/certificate/${$store.state.certificate.certificateName}`,
+          to: `/master-data/certificate/${$charRemove($store.state.certificate.certificateName)}`,
         },
         {
           label: $store.state.certificate.competencyName,
           active: false,
-          to: `/master-data/certificate/${$store.state.certificate.certificateName}/${$store.state.certificate.competencyName}`,
+          to: `/master-data/certificate/${$charRemove($store.state.certificate.certificateName)}/${$charRemove($store.state.certificate.competencyName)}`,
         },
       ]"
       :title="title"

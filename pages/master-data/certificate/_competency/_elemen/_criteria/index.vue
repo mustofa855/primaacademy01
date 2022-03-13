@@ -15,17 +15,17 @@
         {
           label: $store.state.certificate.certificateName,
           active: true,
-          to: `/master-data/certificate/${$store.state.certificate.certificateName}`,
+          to: `/master-data/certificate/${$charRemove($store.state.certificate.certificateName)}`,
         },
         {
           label: $store.state.certificate.competencyName,
           active: true,
-          to: `/master-data/certificate/${$store.state.certificate.certificateName}/${$store.state.certificate.competencyName}`,
+          to: `/master-data/certificate/${$charRemove($store.state.certificate.certificateName)}/${$charRemove($store.state.certificate.competencyName)}`,
         },
         {
           label: $store.state.certificate.elementName,
           active: false,
-          to: `/master-data/certificate/${$store.state.certificate.elementName}`,
+          to: `/master-data/certificate/${$charRemove($store.state.certificate.elementName)}`,
         },
       ]"
       :title="title"
@@ -207,7 +207,7 @@ export default {
     },
     resetInput() {
       this.input.name = ''
-    }
+    },
   },
 }
 </script>

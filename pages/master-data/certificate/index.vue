@@ -167,8 +167,12 @@ export default {
     toCompetency(item) {
 
       this.$store.commit('certificate/SET_CERTIFICATE', item);
+
+      // remove special character
+      const elementName = item.name.replace(/[^a-zA-Z0-9]/g, '');
+
       this.$router.push({
-        path: `${this.$route.path}/${item.name}`,
+        path: `${this.$route.path}/${elementName}`,
       })
     }
   },

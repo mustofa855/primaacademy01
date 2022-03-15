@@ -69,8 +69,8 @@
         >
           <div v-if="isOpen" class="absolute -top-20 rounded-md shadow-dark shadow-md w-full p-2">
             <ul class="flex flex-col gap-2">
-              <li>Setting</li>
-              <li>Logout</li>
+              <li class="cursor-pointer">Setting</li>
+              <li class="cursor-pointer" @click="modalLogout">Logout</li>
             </ul>
           </div>
         </transition>

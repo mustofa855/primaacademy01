@@ -38,11 +38,20 @@
         </div>
       </router-link>
     </div>
+
+    <!-- footer -->
+    <div class="flex flex-col px-4 py-2 text-gray-400 font-medium bottom-0 absolute w-full">
+      <div class="flex flex-col items-center mb-4">
+        <kunci-button class="w-full" @click="modalLogout">Logout</kunci-button>
+      </div>
+    </div>
   </nav>
 </template>
 
 <script>
+import KunciButton from './KunciButton.vue'
 export default {
+  components: { KunciButton },
   data() {
     return {
       slug: [{
@@ -74,6 +83,38 @@ export default {
     // // eslint-disable-next-line no-console
     // console.log(this.$route);
   },
+  methods: {
+    logout() {
+      this.$auth.logout()
+    },
+    modalLogout() {
+      // show modal swal
+      this.$swal({
+        title: 'Keluar dari aplikasi',
+        text: 'Apakah anda yakin ingin keluar dari aplikasi ini?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya',
+        cancelButtonText: 'Tidak',
+        reverseButtons: true,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        focusCancel: true,
+        preConfirm: () => {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve()
+            }, 200)
+          })
+        },
+      }).then((result) => {
+        if (result.value) {
+          this.logout()
+        }
+      })
+    }
+  }
 }
 </script>
 <style scoped>

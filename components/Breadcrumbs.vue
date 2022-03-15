@@ -18,6 +18,13 @@
 export default {
   name: 'Breadcrumbs',
   props: {
+    /**
+     * @example
+     * {
+     *  label: 'Pendaftaran',
+     *  to: '/pendaftaran',
+     * active: true,  }
+     */
     items: {
       type: Array,
       default: () => [],

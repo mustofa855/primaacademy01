@@ -74,7 +74,7 @@ export default {
             text: error.response.data.message,
             type: 'error',
             showConfirmButton: false,
-            timer: 1500,
+            timer: 2000,
           });
         });
       } else {
@@ -99,7 +99,7 @@ export default {
           });
         }).catch((error) => {
           // eslint-disable-next-line no-console
-          console.log(error);
+          console.log(error.response);
           this.$swal({
             title: 'Gagal',
             icon: 'error',
@@ -128,7 +128,26 @@ export default {
           this.submit();
         }
       });
-    }
+    },
+
+    errorAlert(){
+      this.$swal({
+        title: 'Gagal',
+        icon: 'error',
+        text: 'Data tidak boleh kosong',
+        type: 'error',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      this.$swal({
+        title: 'Gagal',
+        icon: 'error',
+        text: 'Data tidak boleh kosong',
+        type: 'error',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    },
   },
 }
 </script>

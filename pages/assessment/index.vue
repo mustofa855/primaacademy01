@@ -11,6 +11,10 @@
           :class="`${toLower(item.status) == 'aktif' ? 'text-primary' : 'text-danger'}`"
         >{{ toLower(item.status) == 'aktif' ? 'Aktif' : 'Tidak Aktif' }}</div>
       </template>
+      <template #date_start="{ item }">{{ $moment(item.date_start).format('LL') }}</template>
+      <template
+        #date_start_registration="{ item }"
+      >{{ $moment(item.date_start_registration).format('LL') }}</template>
       <template #action="{ item }">
         <kunci-button
           :dense="true"

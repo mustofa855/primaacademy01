@@ -1,11 +1,21 @@
 <template>
-  <div>
+  <div class="max-w-xl mx-auto">
     <title-asesmen :title="'Asemen'" :subtitle="'Silahkan pilih asesmen yang diinginkan'" />
     <search-input class="my-4 text-center"></search-input>
 
     <!-- data tabel -->
     <kunci-table :header-table="header" :data="items">
       <template #no="{ index }">{{ index + pagination.from }}</template>
+      <template #action="{ item }">
+        <kunci-button
+          :dense="true"
+          class="bg-success hover:bg-success-shade"
+          :tooltip="`Ke ${item.name}`"
+          @click="toRegistration(item)"
+        >
+          <img class="w-4" :src="('/edit.svg')" />
+        </kunci-button>
+      </template>
     </kunci-table>
     <!-- pagination -->
     <pagination :pagination="pagination" @refetch="paginate" @paginate="paginate" />
@@ -13,8 +23,9 @@
 </template>
 <script>
 import TitleAsesmen from '~/components/TitleAsesmen.vue'
+import KunciButton from '~/components/KunciButton.vue'
 export default {
-  components: { TitleAsesmen },
+  components: { TitleAsesmen, KunciButton },
   layout: 'participant',
   auth: false,
   data() {
@@ -69,9 +80,19 @@ export default {
         this.$toast.error('Terjadi kesalahan saat mengambil data')
       }
     },
-    paginate() {
+    paginate(e) {
       // eslint-disable-next-line no-console
       console.log('paginate')
+      this.pagination.current_page = e
+    },
+    toRegistration(e) {
+      this.$store.commit('registration/SetRegistration', e)
+      // eslint-disable-next-line no-console
+      console.log(this.$route);
+      // eslint-disable-next-line no-console
+      console.log(`${this.$route.name}/${e.hash_name}`);
+      this.$router.push(`${this.$route.name}/${e.hash_name}`,
+      )
     }
   }
 }

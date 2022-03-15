@@ -24,6 +24,7 @@
         class="flex flex-row items-center hover:text-primary transition duration-200 ease-out my-4 hover:border-primary after:absolute after:-right-4 after:h-10 after:w-6 after:rounded-md hover:after:bg-primary hover:after:transition-all after:duration-200 after:ease-out"
         :class="isActive == item.to ? 'text-primary after:bg-primary' : ''"
       >
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <div class="max-w-xs flex mr-8 ml-4" v-html="item.icon"></div>
         <div
           :to="item.to"
@@ -41,17 +42,48 @@
 
     <!-- footer -->
     <div class="flex flex-col px-4 py-2 text-gray-400 font-medium bottom-0 absolute w-full">
-      <div class="flex flex-col items-center mb-4">
-        <kunci-button class="w-full" @click="modalLogout">Logout</kunci-button>
+      <div class="flex flex-col items-center mb-4 relative group">
+        <!-- create profile -->
+        <div class="w-full cursor-pointer" @click="toggleOpen">
+          <div class="flex gap-4">
+            <!-- avatar -->
+            <div class="w-12 rounded-full">
+              <img :src="('/default.png')" alt="profile" class="m-auto" />
+            </div>
+            <!-- username and role -->
+            <div class="flex flex-col">
+              <div>username</div>
+              <div>role</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- setting section -->
+        <transition
+          enter-from-class="transform opacity-0"
+          enter-active-class="duration-200 ease-in"
+          enter-to-class="opacity-100"
+          leave-from-class="opacity-100"
+          leave-active-class="duration-200 ease-out"
+          leave-to-class="transform opacity-0"
+        >
+          <div v-if="isOpen" class="absolute -top-20 rounded-md shadow-dark shadow-md w-full p-2">
+            <ul class="flex flex-col gap-2">
+              <li>Setting</li>
+              <li>Logout</li>
+            </ul>
+          </div>
+        </transition>
+        <!-- <kunci-button class="w-full" @click="modalLogout">Logout</kunci-button> -->
       </div>
     </div>
   </nav>
 </template>
 
 <script>
-import KunciButton from './KunciButton.vue'
+// import KunciButton from './KunciB  utton.vue'
 export default {
-  components: { KunciButton },
+  // components: { KunciButton },
   data() {
     return {
       slug: [{
@@ -70,7 +102,8 @@ export default {
         to: '/master-data',
         text: 'Data Master',
         icon: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M16 0H8C6.9 0 6 .9 6 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6l-6-6m4 18H8V2h7v5h5v11M4 4v18h16v2H4c-1.1 0-2-.9-2-2V4h2m6 6v2h8v-2h-8m0 4v2h5v-2h-5z" fill="currentColor"></path></svg>',
-      },]
+      },],
+      isOpen: false
     }
   },
   computed: {
@@ -113,6 +146,9 @@ export default {
           this.logout()
         }
       })
+    },
+    toggleOpen() {
+      this.isOpen = !this.isOpen
     }
   }
 }

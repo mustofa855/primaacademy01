@@ -175,4 +175,18 @@ export default {
     config: {},
     injectPosition: 0,
   },
+
+  // config for storybook
+  storybook: {
+    // Options
+    addons: [
+      '@storybook/addon-controls',
+      '@storybook/addon-notes',
+    ],
+    stories: [
+      '~/stories/**/*.stories.js',
+      '~/stories/**/*.stories.mdx',
+    ],
+  }
+
 }

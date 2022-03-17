@@ -1,13 +1,11 @@
 <template>
   <!-- card section -->
-  <div class="bg-white shadow-md rounded-md">
+  <div class="bg-white shadow-md rounded-md p-4 px-8">
     <!-- content section -->
-    <div class="p-4 px-8">
-      <CardTitle v-if="title">{{ title }}</CardTitle>
-      <slot />
-      <div class :class="`text-${position}`">
-        <slot name="actions" />
-      </div>
+    <CardTitle v-if="title">{{ title }}</CardTitle>
+    <slot />
+    <div class :class="`text-${position}`">
+      <slot name="actions" />
     </div>
   </div>
 </template>

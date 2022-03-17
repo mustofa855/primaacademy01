@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-xl mx-auto">
     <title-asesmen :title="'Asemen'" :subtitle="'Silahkan pilih asesmen yang diinginkan'" />
-    <search-input class="my-4 text-center"></search-input>
+    <search-input v-model="search" class="my-4 text-center" @input="fetchData"></search-input>
 
     <!-- data tabel -->
     <kunci-table :header-table="header" :data="items">
@@ -24,8 +24,9 @@
 <script>
 import TitleAsesmen from '~/components/TitleAsesmen.vue'
 import KunciButton from '~/components/KunciButton.vue'
+import SearchInput from '~/components/SearchInput.vue'
 export default {
-  components: { TitleAsesmen, KunciButton },
+  components: { TitleAsesmen, KunciButton, SearchInput },
   layout: 'participant',
   auth: false,
   data() {

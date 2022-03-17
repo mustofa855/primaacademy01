@@ -88,10 +88,6 @@ export default {
     },
     toRegistration(e) {
       this.$store.commit('registration/SetRegistration', e)
-      // eslint-disable-next-line no-console
-      console.log(this.$route);
-      // eslint-disable-next-line no-console
-      console.log(`${this.$route.name}/${e.hash_name}`);
       this.$router.push(`${this.$route.name}/${e.hash_name}`,
       )
     }

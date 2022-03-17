@@ -100,14 +100,14 @@ export default {
         }).catch((error) => {
           // eslint-disable-next-line no-console
           console.log(error.response);
-          this.$swal({
-            title: 'Gagal',
-            icon: 'error',
-            text: error.response.data.error,
-            type: 'error',
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          // this.$swal({
+          //   title: 'Gagal',
+          //   icon: 'error',
+          //   text: error.response.data.error,
+          //   type: 'error',
+          //   showConfirmButton: false,
+          //   timer: 1500,
+          // });
         });
       }
     },

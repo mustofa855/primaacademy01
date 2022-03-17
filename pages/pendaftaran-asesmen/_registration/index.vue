@@ -23,13 +23,14 @@
       :items="items"
       :endpoint="endpoint"
       :redirect="''"
+      isFormData
       class="flex flex-col gap-4"
     >
       <card :title="'Data Pribadi'" class="flex flex-col gap-4">
         <div class="flex flex-1 gap-4">
           <div class="flex-grow">
             <FormulateInput
-              v-model="items.name"
+              v-model="items.full_name"
               type="text"
               label="Nama"
               placeholder="Nama"
@@ -37,7 +38,7 @@
               error-behavior="live"
             />
             <FormulateInput
-              v-model="items.name"
+              v-model="items.nik"
               type="text"
               label="NIK"
               placeholder="NIK"
@@ -45,7 +46,7 @@
               error-behavior="live"
             />
             <FormulateInput
-              v-model="items.name"
+              v-model="items.place_birth"
               type="text"
               label="Tempat Lahir"
               placeholder="Tempat Lahir"
@@ -53,7 +54,7 @@
               error-behavior="live"
             />
             <FormulateInput
-              v-model="items.name"
+              v-model="items.date_birth"
               type="date"
               label="Tanggal Lahir"
               placeholder="Tanggal Lahir"
@@ -61,6 +62,7 @@
               error-behavior="live"
             />
             <FormulateInput
+              v-model="items.gender"
               type="select"
               label="Jenis Kelamin"
               placeholder="Jenis Kelamin"
@@ -71,6 +73,7 @@
               validation="required"
             />
             <FormulateInput
+              v-model="items.citizenship"
               type="select"
               label="Kebangsaan"
               placeholder="Kebangsaan"
@@ -81,6 +84,7 @@
               validation="required"
             />
             <FormulateInput
+              v-model="items.signature"
               type="image"
               name="signnature"
               label="Tanda Tangan"
@@ -95,12 +99,14 @@
           </div>
           <div class="flex-grow">
             <FormulateInput
+              v-model="items.address"
               type="textarea"
               label="Alamat rumah"
               validation="required|max:150"
               error-behavior="live"
             />
             <FormulateInput
+              v-model="items.postal_code"
               type="text"
               label="Kode Pos"
               placeholder="Kode Pos"
@@ -108,6 +114,7 @@
               error-behavior="live"
             />
             <FormulateInput
+              v-model="items.no_telp"
               type="number"
               label="Nomor Telepon"
               placeholder="Nomor Telepon"
@@ -115,13 +122,15 @@
               error-behavior="live"
             />
             <FormulateInput
-              type="number"
+              v-model="items.email"
+              type="email"
               label="Email"
               placeholder="Email"
               validation="required|email"
               error-behavior="live"
             />
             <FormulateInput
+              v-model="items.qualification"
               type="select"
               label="Kualifikasi Pendidikan"
               placeholder="Kualifikasi Pendidikan"
@@ -146,6 +155,7 @@
           <card-title>Tujuan Asesmen</card-title>
           <div class="flex flex-row">
             <FormulateInput
+              v-model="items.assessment_goals"
               type="select"
               label="Pilih Tujuan Asesmen"
               placeholder="Pilih Tujuan Asesmen"
@@ -160,7 +170,7 @@
       </card>
       <card :title="'Data Akun'">
         <FormulateInput
-          v-model="items.name"
+          v-model="items.username"
           type="text"
           label="Username"
           placeholder="Username"
@@ -168,7 +178,7 @@
           error-behavior="live"
         />
         <FormulateInput
-          v-model="items.name"
+          v-model="items.password"
           type="password"
           label="Password"
           placeholder="Password"
@@ -176,7 +186,7 @@
           error-behavior="live"
         />
         <FormulateInput
-          v-model="items.name"
+          v-model="items.confirm_password"
           type="password"
           label="Ulangi Password"
           placeholder="Ulangi Password"
@@ -188,7 +198,7 @@
         <div class="flex flex-1 gap-4">
           <div class="flex-grow">
             <FormulateInput
-              v-model="items.name"
+              v-model="items.institution_occupation"
               type="text"
               label="Perusahaan/Lembaga"
               placeholder="Perusahaan/Lembaga"
@@ -196,7 +206,7 @@
               error-behavior="live"
             />
             <FormulateInput
-              v-model="items.name"
+              v-model="items.position_occupation"
               type="text"
               label="Jabatan"
               placeholder="Jabatan"
@@ -204,6 +214,7 @@
               error-behavior="live"
             />
             <FormulateInput
+              v-model="items.address_occupation"
               type="textarea"
               label="Alamat Lembaga"
               validation="required|max:150"
@@ -212,7 +223,7 @@
           </div>
           <div class="flex-grow">
             <FormulateInput
-              v-model="items.name"
+              v-model="items.postal_code_occupation"
               type="text"
               label="Kode Pos"
               placeholder="Kode Pos"
@@ -220,7 +231,7 @@
               error-behavior="live"
             />
             <FormulateInput
-              v-model="items.name"
+              v-model="items.no_telp_occupation"
               type="number"
               label="Nomor Telepon"
               placeholder="Nomor Telepon"
@@ -228,7 +239,8 @@
               error-behavior="live"
             />
             <FormulateInput
-              type="number"
+              v-model="items.email_occupation"
+              type="email"
               label="Email"
               placeholder="Email"
               validation="required|email"
@@ -267,7 +279,29 @@ export default {
     return {
       endpoint: 'participant/register/create',
       items: {
-        name: ''
+        full_name: '',
+        nik: '',
+        place_birth: '',
+        date_birth: '',
+        gender: '',
+        citizenship: '',
+        signature: '',
+        address: '',
+        postal_code: '',
+        no_telp: '',
+        email: '',
+        qualification: '',
+        assessment_hash_name: this.$store.state.registration.hashName,
+        assessment_goals: '',
+        username: '',
+        password: '',
+        confirm_password: '',
+        institution_occupation: '',
+        position_occupation: '',
+        postal_code_occupation: '',
+        no_telp_occupation: '',
+        email_occupation: '',
+        address_occupation: '',
       },
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <FormulateForm v-slot="{ hasErrors }" :values="items" @submit="confirm">
-    <slot v-bind="{  hasErrors  }" />
+    <slot v-bind="{ hasErrors }" />
   </FormulateForm>
 </template>
 
@@ -33,6 +33,11 @@ export default {
       default: false,
       required: false,
     },
+    isCustomError: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
   },
 
   computed: {
@@ -43,94 +48,96 @@ export default {
 
   methods: {
     submit() {
-      const formData = new FormData();
-      const data = {};
+      const formData = new FormData()
+      const data = {}
       // formData.forEach((value, key) => {
       //   data[key] = value;
       // });
       for (const prop in this.items) {
-        formData.append(prop, this.items[prop]);
+        formData.append(prop, this.items[prop])
       }
 
-
       if (this.itemUpdateId) {
-        data.id = this.itemUpdateId;
-        this.$axios.post(`${this.endpoint}/${this.itemUpdateId}`, formData).then((res) => {
-          this.$emit('submit');
-          this.$swal({
-            title: res.message,
-            text: 'Data Berhasil Diperbarui',
-            type: 'success',
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          this.$router.push(this.redirect);
-        }).catch((error) => {
-          // eslint-disable-next-line no-console
-          console.log(error);
-          this.$swal({
-            title: 'Gagal',
-            icon: 'error',
-            text: error.response.data.message,
-            type: 'error',
-            showConfirmButton: false,
-            timer: 2000,
-          });
-        });
+        data.id = this.itemUpdateId
+        this.$axios
+          .post(`${this.endpoint}/${this.itemUpdateId}`, formData)
+          .then((res) => {
+            this.$emit('submit')
+            this.$swal({
+              title: res.message,
+              text: 'Data Berhasil Diperbarui',
+              type: 'success',
+              showConfirmButton: false,
+              timer: 1500,
+            })
+            this.$router.push(this.redirect)
+          })
+          .catch((error) => {
+            // eslint-disable-next-line no-console
+            console.log(error)
+            this.$swal({
+              title: 'Gagal',
+              icon: 'error',
+              text: error.response.data.message,
+              type: 'error',
+              showConfirmButton: false,
+              timer: 2000,
+            })
+          })
       } else {
-        // eslint-disable-next-line no-console
-        console.log(formData);
-        // eslint-disable-next-line no-console
-        console.log(this.items);
-        this.$axios.post(this.endpoint, this.isFormData ? formData : this.items).then((res) => {
-          this.$emit('submit');
+        this.$axios
+          .post(this.endpoint, this.isFormData ? formData : this.items)
+          .then((res) => {
+            this.$emit('submit')
 
-          this.$swal({
-            title: res.message,
-            icon: 'success',
-            text: 'Data Berhasil Ditambahkan',
-            type: 'success',
-            showConfirmButton: false,
-            timer: 2000,
-          }).then(() => {
-            this.$emit('submited');
-            if (this.redirect)
-              this.$router.push(this.redirect);
-          });
-        }).catch((error) => {
-          // eslint-disable-next-line no-console
-          console.log(error.response);
-          // this.$swal({
-          //   title: 'Gagal',
-          //   icon: 'error',
-          //   text: error.response.data.error,
-          //   type: 'error',
-          //   showConfirmButton: false,
-          //   timer: 1500,
-          // });
-        });
+            this.$swal({
+              title: res.message,
+              icon: 'success',
+              text: 'Data Berhasil Ditambahkan',
+              type: 'success',
+              showConfirmButton: false,
+              timer: 2000,
+            }).then(() => {
+              this.$emit('submited')
+              if (this.redirect) this.$router.push(this.redirect)
+            })
+          })
+          .catch((error) => {
+            // eslint-disable-next-line no-console
+            console.log(error.response)
+            if (!this.isCustomError) {
+              this.$swal({
+                title: 'Gagal',
+                icon: 'error',
+                text: error.response.data.error,
+                type: 'error',
+                showConfirmButton: false,
+                timer: 1500,
+              })
+            } else {
+              this.$emit('error', error.response.data)
+            }
+          })
       }
     },
 
     confirm() {
-      this.$swal(
-        {
-          title: 'Data akan ditambahkan?',
-          text: "Data sudah benar?",
-          icon: 'question',
-          showCancelButton: true,
-          confirmButtonText: 'Tambahkan',
-          cancelButtonText: 'Batalkan',
-          reverseButtons: true
-        }
-      ).then(res => {
+      this.$swal({
+        title: 'Data akan ditambahkan?',
+        text: 'Data sudah benar?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Tambahkan',
+        cancelButtonText: 'Batalkan',
+        reverseButtons: true,
+      }).then((res) => {
         if (res.isConfirmed) {
-          this.submit();
+          this.submit()
         }
-      });
+      })
     },
 
-    errorAlert(){
+    errorAlert() {
       this.$swal({
         title: 'Gagal',
         icon: 'error',
@@ -138,7 +145,7 @@ export default {
         type: 'error',
         showConfirmButton: false,
         timer: 1500,
-      });
+      })
       this.$swal({
         title: 'Gagal',
         icon: 'error',
@@ -146,7 +153,7 @@ export default {
         type: 'error',
         showConfirmButton: false,
         timer: 1500,
-      });
+      })
     },
   },
 }

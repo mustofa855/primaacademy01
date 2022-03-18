@@ -5,26 +5,28 @@
       :subtitle="`${$store.state.registration.name} Dipilih`"
     />
     <breadcrumbs
-      :items="[{
-        label: 'Beranda',
-        to: '/pendaftaran-asesmen',
-        active: true
-      }
-        ,
-      {
-        label: `${$store.state.registration.name}`,
-        to: 'pendaftaran-asesmen/registration',
-        active: false
-      }
+      :items="[
+        {
+          label: 'Beranda',
+          to: '/pendaftaran-asesmen',
+          active: true,
+        },
+        {
+          label: `${$store.state.registration.name}`,
+          to: 'pendaftaran-asesmen/registration',
+          active: false,
+        },
       ]"
     />
     <kunci-form
       v-slot="{ hasErrors }"
+      class="flex flex-col gap-4"
       :items="items"
       :endpoint="endpoint"
-      :redirect="''"
-      isFormData
-      class="flex flex-col gap-4"
+      :redirect="'/login'"
+      is-form-data
+      is-custom-error
+      @error="error"
     >
       <card :title="'Data Pribadi'" class="flex flex-col gap-4">
         <div class="flex flex-1 gap-4">
@@ -84,18 +86,24 @@
               validation="required"
             />
             <FormulateInput
-              v-model="items.signature"
               type="image"
               name="signnature"
               label="Tanda Tangan"
               help="Select a png, jpg to upload."
               validation="required|mime:image/jpeg,image/png"
-            />
+              image-behavior="file"
+              @input="image"
+            ></FormulateInput>
+            <!-- <div class>
+              <div class="font-bold">Label</div>
+              <input type="file" name="img" accept="image/*" @input="image" />
+            </div>-->
             <a
               href="https://www.signwell.com/online-signature/draw/"
               target="_blank"
               class="text-primary"
-            >Klik disini jika belum mempunyai tanda tangan</a>
+              >Klik disini jika belum mempunyai tanda tangan</a
+            >
           </div>
           <div class="flex-grow">
             <FormulateInput
@@ -107,10 +115,10 @@
             />
             <FormulateInput
               v-model="items.postal_code"
-              type="text"
+              type="number"
               label="Kode Pos"
               placeholder="Kode Pos"
-              validation="required"
+              validation="required|between:1,6,length"
               error-behavior="live"
             />
             <FormulateInput
@@ -118,7 +126,7 @@
               type="number"
               label="Nomor Telepon"
               placeholder="Nomor Telepon"
-              validation="required"
+              validation="required|between:8,16,length"
               error-behavior="live"
             />
             <FormulateInput
@@ -224,10 +232,10 @@
           <div class="flex-grow">
             <FormulateInput
               v-model="items.postal_code_occupation"
-              type="text"
+              type="number"
               label="Kode Pos"
               placeholder="Kode Pos"
-              validation="required"
+              validation="required|between:1,6,length"
               error-behavior="live"
             />
             <FormulateInput
@@ -256,8 +264,11 @@
               class="!bg-white !text-gray-600 border-gray-600 border shadow-none hover:!bg-gray-600 hover:!text-white"
               type="button"
               @click="goBack"
-            >Kembali</kunci-button>
-            <kunci-button type="submit" :disabled="hasErrors">Tambah</kunci-button>
+              >Kembali</kunci-button
+            >
+            <kunci-button type="submit" :disabled="hasErrors"
+              >Tambah</kunci-button
+            >
           </div>
         </template>
       </card>
@@ -304,9 +315,31 @@ export default {
         address_occupation: '',
       },
     }
-  }
+  },
+  methods: {
+    image(e) {
+      if (e) {
+        this.items.signature = e.fileList[0]
+      }
+    },
+    error(e) {
+      const error = e.errors.map((e) => `<div>${e.msg}</div><br>`)
+
+      let errorMsg = ''
+      error.forEach((element) => {
+        errorMsg += element
+      })
+      this.$swal.fire({
+        title: 'Terjadi Kesalahan',
+        html: errorMsg,
+        icon: 'error',
+      })
+    },
+    goBack() {
+      this.$router.push('/pendaftaran-asesmen')
+    },
+  },
 }
 </script>
 
-<style>
-</style>
+<style></style>

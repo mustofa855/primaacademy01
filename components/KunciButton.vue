@@ -2,7 +2,7 @@
   <button
     class="p-2 px-4 text-white rounded-md shadow-md duration-200 ease-out transition bg-primary hover:bg-primary-shade relative group"
     :class="`${disabled ? '!bg-gray-300 hover:cursor-not-allowed' : ''} ${dense ? 'p-2 px-2' : ''}`"
-    @click="click"
+    @click="click()"
   >
     <span
       v-if="tooltip"

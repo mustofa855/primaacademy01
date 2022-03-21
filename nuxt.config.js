@@ -18,6 +18,7 @@ export default {
   plugins: [
     { src: '~/plugins/persistedState.js' },
     { src: '~/plugins/charRemove.js' },
+    { src: '~/plugins/global.js' },
     // { src: '~/plugins/vSelect.js' },
   ],
 

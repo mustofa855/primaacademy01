@@ -323,12 +323,8 @@ export default {
       }
     },
     error(e) {
-      const error = e.errors.map((e) => `<div>${e.msg}</div><br>`)
+      const errorMsg = this.$errorMessages(e.response.data.errors)
 
-      let errorMsg = ''
-      error.forEach((element) => {
-        errorMsg += element
-      })
       this.$swal.fire({
         title: 'Terjadi Kesalahan',
         html: errorMsg,

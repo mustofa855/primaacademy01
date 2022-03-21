@@ -85,16 +85,15 @@ export default {
     login() {
       this.$auth
         .loginWith('participant', { data: this.items })
-        .then((res) => {
-          // eslint-disable-next-line no-console
-          console.log(res.data)
+        .then(() => {
           this.$router.push('/dashboard')
         })
         .catch((err) => {
+          const error = this.$errorMessages(err.response.data.errors)
           // sweet alert
           this.$swal.fire({
             title: 'Gagal',
-            text: err.response.data.message,
+            html: error,
             icon: 'error',
             confirmButtonText: 'Oke',
           })

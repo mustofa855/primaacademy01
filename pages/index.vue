@@ -63,9 +63,11 @@
               validation-name="Password"
             />
             <!-- bagian ingat password dan lupa pass -->
-            <div class="grid grid-cols-2 font-semibold my-4">
+            <div class="flex flex-row justify-between font-semibold my-4">
               <div>Ingatkan Password</div>
-              <div class="text-right">Lupa Password?</div>
+              <div class="hover:cursor-pointer" @click="forgetPass">
+                Lupa Password?
+              </div>
             </div>
 
             <!-- button login -->
@@ -117,6 +119,15 @@ export default {
             confirmButtonText: 'Oke',
           })
         })
+    },
+    forgetPass() {
+      // swal
+      this.$swal.fire({
+        title: 'Lupa Password?',
+        text: 'Relax dan tenang, coba untuk menarik napas dan mengingat kembali password anda 😉',
+        icon: 'info',
+        confirmButtonText: 'Oke',
+      })
     },
   },
 }

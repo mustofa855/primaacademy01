@@ -243,7 +243,7 @@
               type="number"
               label="Nomor Telepon"
               placeholder="Nomor Telepon"
-              validation="required"
+              validation="required|between:8,16,length"
               error-behavior="live"
             />
             <FormulateInput

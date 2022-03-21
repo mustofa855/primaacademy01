@@ -136,25 +136,6 @@ export default {
         }
       })
     },
-
-    errorAlert() {
-      this.$swal({
-        title: 'Gagal',
-        icon: 'error',
-        text: 'Data tidak boleh kosong',
-        type: 'error',
-        showConfirmButton: false,
-        timer: 1500,
-      })
-      this.$swal({
-        title: 'Gagal',
-        icon: 'error',
-        text: 'Data tidak boleh kosong',
-        type: 'error',
-        showConfirmButton: false,
-        timer: 1500,
-      })
-    },
   },
 }
 </script>

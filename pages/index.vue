@@ -21,7 +21,7 @@
         <!-- logo section -->
         <div class="flex flex-1 mb-8">
           <img
-            :src="('/kuci_logo_v.svg')"
+            :src="'/kuci_logo_v.svg'"
             alt="Kunci Transformasi Digital"
             class="max-w-52 mx-auto"
           />
@@ -35,7 +35,8 @@
           </h1>
           <p class="text-justify">
             Selamat datang di
-            <span class="text-primary">KunciLSP</span>. Silahkan login dengan akun masing - masing dibawah ini.
+            <span class="text-primary">KunciLSP</span>. Silahkan login dengan
+            akun masing - masing dibawah ini.
           </p>
         </div>
 
@@ -72,7 +73,9 @@
               <button
                 type="submit"
                 class="bg-primary px-6 !block text-white p-4 rounded-lg hover:bg-primary-shade transition duration-300 ease-out"
-              >Masuk</button>
+              >
+                Masuk
+              </button>
             </div>
           </form>
         </div>
@@ -98,18 +101,23 @@ export default {
   },
   methods: {
     login() {
-      this.$auth.loginWith('local', { data: this.loginData }).then((res) => {
-        // eslint-disable-next-line no-console
-        console.log(res.data)
-        this.$router.push('/dashboard')
-      }).catch(err => {
-        // eslint-disable-next-line no-console
-        console.log(err)
-
-        // this.$router.push('/dashboard')
-        // this.$router.push('/login')
-      })
-    }
+      this.$auth
+        .loginWith('local', { data: this.loginData })
+        .then((res) => {
+          // eslint-disable-next-line no-console
+          console.log(res.data)
+          this.$router.push('/dashboard')
+        })
+        .catch((err) => {
+          // sweet alert
+          this.$swal.fire({
+            title: 'Gagal',
+            text: err.response.data.message,
+            icon: 'error',
+            confirmButtonText: 'Oke',
+          })
+        })
+    },
   },
 }
 </script>
@@ -117,7 +125,7 @@ export default {
 <style scoped>
 .bg {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("./static/loginimage.jpg");
+    url('./static/loginimage.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

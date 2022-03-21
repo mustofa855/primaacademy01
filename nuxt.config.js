@@ -114,6 +114,24 @@ export default {
           user: { url: '/auth/profile', method: 'get' },
         },
       },
+      participant: {
+        scheme: 'local',
+        token: {
+          property: 'data.token',
+          global: true,
+          required: true,
+          type: 'Bearer',
+        },
+        user: {
+          property: 'data',
+          // autoFetch: true
+        },
+        endpoints: {
+          login: { url: '/auth/login-participant', method: 'post' },
+          logout: { url: '', method: 'get' },
+          user: { url: '/auth/profile-participant', method: 'get' },
+        },
+      },
     },
     redirect: {
       login: '/',

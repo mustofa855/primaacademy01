@@ -43,7 +43,7 @@
         <!-- form sectionn -->
         <div class="mx-auto max-w-96">
           <form @submit.prevent="login">
-            <FormulateInput
+            <!-- <FormulateInput
               v-model="loginData.username"
               label="Username"
               type="text"
@@ -53,6 +53,13 @@
               label-class="font-semibold"
               input-class="border border-gray-400 rounded px-3 py-2 leading-none focus:border-primary outline-none border-box w-full duration-200 ease-out transition"
               errors-class="text-danger"
+            /> -->
+            <FormulateInput
+              v-model="loginData.username"
+              label="Username"
+              type="text"
+              placeholder="username"
+              validation="required"
             />
             <FormulateInput
               v-model="loginData.password"

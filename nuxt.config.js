@@ -12,7 +12,9 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: [
+    '@/node_modules/@braid/vue-formulate/themes/snow/snow.scss',
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -115,24 +117,6 @@ export default {
           user: { url: '/auth/profile', method: 'get' },
         },
       },
-      participant: {
-        scheme: 'local',
-        token: {
-          property: 'data.token',
-          global: true,
-          required: true,
-          type: 'Bearer',
-        },
-        user: {
-          property: 'data',
-          // autoFetch: true
-        },
-        endpoints: {
-          login: { url: '/auth/login-participant', method: 'post' },
-          logout: { url: '', method: 'get' },
-          user: { url: '/auth/profile-participant', method: 'get' },
-        },
-      },
     },
     redirect: {
       login: '/',
@@ -156,21 +140,6 @@ export default {
     // proxy: true,
     // prefix: '/api/',
   },
-  // proxy: {
-  //   '/api/': process.env.baseUrl,
-  // },
-
-  // publicRuntimeConfig: {
-  //   axios: {
-  //     browserBaseURL: process.env.BROWSER_BASE_URL,
-  //   },
-  // },
-
-  // privateRuntimeConfig: {
-  //   axios: {
-  //     baseURL: process.env.BASE_URL,
-  //   },
-  // },
 
   env: {
     // url: process.env.baseUrl.replace('/api/', '/'),

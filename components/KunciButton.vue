@@ -1,13 +1,13 @@
 <template>
   <button
-    class="p-2 px-4 text-white rounded-md shadow-md duration-200 ease-out transition bg-primary hover:bg-primary-shade relative group"
+    class="p-2 px-4 text-white rounded-md shadow-md duration-200 ease-out transition relative group"
     :class="`${disabled ? '!bg-gray-300 hover:cursor-not-allowed' : ''} ${
       dense ? 'p-2 px-2' : ''
     } ${
       text
-        ? '!text-primary !bg-transparent shadow-none hover:text-primary-shade'
+        ? `!text-${color} !bg-transparent shadow-none hover:text-${color}-shade`
         : ''
-    }`"
+    } bg-${color} hover:bg-${color}-shade`"
     @click="click()"
   >
     <span
@@ -45,6 +45,10 @@ export default {
     tooltip: {
       type: String,
       default: '',
+    },
+    color: {
+      type: String,
+      default: 'primary',
     },
   },
   methods: {

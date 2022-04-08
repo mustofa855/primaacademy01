@@ -13,7 +13,9 @@
 
     <!-- action button -->
     <div v-if="!disabledButton">
-      <kunci-button @click="click">{{ buttonName }}</kunci-button>
+      <kunci-button :color="'secondary'" @click="click">{{
+        buttonName
+      }}</kunci-button>
     </div>
   </div>
 </template>
@@ -35,15 +37,19 @@ export default {
       type: Boolean,
       default: false,
     },
+    toPage: {
+      type: String,
+      default: '',
+    },
   },
   methods: {
     click() {
       this.$emit('buttonClick')
+
+      if (this.toPage) this.$router.push(this.toPage)
     },
   },
-
 }
 </script>
 
-<style>
-</style>
+<style></style>

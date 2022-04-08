@@ -8,7 +8,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/Klogo.svg' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/logo-prima.svg' }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -102,7 +102,7 @@ export default {
       local: {
         scheme: 'local',
         token: {
-          property: 'data.token',
+          property: 'token',
           global: true,
           required: true,
           type: 'Bearer',
@@ -112,9 +112,9 @@ export default {
           // autoFetch: true
         },
         endpoints: {
-          login: { url: '/auth/login', method: 'post' },
+          login: { url: '/employee/login', method: 'post' },
           logout: { url: '', method: 'get' },
-          user: { url: '/auth/profile', method: 'get' },
+          user: { url: '/employee/profile', method: 'get', propertyName: false },
         },
       },
     },

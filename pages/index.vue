@@ -21,7 +21,7 @@
         <!-- logo section -->
         <div class="flex flex-1 mb-8">
           <img
-            :src="'/kuci_logo_v.svg'"
+            :src="'/logo-prima.svg'"
             alt="Kunci Transformasi Digital"
             class="max-w-52 mx-auto"
           />
@@ -30,13 +30,11 @@
         <!-- title section -->
         <div class="mb-8">
           <h1 class="text-4xl font-bold text-gray-900 pb-2">
-            Selamat Datang di
-            <span class="text-primary">KunciLSP</span>
+            Selamat Datang di Prima Academy
           </h1>
           <p class="text-justify">
-            Selamat datang di
-            <span class="text-primary">KunciLSP</span>. Silahkan login dengan
-            akun masing - masing dibawah ini.
+            Selamat datang di Prima Academy. Silahkan login dengan akun masing-
+            masing dibawah!
           </p>
         </div>
 
@@ -90,7 +88,7 @@
         </div>
       </div>
       <!-- bagian author -->
-      <div class="text-center">Copyright Kunci Transformasi Digital 2021</div>
+      <div class="text-center">Copyright Prima Academy 2022</div>
     </div>
   </div>
 </template>
@@ -112,9 +110,8 @@ export default {
     login() {
       this.$auth
         .loginWith('local', { data: this.loginData })
-        .then((res) => {
-          // eslint-disable-next-line no-console
-          console.log(res.data)
+        .then(() => {
+          this.$auth.fetchUser()
           this.$router.push('/dashboard')
         })
         .catch((err) => {

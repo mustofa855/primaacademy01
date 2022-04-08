@@ -18,4 +18,35 @@ export default (context, inject) => {
   // Inject $excerpt(msg) in Vue, context and store.
   inject('errorMessages', errorMessages)
   // For Nuxt <= 2.12, also add 👇
+
+
+  /**
+   * get province
+   * @param {number} page
+   */
+  const getProvince = async (page = 1) => {
+    await context.$axios.$get('village/province', {
+      params: {
+        page
+      }
+    }).then((response) => {
+      return response.data;
+    })
+  }
+  inject('getProvince', getProvince)
+
+  /**
+   * get city
+   * @param {*} provinceId
+   */
+  const getCity = async (provinceId) => {
+    await context.$axios.$get('village/province', {
+      params: {
+        province_id: provinceId
+      }
+    }).then((response) => {
+      return response.data;
+    })
+  }
+  inject('getCity', getCity)
 }

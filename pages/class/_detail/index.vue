@@ -19,7 +19,7 @@
 
     <!-- control bar -->
     <control-bar
-      :customb-bar="true"
+      :custom-bar="true"
       :button-name="'Tambah Video Baru'"
       :to-page="`/class/${$store.state.class.name}/create`"
     >
@@ -38,18 +38,80 @@
         </div>
       </div>
     </control-bar>
+
+    <!-- data tabel -->
+    <kunci-table :header-table="tableHeader" :data="items">
+      <template #no="{ index }">{{ index + pagination.from }}</template>
+      <template #action="{ item }">
+        <kunci-button
+          :dense="true"
+          class="bg-success hover:bg-success-shade"
+          @click="toDetail(item)"
+        >
+          <img class="w-4" :src="'/eye.svg'" />
+        </kunci-button>
+      </template>
+    </kunci-table>
+    <!-- pagination -->
+    <pagination
+      :pagination="pagination"
+      @refetch="paginate"
+      @paginate="paginate"
+    />
   </div>
 </template>
 
 <script>
 import ControlBar from '~/components/ControlBar.vue'
+import KunciTable from '~/components/KunciTable.vue'
+import Pagination from '~/components/Pagination.vue'
 import TitleBar from '~/components/TitleBar.vue'
 export default {
-  components: { TitleBar, ControlBar },
+  components: { TitleBar, ControlBar, KunciTable, Pagination },
   layout: 'admin',
   data() {
     return {
       detail: null,
+      pagination: {
+        current_page: 1,
+        first_page_url: '',
+        from: 1,
+        last_page: 1,
+        last_page_url: '',
+        next_page_url: null,
+        path: '',
+        per_page: 10,
+        prev_page_url: null,
+        to: 2,
+        total: 0,
+      },
+      tableHeader: [
+        {
+          text: 'No',
+          key: 'no',
+        },
+        {
+          text: 'Nama Video',
+          key: 'name',
+        },
+        {
+          text: 'Free Watch?',
+          key: 'email',
+        },
+        {
+          text: 'Praktek',
+          key: 'email',
+        },
+        {
+          text: 'Level',
+          key: 'email',
+        },
+        {
+          text: 'Aksi',
+          key: 'action',
+        },
+      ],
+      items: [],
     }
   },
   mounted() {

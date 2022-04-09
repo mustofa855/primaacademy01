@@ -42,9 +42,54 @@
 
     <!-- footer -->
     <div
-      class="flex flex-col px-4 py-2 text-gray-400 font-medium bottom-0 absolute w-full"
+      class="flex flex-col px-4 py-2 gap-4 text-gray-400 font-medium bottom-0 absolute w-full"
     >
-      <div class="flex flex-col items-center mb-4 relative group">
+      <!-- role management  -->
+      <div class="flex flex-col gap-4 items-center relative group">
+        <!-- role management -->
+        <div class="w-full cursor-pointer" @click="toggleRole">
+          <div class="flex gap-4">
+            <!-- avatar -->
+            <div class="rounded-full bg-primary">
+              <img :src="'/support.svg'" alt="profile" class="m-aut w-12" />
+            </div>
+            <!-- username and role -->
+            <div class="flex flex-col">
+              <div>username</div>
+              <div>role</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- role section -->
+        <transition
+          enter-from-class="transform opacity-0"
+          enter-active-class="duration-200 ease-in"
+          enter-to-class="opacity-100"
+          leave-from-class="opacity-100"
+          leave-active-class="duration-200 ease-out"
+          leave-to-class="transform opacity-0"
+        >
+          <div
+            v-if="roleOptions"
+            class="absolute -top-48 z-10 rounded-md shadow-dark shadow-md w-full p-2 bg-white"
+          >
+            <ul class="flex flex-col gap-2">
+              <li
+                v-for="item in $store.state.roleManagement.roles"
+                :key="item"
+                class="cursor-pointer hover:bg-gray-200 p-2 transition-colors duration-200 ease-out"
+                @click="changeRole(item.id)"
+              >
+                {{ item.name }}
+              </li>
+            </ul>
+          </div>
+        </transition>
+      </div>
+
+      <!-- account management -->
+      <div class="flex flex-col gap-4 items-center relative group">
         <!-- create profile -->
         <div class="w-full cursor-pointer" @click="toggleOpen">
           <div class="flex gap-4">
@@ -71,7 +116,7 @@
         >
           <div
             v-if="isOpen"
-            class="absolute -top-20 rounded-md shadow-dark shadow-md w-full p-2"
+            class="absolute -top-20 rounded-md shadow-dark shadow-md w-full p-2 bg-white"
           >
             <ul class="flex flex-col gap-2">
               <li class="cursor-pointer">Setting</li>
@@ -124,6 +169,7 @@ export default {
         },
       ],
       isOpen: false,
+      roleOptions: false,
     }
   },
   computed: {
@@ -169,6 +215,31 @@ export default {
     },
     toggleOpen() {
       this.isOpen = !this.isOpen
+    },
+    toggleRole() {
+      this.roleOptions = !this.roleOptions
+    },
+    changeRole(e) {
+      this.$store.commit('roleManagement/changeRole', e)
+      this.toggleRole()
+      this.$axios.$post(`role/update-exist/`, { role_id: e }).then(() => {
+        this.$swal({
+          title: 'Berhasil',
+          text: 'Anda berhasil mengubah role',
+          type: 'success',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+          focusCancel: true,
+          preConfirm: () => {
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve()
+              }, 200)
+            })
+          },
+        })
+      })
     },
   },
 }

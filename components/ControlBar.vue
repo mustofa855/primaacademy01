@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-between items-center mb-4">
     <!-- searchbar -->
-    <div class>
+    <div v-if="!customBar">
       <input
         type="text"
         :value="value"
@@ -9,6 +9,9 @@
         class="w-80 shadow-md rounded-md p-2 px-4 transition focus:ring focus:ring-primary outline-none"
         @input="$emit('input', $event.target.value)"
       />
+    </div>
+    <div v-else>
+      <slot />
     </div>
 
     <!-- action button -->
@@ -40,6 +43,10 @@ export default {
     toPage: {
       type: String,
       default: '',
+    },
+    customBar: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {

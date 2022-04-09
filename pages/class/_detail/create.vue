@@ -1,13 +1,13 @@
 <template>
   <div>
     <create-page
-      :title="'Tambah Kelas'"
-      :subtitle="'Anda dapat menambah Kelas baru.'"
-      :form-title="'Form Tambah Kelas'"
-      endpoint="classes/insert"
+      :title="'Tambah Video Baru'"
+      :subtitle="'Tambah Video Baru'"
+      :form-title="'Form Tambah Video'"
+      endpoint="learning/create-learning"
       :items="items"
-      :redirect="'/class'"
-      :back="'/class'"
+      :redirect="`/class/${$store.state.class.name}`"
+      :back="`/class/${$store.state.class.name}`"
       :select2="true"
       is-form-data
     >
@@ -30,14 +30,6 @@
             error-behavior="live"
           />
           <FormulateInput
-            v-model="items.class_category_id"
-            :options="category"
-            type="select"
-            placeholder="Pilih Kategori"
-            validation="required"
-            label="Kategori"
-          />
-          <FormulateInput
             v-model="items.is_premium"
             :options="{ 2: 'Tidak' }"
             type="checkbox"
@@ -47,12 +39,13 @@
             error-behavior="live"
           />
           <FormulateInput
-            v-model="items.class_level_id"
-            :options="level"
-            type="select"
-            placeholder="Pilih Level"
+            v-model="items.is_premium"
+            :options="{ 2: 'Tidak' }"
+            type="checkbox"
+            label="Premium Kelas?"
+            input-class="flex items-start"
             validation="required"
-            label="Level"
+            error-behavior="live"
           />
         </div>
         <!-- section 2 -->
@@ -88,10 +81,11 @@ export default {
       items: {
         name: '',
         description: '',
+        video: '',
         is_premium: '',
-        class_level_id: '',
-        class_category_id: '',
-        thumbnail: '',
+        is_task: '',
+        class_id: '',
+        skill: [],
       },
       category: [],
       level: [],

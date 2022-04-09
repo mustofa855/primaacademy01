@@ -1,5 +1,8 @@
 <template>
-  <card class="flex flex-col flex-wrap gap-4 w-96 h-96">
+  <card
+    class="flex flex-col flex-wrap gap-4 w-96 h-96 hover:cursor-pointer"
+    @click="$emit('click')"
+  >
     <img :src="'/logo-prima.svg'" alt="Prima Academy" class="m-auto" />
     <h2 class="text-xl font-semibold">{{ title }}</h2>
     <template #actions>

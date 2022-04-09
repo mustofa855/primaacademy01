@@ -11,7 +11,7 @@
       :to-page="'/class/create'"
     />
     <div class="flex flex-wrap gap-4 mt-6">
-      <card-class> </card-class>
+      <card-class @click="toDetail()"> </card-class>
     </div>
 
     <!-- pagination -->
@@ -50,6 +50,37 @@ export default {
       search: null,
       items: [],
     }
+  },
+  mounted() {},
+  methods: {
+    // fetch data
+    async fetchData(currentPage) {
+      await this.$axios
+        .$get('class_category/get', {
+          params: {
+            page: currentPage || this.pagination.current_page,
+            search: this.search,
+            limit: this.pagination.per_page,
+          },
+        })
+        .then((res) => {
+          if (res) {
+            this.items = res.data
+            this.pagination.current_page = res.meta.current_page
+            this.pagination.total = res.meta.total_items
+            this.pagination.last_page = res.meta.last_page
+
+            this.pagination.from = res.meta.from
+            this.pagination.to = res.meta.to
+          }
+        })
+    },
+
+    toDetail() {
+      this.$store.commit('class/SET_ID', 1)
+      this.$store.commit('class/SET_NAME', 'kelas')
+      this.$router.push('/class/asdasd')
+    },
   },
 }
 </script>

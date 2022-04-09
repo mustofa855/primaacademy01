@@ -110,8 +110,10 @@ export default {
     login() {
       this.$auth
         .loginWith('local', { data: this.loginData })
-        .then(() => {
-          this.$auth.fetchUser()
+        .then(({ data }) => {
+          // this.$store.commit('role/SET_ROLE', 1)
+          // this.$auth.fetchUser()
+          this.$store.commit('roleManagement/setRole', data.data.roles)
           this.$router.push('/dashboard')
         })
         .catch((err) => {

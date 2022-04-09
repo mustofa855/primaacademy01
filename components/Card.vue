@@ -1,6 +1,6 @@
 <template>
   <!-- card section -->
-  <div class="bg-white shadow-md rounded-md p-4 px-8">
+  <div class="bg-white shadow-md rounded-md p-4 px-4">
     <!-- content section -->
     <CardTitle v-if="title">{{ title }}</CardTitle>
     <slot />
@@ -10,18 +10,18 @@
   </div>
 </template>
 <script>
-import CardTitle from "./CardTitle.vue";
+import CardTitle from './CardTitle.vue'
 export default {
-  name: "Card",
+  name: 'Card',
   components: { CardTitle },
   props: {
     title: {
       type: String,
-      default: "",
+      default: '',
     },
     position: {
       type: String,
-      default: "right",
+      default: 'right',
     },
   },
 }

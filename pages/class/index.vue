@@ -10,6 +10,9 @@
       :button-name="'Tambah Kelas Baru'"
       :to-page="'/class/create'"
     />
+    <div class="flex flex-wrap gap-4 mt-6">
+      <card-class> </card-class>
+    </div>
 
     <!-- pagination -->
     <!-- <pagination
@@ -21,12 +24,13 @@
 </template>
 
 <script>
+import CardClass from '~/components/CardClass.vue'
 import ControlBar from '~/components/ControlBar.vue'
 
 // import Pagination from '~/components/Pagination.vue'
 import TitleBar from '~/components/TitleBar.vue'
 export default {
-  components: { TitleBar, ControlBar },
+  components: { TitleBar, ControlBar, CardClass },
   layout: 'admin',
   data() {
     return {

@@ -34,6 +34,7 @@
             :options="category"
             type="select"
             placeholder="Pilih Kategori"
+            validation="required"
             label="Kategori"
           />
           <FormulateInput
@@ -42,6 +43,7 @@
             type="checkbox"
             label="Premium Kelas?"
             input-class="flex items-start"
+            validation="required"
             error-behavior="live"
           />
           <FormulateInput
@@ -49,6 +51,7 @@
             :options="level"
             type="select"
             placeholder="Pilih Level"
+            validation="required"
             label="Level"
           />
         </div>
@@ -59,7 +62,7 @@
             type="image"
             label="Thumbnail Kelas"
             help="Select a png, jpg or gif to upload."
-            validation="mime:image/jpeg,image/png"
+            validation="mime:image/jpeg,image/png|required"
             file-image-preview-image-class="max-h-96"
             @input="image"
           />

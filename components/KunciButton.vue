@@ -1,4 +1,15 @@
 <template>
+  <!-- <button
+    class="p-2 px-4 text-white rounded-md shadow-md duration-200 ease-out transition relative group"
+    :class="{
+      'bg-blue-800 text-white border-blue-800 hover:bg-transparent hover:text-blue-800 hover:border-blue-800':
+        color == 'primary',
+      'bg-transparent text-blue-800 border-blue-800 hover:bg-blue-800 hover:text-white hover:border-blue-800':
+        color == 'secondary',
+    }"
+    @click="click()"
+  > -->
+
   <button
     class="p-2 px-4 text-white rounded-md shadow-md duration-200 ease-out transition relative group"
     :class="`${disabled ? '!bg-gray-300 hover:cursor-not-allowed' : ''} ${
@@ -7,7 +18,7 @@
       text
         ? `!text-${color} !bg-transparent shadow-none hover:text-${color}-shade`
         : ''
-    } bg-${color} hover:bg-${color}-shade`"
+    } ${color == 'secondary' ? `bg-secondary hover:bg-secondary-shade` : ''} `"
     @click="click()"
   >
     <span

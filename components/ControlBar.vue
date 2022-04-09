@@ -13,7 +13,7 @@
 
     <!-- action button -->
     <div v-if="!disabledButton">
-      <kunci-button :color="'secondary'" @click="click">{{
+      <kunci-button color="secondary" @click="click">{{
         buttonName
       }}</kunci-button>
     </div>

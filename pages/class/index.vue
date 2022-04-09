@@ -11,7 +11,15 @@
       :to-page="'/class/create'"
     />
     <div class="flex flex-wrap gap-4 mt-6">
-      <card-class @click="toDetail()"> </card-class>
+      <card-class
+        v-for="item in items"
+        :id="item.id"
+        :key="item.id"
+        :image="item.thumbnail"
+        :title="item.name"
+        @click="toDetail(item)"
+      >
+      </card-class>
     </div>
 
     <!-- pagination -->
@@ -51,12 +59,14 @@ export default {
       items: [],
     }
   },
-  mounted() {},
+  mounted() {
+    this.fetchData()
+  },
   methods: {
     // fetch data
     async fetchData(currentPage) {
       await this.$axios
-        .$get('class_category/get', {
+        .$get('classes/get', {
           params: {
             page: currentPage || this.pagination.current_page,
             search: this.search,
@@ -76,10 +86,10 @@ export default {
         })
     },
 
-    toDetail() {
-      this.$store.commit('class/SET_ID', 1)
-      this.$store.commit('class/SET_NAME', 'kelas')
-      this.$router.push('/class/asdasd')
+    toDetail(e) {
+      this.$store.commit('class/SET_ID', e.id)
+      this.$store.commit('class/SET_NAME', e.name)
+      this.$router.push(`/class/${e.name}`)
     },
   },
 }

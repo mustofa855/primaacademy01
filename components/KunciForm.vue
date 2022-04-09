@@ -89,11 +89,9 @@ export default {
           .post(this.endpoint, this.isFormData ? formData : this.items)
           .then((res) => {
             this.$emit('submit')
-
             this.$swal({
-              title: res.message,
+              title: res.data.message,
               icon: 'success',
-              text: 'Data Berhasil Ditambahkan',
               type: 'success',
               showConfirmButton: false,
               timer: 2000,

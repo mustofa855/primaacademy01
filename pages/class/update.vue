@@ -1,14 +1,15 @@
 <template>
   <div>
     <create-page
-      :title="'Tambah Kelas'"
+      :title="'Update Kelas'"
       :subtitle="'Anda dapat menambah Kelas baru.'"
-      :form-title="'Form Tambah Kelas'"
-      endpoint="classes/insert"
+      :form-title="'Form Update Kelas'"
+      :endpoint="`classes/update/${$store.state.class.id}`"
       :items="items"
       :redirect="'/class'"
       :back="'/class'"
       :select2="true"
+      :labelButton="'Ubah'"
       is-form-data
     >
       <div class="grid grid-cols-2 gap-4">
@@ -58,6 +59,7 @@
         <!-- section 2 -->
         <div>
           <FormulateInput
+            v-model="images"
             class="maxh"
             type="image"
             label="Thumbnail Kelas"
@@ -93,6 +95,7 @@ export default {
         class_category_id: '',
         thumbnail: '',
       },
+      images: null,
       category: [],
       level: [],
     }
@@ -100,6 +103,7 @@ export default {
   mounted() {
     this.getCategory()
     this.getLevel()
+    this.fetchDetail()
   },
   methods: {
     image(e) {
@@ -112,8 +116,8 @@ export default {
         }
       }
     },
-    getCategory() {
-      this.$axios.$get('class_category/get').then((res) => {
+    async getCategory() {
+      await this.$axios.$get('class_category/get').then((res) => {
         this.category = res.data.map((e) => {
           return {
             value: e.id,
@@ -122,8 +126,8 @@ export default {
         })
       })
     },
-    getLevel() {
-      this.$axios.$get('class_level/get').then((res) => {
+    async getLevel() {
+      await this.$axios.$get('class_level/get').then((res) => {
         this.level = res.data.map((e) => {
           return {
             value: e.id,
@@ -131,6 +135,13 @@ export default {
           }
         })
       })
+    },
+    async fetchDetail() {
+      await this.$axios
+        .$get(`classes/detail/${this.$store.state.class.id}`)
+        .then(({ data }) => {
+          this.items = data
+        })
     },
   },
 }

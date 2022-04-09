@@ -1,14 +1,20 @@
 <template>
   <card
-    class="flex flex-col flex-wrap gap-4 w-96 h-96 hover:cursor-pointer"
+    class="flex flex-col flex-wrap gap-4 max-w-sm max-h-sm hover:cursor-pointer"
     @click="$emit('click')"
   >
-    <img :src="'/logo-prima.svg'" alt="Prima Academy" class="m-auto" />
+    <img :src="image" :alt="title" class="max-w-xs m-auto" />
     <h2 class="text-xl font-semibold">{{ title }}</h2>
     <template #actions>
-      <kunci-button class="rounded-full p-2 px-2" :color="'secondary'">
-        <img class="w-8" :src="'/edit.svg'" />
-      </kunci-button>
+      <div>
+        <kunci-button
+          class="rounded-full p-2 px-2"
+          :color="'secondary'"
+          @click="toDetail"
+        >
+          <img class="w-8" :src="'/edit.svg'" />
+        </kunci-button>
+      </div>
     </template>
   </card>
 </template>
@@ -32,15 +38,15 @@ export default {
       type: Object,
       default: () => {},
     },
+    id: {
+      type: String,
+      default: '',
+    },
   },
   methods: {
     toDetail() {
-      this.$router.push({
-        name: 'detail',
-        params: {
-          id: this.detail.id,
-        },
-      })
+      this.$store.commit('class/SET_ID', this.id)
+      this.$router.push(`${this.$route.path}/update`)
     },
   },
 }

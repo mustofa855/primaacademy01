@@ -139,7 +139,7 @@ export default {
           }
         })
     },
-    async fetchDataDetail(currentPage) {
+    async fetchDataDetail() {
       await this.$axios
         .$get(`classes/detail/${this.$store.state.class.id}`)
         .then(({ data }) => {

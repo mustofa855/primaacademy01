@@ -24,8 +24,14 @@
                   class="!bg-white !text-gray-600 border-gray-600 border shadow-none hover:!bg-gray-600 hover:!text-white"
                   type="button"
                   @click="goBack"
-                >Kembali</kunci-button>
-                <kunci-button type="submit" :disabled="hasErrors">Tambah</kunci-button>
+                  >Kembali</kunci-button
+                >
+                <kunci-button
+                  :color="'success'"
+                  type="submit"
+                  :disabled="hasErrors"
+                  >{{ labelButton }}</kunci-button
+                >
               </kunci-form>
             </template>
           </card>
@@ -47,8 +53,14 @@
                   class="!bg-white !text-gray-600 border-gray-600 border shadow-none hover:!bg-gray-600 hover:!text-white"
                   type="button"
                   @click="goBack"
-                >Kembali</kunci-button>
-                <kunci-button type="submit" :disabled="hasErrors">Tambah</kunci-button>
+                  >Kembali</kunci-button
+                >
+                <kunci-button
+                  class="!bg-success hover:!bg-success-shade"
+                  type="submit"
+                  :disabled="hasErrors"
+                  >Tambah</kunci-button
+                >
               </template>
             </card>
           </kunci-form>
@@ -115,14 +127,18 @@ export default {
       default: false,
       required: false,
     },
+    labelButton: {
+      type: String,
+      default: 'Tambah',
+      required: false,
+    },
   },
   methods: {
     goBack() {
       this.$router.push(this.back)
-    }
+    },
   },
 }
 </script>
 
-<style>
-</style>
+<style></style>

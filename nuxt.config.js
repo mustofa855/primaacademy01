@@ -21,6 +21,7 @@ export default {
     { src: '~/plugins/persistedState.js' },
     { src: '~/plugins/charRemove.js' },
     { src: '~/plugins/global.js' },
+    { src: "@/plugins/vue-multiselect.js", mode: "client" },
     // { src: '~/plugins/vSelect.js' },
   ],
 
@@ -112,8 +113,8 @@ export default {
           // autoFetch: true
         },
         endpoints: {
-          login: { url: '/employee/login', method: 'post' },
-          logout: { url: '', method: 'get' },
+          login: { url: '/auth/login', method: 'post' },
+          logout: { url: '/auth/logout', method: 'get' },
           user: { url: '/employee/profile', method: 'get', propertyName: false },
         },
       },

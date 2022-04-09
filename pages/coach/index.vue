@@ -5,21 +5,17 @@
       :title="'Pelatih'"
       :subtitle="'Pada menu ini anda dapat mengelola akun Pelatih.'"
     />
-    <control-bar
-      v-model="search"
-      :button-name="'Tambah Pelatih Baru'"
-      :to-page="'/coach/create'"
-    />
+    <control-bar v-model="search" :button-name="'Tambah Pelatih Baru'" />
     <!-- data tabel -->
     <kunci-table :header-table="tableHeader" :data="items">
       <template #no="{ index }">{{ index + pagination.from }}</template>
-      <template #action>
+      <template #action="{ item }">
         <kunci-button
           :dense="true"
           class="bg-success hover:bg-success-shade"
-          tooltip="Ubah"
+          @click="toDetail(item)"
         >
-          <img class="w-4" :src="'/edit.svg'" />
+          <img class="w-4" :src="'/eye.svg'" />
         </kunci-button>
       </template>
     </kunci-table>
@@ -76,6 +72,58 @@ export default {
       search: null,
       items: [],
     }
+  },
+  watch: {
+    pagination: {
+      handler() {
+        this.fetchData(this.pagination.current_page)
+      },
+      deep: true,
+    },
+    search: {
+      handler() {
+        this.fetchData(this.pagination.current_page)
+      },
+      deep: true,
+    },
+  },
+  mounted() {
+    this.fetchData()
+  },
+  methods: {
+    // for pagination
+    paginate(e) {
+      this.pagination.current_page = e
+    },
+
+    // fetch data
+    async fetchData(currentPage) {
+      await this.$axios
+        .$get('employee/get', {
+          params: {
+            page: currentPage || this.pagination.current_page,
+            search: this.search,
+            limit: this.pagination.per_page,
+          },
+        })
+        .then((res) => {
+          if (res) {
+            this.items = res.data
+            this.pagination.current_page = res.meta.current_page
+            this.pagination.total = res.meta.total_items
+            this.pagination.last_page = res.meta.last_page
+
+            this.pagination.from = res.meta.from
+            this.pagination.to = res.meta.to
+          }
+        })
+    },
+
+    // to detail
+    toDetail(e) {
+      this.$store.commit('employee/SET_ID', e.id)
+      this.$router.push(`/coach/detail`)
+    },
   },
 }
 </script>

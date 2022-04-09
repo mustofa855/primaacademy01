@@ -18,7 +18,9 @@
       text
         ? `!text-${color} !bg-transparent shadow-none hover:text-${color}-shade`
         : ''
-    } ${color == 'secondary' ? `bg-secondary hover:bg-secondary-shade` : ''} `"
+    } ${color == 'secondary' ? `bg-secondary hover:bg-secondary-shade` : ''} ${
+      color == 'primary' ? `bg-primary hover:bg-primary-shade` : ''
+    } ${color == 'success' ? `bg-success hover:bg-success-shade` : ''} `"
     @click="click()"
   >
     <span

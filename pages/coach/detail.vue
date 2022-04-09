@@ -92,8 +92,8 @@
               v-model="role"
               class="rounded-full"
               placeholder="Pilih Role"
-              label="label"
-              track-by="label"
+              label="name"
+              track-by="name"
               deselect-label="Hapus"
               selected-label="Pilih"
               select-label="Tambah"
@@ -158,19 +158,10 @@ export default {
     },
   },
   mounted() {
-    this.fetchRoles()
     this.fetchDetail()
     this.fetchHasRole()
   },
   methods: {
-    fetchRoles() {
-      this.$axios.$get('/role/check-list-exist').then(({ data }) => {
-        this.rolesList = data.map((item) => ({
-          id: item.id,
-          label: item.name,
-        }))
-      })
-    },
     fetchDetail() {
       this.$axios
         .$get(`/employee/detail/${this.$store.state.employee.id}`)
@@ -186,12 +177,29 @@ export default {
           },
         })
         .then(({ data }) => {
-          // filter when selected is true
-          this.role = data.filter((item) => item.selected)
-          this.role = data.map((e) => ({
+          this.rolesList = data.map((e) => ({
             id: e.id,
-            label: e.name,
+            name: e.name,
           }))
+          // filter selected is true in array object
+          this.role = data.filter((e) => e.selected)
+          // eslint-disable-next-line no-console
+          console.log(this.role)
+
+          // filter when selected is true
+          // let roles = []
+
+          data.forEach((element) => {
+            if (element.selected) {
+              // roles.push(element)
+              // eslint-disable-next-line no-console
+              console.log(element)
+            }
+          })
+          // this.role = roles.map((e) => ({
+          //   id: e.id,
+          //   label: e.name,
+          // }))
         })
     },
   },

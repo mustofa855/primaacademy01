@@ -24,8 +24,10 @@
       :to-page="`/class/${$store.state.class.name}/create`"
     >
       <div v-if="detail">
-        <div class="flex flex-row">
-          <img class="w-4" :src="detail.thumbnail" />
+        <div class="flex flex-row gap-4">
+          <div class="w-24 h-24 rounded-lg">
+            <img class="" :src="detail.thumbnail" />
+          </div>
           <div class="flex flex-col">
             <h2 class="font-semibold text-2xl">{{ detail.name }}</h2>
             <p

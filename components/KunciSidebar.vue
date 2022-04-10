@@ -55,8 +55,10 @@
             </div>
             <!-- username and role -->
             <div class="flex flex-col">
-              <div>username</div>
-              <div>role</div>
+              <div class="text-black font-semibold text-lg">
+                {{ $store.state.roleManagement.roleName }}
+              </div>
+              <div>Role Dipilih</div>
             </div>
           </div>
         </div>
@@ -72,14 +74,14 @@
         >
           <div
             v-if="roleOptions"
-            class="absolute -top-48 z-10 rounded-md shadow-dark shadow-md w-full p-2 bg-white"
+            class="absolute -top-52 z-10 rounded-md shadow-dark shadow-md w-full p-2 bg-white"
           >
             <ul class="flex flex-col gap-2">
               <li
                 v-for="item in $store.state.roleManagement.roles"
                 :key="item"
                 class="cursor-pointer hover:bg-gray-200 p-2 transition-colors duration-200 ease-out"
-                @click="changeRole(item.id)"
+                @click="changeRole(item)"
               >
                 {{ item.name }}
               </li>
@@ -99,8 +101,10 @@
             </div>
             <!-- username and role -->
             <div class="flex flex-col">
-              <div>username</div>
-              <div>role</div>
+              <div class="text-black font-semibold text-lg">
+                {{ $store.state.auth.user.username }}
+              </div>
+              <div>{{ $store.state.roleManagement.roleName }}</div>
             </div>
           </div>
         </div>
@@ -152,21 +156,21 @@ export default {
           text: 'Kelas',
           icon: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"></path></svg>',
         },
-        {
-          to: '/registration',
-          text: 'Pendaftaran',
-          icon: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M19.5 5.5v13h-2v-13h2m-7 5v8h-2v-8h2m-7 5v3h-2v-3h2M21 4h-5v16h5V4m-7 5H9v11h5V9m-7 5H2v6h5v-6z" fill="currentColor"></path></svg>',
-        },
-        {
-          to: '/assessment',
-          text: 'Asesmen',
-          icon: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M16 9h5.5L16 3.5V9M7 2h10l6 6v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2M3 6v16h18v2H3a2 2 0 0 1-2-2V6h2z" fill="currentColor"></path></svg>',
-        },
-        {
-          to: '/master-data',
-          text: 'Data Master',
-          icon: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M16 0H8C6.9 0 6 .9 6 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6l-6-6m4 18H8V2h7v5h5v11M4 4v18h16v2H4c-1.1 0-2-.9-2-2V4h2m6 6v2h8v-2h-8m0 4v2h5v-2h-5z" fill="currentColor"></path></svg>',
-        },
+        // {
+        //   to: '/registration',
+        //   text: 'Pendaftaran',
+        //   icon: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M19.5 5.5v13h-2v-13h2m-7 5v8h-2v-8h2m-7 5v3h-2v-3h2M21 4h-5v16h5V4m-7 5H9v11h5V9m-7 5H2v6h5v-6z" fill="currentColor"></path></svg>',
+        // },
+        // {
+        //   to: '/assessment',
+        //   text: 'Asesmen',
+        //   icon: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M16 9h5.5L16 3.5V9M7 2h10l6 6v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2M3 6v16h18v2H3a2 2 0 0 1-2-2V6h2z" fill="currentColor"></path></svg>',
+        // },
+        // {
+        //   to: '/master-data',
+        //   text: 'Data Master',
+        //   icon: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M16 0H8C6.9 0 6 .9 6 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6l-6-6m4 18H8V2h7v5h5v11M4 4v18h16v2H4c-1.1 0-2-.9-2-2V4h2m6 6v2h8v-2h-8m0 4v2h5v-2h-5z" fill="currentColor"></path></svg>',
+        // },
       ],
       isOpen: false,
       roleOptions: false,
@@ -222,7 +226,7 @@ export default {
     changeRole(e) {
       this.$store.commit('roleManagement/changeRole', e)
       this.toggleRole()
-      this.$axios.$post(`role/update-exist/`, { role_id: e }).then(() => {
+      this.$axios.$post(`role/update-exist/`, { role_id: e.id }).then(() => {
         this.$swal({
           title: 'Berhasil',
           text: 'Anda berhasil mengubah role',

@@ -19,6 +19,7 @@
                 :endpoint="endpoint"
                 :item-update-id="itemUpdateId"
                 :redirect="redirect"
+                :is-form-data="isFormData"
               >
                 <kunci-button
                   class="!bg-white !text-gray-600 border-gray-600 border shadow-none hover:!bg-gray-600 hover:!text-white"
@@ -43,6 +44,7 @@
             :endpoint="endpoint"
             :item-update-id="itemUpdateId"
             :redirect="redirect"
+            :is-form-data="isFormData"
           >
             <card :title="formTitle">
               <template #default>

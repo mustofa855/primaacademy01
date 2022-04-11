@@ -44,6 +44,11 @@
     <!-- data tabel -->
     <kunci-table :header-table="tableHeader" :data="items">
       <template #no="{ index }">{{ index + pagination.from }}</template>
+      <template #skill="{ item }">
+        <span v-for="(e, index) in item.skill" :key="index">
+          {{ e.name }}
+        </span>
+      </template>
       <template #action="{ item }">
         <kunci-button
           :dense="true"
@@ -98,15 +103,15 @@ export default {
         },
         {
           text: 'Free Watch?',
-          key: 'email',
+          key: 'is_premium',
         },
         {
           text: 'Praktek',
-          key: 'email',
+          key: 'is_task',
         },
         {
-          text: 'Level',
-          key: 'email',
+          text: 'Skill',
+          key: 'skill',
         },
         {
           text: 'Aksi',
@@ -118,15 +123,17 @@ export default {
   },
   mounted() {
     this.fetchDataDetail()
+    this.fetchData()
   },
   methods: {
     async fetchData(currentPage) {
       await this.$axios
-        .$get('class_category/get', {
+        .$get('learning/list-learning', {
           params: {
             page: currentPage || this.pagination.current_page,
             search: this.search,
             limit: this.pagination.per_page,
+            class_id: this.$store.state.class.id,
           },
         })
         .then((res) => {
@@ -154,6 +161,12 @@ export default {
         confirmButtonText: 'Oke',
       })
     },
+    paginate(e) {
+      // eslint-disable-next-line no-console
+      console.log('paginate')
+      this.pagination.current_page = e
+    },
+    toDetail(e) {},
   },
 }
 </script>

@@ -91,6 +91,11 @@ export default {
       this.$store.commit('class/SET_NAME', e.name)
       this.$router.push(`/class/${e.name}`)
     },
+    paginate(e) {
+      // eslint-disable-next-line no-console
+      console.log('paginate')
+      this.pagination.current_page = e
+    },
   },
 }
 </script>

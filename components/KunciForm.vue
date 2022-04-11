@@ -31,7 +31,6 @@ export default {
     isFormData: {
       type: Boolean,
       default: false,
-      required: false,
     },
     isCustomError: {
       type: Boolean,
@@ -54,7 +53,11 @@ export default {
       //   data[key] = value;
       // });
       for (const prop in this.items) {
-        formData.append(prop, this.items[prop])
+        if (Array.isArray(this.items[prop])) {
+          formData.append(`${prop}[]`, this.items[prop])
+        } else {
+          formData.append(prop, this.items[prop])
+        }
       }
 
       if (this.itemUpdateId) {
@@ -107,7 +110,7 @@ export default {
               this.$swal({
                 title: 'Gagal',
                 icon: 'error',
-                text: error.response.data.error,
+                text: error.response.data.message,
                 type: 'error',
                 showConfirmButton: false,
                 timer: 1500,

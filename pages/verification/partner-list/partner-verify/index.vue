@@ -1,13 +1,19 @@
 <template>
     <div>
-        Ini halaman Verifikasi Partner
+        <title-bar :title="title" />
     </div>
 </template>
-
-<script setup>
-
+  
+<script>
+import TitleBar from '~/components/PartnerVerify.vue'
+export default {
+    components: { TitleBar },
+    layout: 'admin',
+    data() {
+        return {
+        }
+    },
+    methods: {
+    },
+}
 </script>
-
-<style lang="scss" scoped>
-
-</style>

@@ -1,13 +1,30 @@
 <template>
   <div v-if="dataretrieve">
     <title-bar :title="title" />
-    
-    <!-- <pre>{{dataretrieve}}</pre> -->
+
     <h1 class="text-2xl font-semibold">Halaman Verifikasi Dokumen {{ dataretrieve.nama }}</h1>
 
-    <!-- Card dengan Preview Dokumen -->
-    <div class="mt-4 p-4 mx-4 border rounded-lg shadow-md text-center">
-      <img :src="`/${icon_Doc}`" alt="Dokumen" class="max-w-full h-auto mx-auto w-20" />
+    <div class="mt-4 mx-56 py-16 border rounded-lg shadow-md flex items-center pl-20">
+      <!-- Gambar Dokumen -->
+      <div class="flex-none pr-4">
+        <img :src="`/${icon_Doc}`" alt="Dokumen" class="w-56 h-56" />
+      </div>
+
+      <!-- Informasi Dokumen -->
+      <div class="pl-36">
+        <div class="mt-2">
+          <strong>Nama:</strong> {{ dataretrieve.nama }}
+        </div>
+        <div class="mt-2">
+          <strong>NPM:</strong> {{ dataretrieve.npm }}
+        </div>
+        <div class="mt-2">
+          <strong>Tanggal Lahir:</strong> {{ dataretrieve.tanggal_lahir }}
+        </div>
+        <div class="mt-2">
+          <strong>Jenis Kelamin:</strong> {{ dataretrieve.jenis_kelamin }}
+        </div>
+      </div>
     </div>
 
     <!-- Tombol Verifikasi -->

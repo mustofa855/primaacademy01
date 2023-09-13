@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div v-if="datalist">
+        <!-- <pre>{{ datalist }}</pre> -->
         <title-bar :title="title" />
         <table class="w-full border-collapse">
             <link href="https://fonts.googleapis.com/css2?family=Your+Selected+Font&display=swap" rel="stylesheet">
@@ -12,12 +13,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="border-t">
-                    <td class="py-2 px-4">ABC</td>
-                    <td class="py-2 px-4">DEF</td>
-                    <td class="py-2 px-4">GHI</td>
+                <tr v-for="(item, index) in datalist" :key="index" class="border-t">
+                    <td class="py-2 px-4">{{item.id}}</td>
+                    <td class="py-2 px-4">{{item.nama}}</td>
+                    <td class="py-2 px-4">{{item.tanggal_lahir}}</td>
                     <td class="py-2 px-4">
-                        <button class="text-blue-500 mr-2"  @click="toPage('/verification/doc-list/doc-verify')">
+                        <button class="text-blue-500 mr-2"  @click="toPage('/verification/doc-list/doc-verify/'+item.id)">
                             <img :src="(`/${icon_Part}`)" class="m-auto w-8" />
                         </button>
                     </td>
@@ -50,6 +51,16 @@ export default {
       default: '',
     },
   },
+  data() {
+    return {
+      title: 'Document Verification',
+      subtitle: new Date(),
+      datalist: null,
+    }
+  },
+  mounted() {
+    this.getData();
+  },
   methods: {
     toPage(route) {
       
@@ -57,15 +68,20 @@ export default {
       // Implement your navigation logic here using the 'route' prop
       // For example, you can use Vue Router to navigate to the specified route.
     },
-  },
-    components: { TitleBar },
-    layout: 'admin',
-    data() {
-        return {
-            title: 'Document Verification',
-            subtitle: new Date(),
+    
+      
+    async getData() {
+        try {
+          const response = await this.$axios.get('https://ppm-api.gusdya.net/api/mahasiswa');
+          console.log(JSON.stringify(response.data));
+          this.datalist = response.data.data
+        } catch (error) {
+          console.error(error);
         }
-    },
+      },
+  },
+  components: { TitleBar },
+  layout: 'admin',
 }
 </script>
   

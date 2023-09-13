@@ -15,6 +15,7 @@
         subtitle: new Date(),
       }
     },
+    
     methods: {
     },
   }

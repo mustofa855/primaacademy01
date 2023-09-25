@@ -108,26 +108,23 @@ export default {
   },
   methods: {
     login() {
-      
-      this.$store.commit('roleManagement/setRole', 1)
-      this.$router.push('/dashboard')
-      // this.$auth
-      //   .loginWith('local', { data: this.loginData })
-      //   .then(({ data }) => {
-      //     // this.$store.commit('role/SET_ROLE', 1)
-      //     // this.$auth.fetchUser()
-      //     this.$store.commit('roleManagement/setRole', data.data.roles)
-      //     this.$router.push('/dashboard')
-      //   })
-      //   .catch((err) => {
-      //     // sweet alert
-      //     this.$swal.fire({
-      //       title: 'Gagal',
-      //       text: err.response.data.message,
-      //       icon: 'error',
-      //       confirmButtonText: 'Oke',
-      //     })
-        // })
+      this.$auth
+        .loginWith('local', { data: this.loginData })
+        .then(({ data }) => {
+          // this.$store.commit('role/SET_ROLE', 1)
+          // this.$auth.fetchUser()
+          this.$store.commit('roleManagement/setRole', data.data.roles)
+          this.$router.push('/dashboard')
+        })
+        .catch((err) => {
+          // sweet alert
+          this.$swal.fire({
+            title: 'Gagal',
+            text: err.response.data.message,
+            icon: 'error',
+            confirmButtonText: 'Oke',
+          })
+        })
     },
     forgetPass() {
       // swal

@@ -83,21 +83,23 @@ export default {
   },
   methods: {
     login() {
-      this.$auth
-        .loginWith('participant', { data: this.items })
-        .then(() => {
-          this.$router.push('/dashboard')
-        })
-        .catch((err) => {
-          const error = this.$errorMessages(err.response.data.errors)
-          // sweet alert
-          this.$swal.fire({
-            title: 'Gagal',
-            html: error,
-            icon: 'error',
-            confirmButtonText: 'Oke',
-          })
-        })
+      console.log("ini")
+      this.$router.push('/dashboard')
+      // this.$auth
+      //   .loginWith('participant', { data: this.items })
+      //   .then(() => {
+      //     this.$router.push('/dashboard')
+      //   })
+      //   .catch((err) => {
+      //     const error = this.$errorMessages(err.response.data.errors)
+      //     // sweet alert
+      //     this.$swal.fire({
+      //       title: 'Gagal',
+      //       html: error,
+      //       icon: 'error',
+      //       confirmButtonText: 'Oke',
+      //     })
+      //   })
     },
     forgetPass() {
       // swal

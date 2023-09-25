@@ -97,55 +97,55 @@ export default {
     cancelButtonColor: '#F12D2D',
   },
 
-  auth: {
-    // Options
-    strategies: {
-      local: {
-        scheme: 'local',
-        token: {
-          property: 'token',
-          global: true,
-          required: true,
-          type: 'Bearer',
-        },
-        user: {
-          property: 'data',
-          // autoFetch: true
-        },
-        endpoints: {
-          login: { url: '/auth/login', method: 'post' },
-          logout: { url: '/auth/logout', method: 'get' },
-          user: { url: '/employee/profile', method: 'get', propertyName: false },
-        },
-      },
-    },
-    redirect: {
-      login: '/',
-      logout: '/',
-    },
-    cookie: {
-      options: {
-        secure: true,
-        expires: 10,
-      },
-    },
-  },
+  // auth: {
+  //   // Options
+  //   strategies: {
+  //     local: {
+  //       scheme: 'refresh',
+  //       token: {
+  //         property: 'token',
+  //         global: true,
+  //         required: true,
+  //         type: 'Bearer',
+  //       },
+  //       user: {
+  //         property: 'data',
+  //         // autoFetch: true
+  //       },
+  //       endpoints: {
+  //         login: { url: '/auth/login', method: 'post' },
+  //         logout: { url: '/auth/logout', method: 'get' },
+  //         user: { url: '/employee/profile', method: 'get', propertyName: false },
+  //       },
+  //     },
+  //   },
+  //   redirect: {
+  //     login: '/',
+  //     logout: '/',
+  //   },
+  //   cookie: {
+  //     options: {
+  //       secure: true,
+  //       expires: 10,
+  //     },
+  //   },
+  // },
 
   router: {
-    middleware: ['auth'],
+    // middleware: ['auth'],
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    baseURL: process.env.baseUrl,
+  // axios: {
+  //   baseURL: process.env.baseUrl,
     // proxy: true,
     // prefix: '/api/',
-  },
+  // },
 
-  env: {
+  // env: {
     // url: process.env.baseUrl.replace('/api/', '/'),
-    baseUrl: process.env.baseUrl,
-  },
+    // baseUrl: process.env.baseUrl,
+  // },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -155,7 +155,11 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    transpile: [
+      'defu',
+    ],
+  },
 
   tailwindcss: {
     cssPath: '~/assets/css/tailwind.css',

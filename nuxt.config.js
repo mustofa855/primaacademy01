@@ -96,56 +96,67 @@ export default {
     confirmButtonColor: '#04837B',
     cancelButtonColor: '#F12D2D',
   },
-
-  // auth: {
-  //   // Options
-  //   strategies: {
-  //     local: {
-  //       scheme: 'refresh',
-  //       token: {
-  //         property: 'token',
-  //         global: true,
-  //         required: true,
-  //         type: 'Bearer',
-  //       },
-  //       user: {
-  //         property: 'data',
-  //         // autoFetch: true
-  //       },
-  //       endpoints: {
-  //         login: { url: '/auth/login', method: 'post' },
-  //         logout: { url: '/auth/logout', method: 'get' },
-  //         user: { url: '/employee/profile', method: 'get', propertyName: false },
-  //       },
-  //     },
-  //   },
-  //   redirect: {
-  //     login: '/',
-  //     logout: '/',
-  //   },
-  //   cookie: {
-  //     options: {
-  //       secure: true,
-  //       expires: 10,
-  //     },
-  //   },
-  // },
-
-  router: {
-    // middleware: ['auth'],
+  env: {
+    url: process.env.baseUrl.replace('/api/', '/'),
+    baseUrl: process.env.baseUrl,
   },
+  ssr:true,
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  // axios: {
-  //   baseURL: process.env.baseUrl,
+  axios: {
+    baseURL: "https://bepssi.kunci.co.id/",
+    headers: {
+      "Content-Type": "application/json",
+    },
     // proxy: true,
-    // prefix: '/api/',
-  // },
+    // prefix: '/',
+  },
 
-  // env: {
-    // url: process.env.baseUrl.replace('/api/', '/'),
-    // baseUrl: process.env.baseUrl,
-  // },
+  auth: {
+    redirect: {
+      // login: '/login',
+      home: false,
+      // logout: '/login'
+      callback: '/callback',
+    },
+    // Options
+    strategies: {
+      local: {
+        scheme: 'refresh',
+        token: {
+          property: 'token',
+          global: true,
+          required: true,
+          type: 'Bearer',
+        },
+        user: {
+          property: 'data',
+          // autoFetch: true
+        },
+        endpoints: {
+          login: { url: 'api/auth/login', method: 'post' },
+          logout: { url: 'api/auth/logout', method: 'get' },
+          user: { url: 'employee/profile', method: 'get', propertyName: false },
+        },
+      },
+    },
+    redirect: {
+      login: '/dashboard',
+      logout: '/login',
+    },
+    cookie: {
+      options: {
+        secure: true,
+        expires: 10,
+      },
+    },
+  },
+
+  router: {
+    middleware: ['auth'],
+  },
+
+  
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {

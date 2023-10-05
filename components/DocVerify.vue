@@ -1,7 +1,7 @@
 <template>
   <div v-if="dataretrieve">
     <title-bar :title="title" />
-
+    
     <h1 class="text-2xl font-semibold">Halaman Verifikasi Dokumen {{ dataretrieve.nama }}</h1>
 
     <div class="mt-4 mx-56 py-16 border rounded-lg shadow-md flex items-center pl-20">
@@ -54,6 +54,7 @@ export default {
       type: String,
       default: '',
     },
+    document:null,
     dataretrieve:null
   },
   methods: {

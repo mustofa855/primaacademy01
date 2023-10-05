@@ -12,7 +12,7 @@
     layout: 'admin',
     data() {
       return {
-        dataretrieve: null,
+        
       }
     },
     computed: {
@@ -21,7 +21,7 @@
         }
     },
     mounted() {
-        console.log(this.id)
+        // console.log(this.id)
         this.getDataRetrive()
         // console.log("KESINI........................")
     },

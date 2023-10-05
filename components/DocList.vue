@@ -18,7 +18,7 @@
                     <td class="py-2 px-4">{{item.nama}}</td>
                     <td class="py-2 px-4">{{item.tanggal_lahir}}</td>
                     <td class="py-2 px-4">
-                        <button class="text-blue-500 mr-2"  @click="toPage('/verification/doc-list/doc-verify/'+item.id)">
+                        <button class="text-blue-500 mr-2"  @click="toPage('/verification/doc-list/doc-list_ID/'+item.id)">
                             <img :src="(`/${icon_Part}`)" class="m-auto w-8" />
                         </button>
                     </td>
@@ -72,7 +72,7 @@ export default {
       
     async getData() {
         try {
-          const response = await this.$axios.get('https://ppm-api.gusdya.net/api/mahasiswa');
+          const response = await this.$axios.get('https://bepssi.kunci.co.id/api/secure-documents/users?limit&page=1');
           console.log(JSON.stringify(response.data));
           this.datalist = response.data.data
         } catch (error) {

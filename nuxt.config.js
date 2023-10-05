@@ -102,6 +102,14 @@ export default {
   },
   ssr:true,
 
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        path: "*",
+        component: resolve("~/pages/notfound.vue"),
+      });
+    },
+  },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: "https://bepssi.kunci.co.id/",
@@ -114,10 +122,9 @@ export default {
 
   auth: {
     redirect: {
-      // login: '/login',
-      home: false,
-      // logout: '/login'
-      callback: '/callback',
+      login: '/login', // Specify your login route
+      logout: '/login', // Specify your logout route
+      home: '/dashboard', // Specify your home/dashboard route
     },
     // Options
     strategies: {
@@ -140,20 +147,16 @@ export default {
         },
       },
     },
-    redirect: {
-      login: '/dashboard',
-      logout: '/login',
-    },
+    // redirect: {
+    //   login: '/dashboard',
+    //   logout: '/login',
+    // },
     cookie: {
       options: {
         secure: true,
         expires: 10,
       },
     },
-  },
-
-  router: {
-    middleware: ['auth'],
   },
 
   

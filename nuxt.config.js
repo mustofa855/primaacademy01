@@ -144,6 +144,7 @@ export default {
           login: { url: 'api/auth/login', method: 'post' },
           logout: { url: 'api/auth/logout', method: 'get' },
           user: { url: 'employee/profile', method: 'get', propertyName: false },
+          documen: { url: 'api/secure-document/users', method: 'get', propertyName: false }, 
         },
       },
     },

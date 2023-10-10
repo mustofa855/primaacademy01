@@ -1,7 +1,6 @@
 <template>
   <nav
-    class="h-screen w-64 overflow-hidden bg-white rounded-tr-md rounded-br-md shadow-card z-10 fixed top-0 group transition-all duration-200 ease-out shadow-lg"
-  >
+    class="h-screen w-64 overflow-hidden bg-white rounded-tr-md rounded-br-md shadow-card z-10 fixed top-0 group transition-all duration-200 ease-out shadow-lg">
     <!-- image title -->
     <div class="flex flex-col px-5 py-2"></div>
 
@@ -17,20 +16,13 @@
         </div>-->
       </div>
       <!-- link -->
-      <router-link
-        v-for="(item, index) in slug"
-        :key="index"
-        :to="item.to"
+      <router-link v-for="(item, index) in slug" :key="index" :to="item.to"
         class="flex flex-row items-center hover:text-primary transition duration-200 ease-out my-4 hover:border-primary after:absolute after:-right-4 after:h-10 after:w-6 after:rounded-md hover:after:bg-primary hover:after:transition-all after:duration-200 after:ease-out"
-        :class="isActive == item.to ? 'text-primary after:bg-primary' : ''"
-      >
+        :class="isActive == item.to ? 'text-primary after:bg-primary' : ''">
         <!-- eslint-disable-next-line vue/no-v-html -->
         <div class="max-w-xs flex mr-8 ml-4" v-html="item.icon"></div>
-        <div
-          :to="item.to"
-          class="py-2 text-base transition-all ease-out duration-200 flex group"
-          :class="$route.path == item.to ? 'after:bg-primary' : ''"
-        >
+        <div :to="item.to" class="py-2 text-base transition-all ease-out duration-200 flex group"
+          :class="$route.path == item.to ? 'after:bg-primary' : ''">
           {{ item.text }}
           <!-- <div
             class="absolute -right-4 h-10 w-6 rounded-md group-hover:bg-danger transition"
@@ -41,9 +33,7 @@
     </div>
 
     <!-- footer -->
-    <div
-      class="flex flex-col px-4 py-2 gap-4 text-gray-400 font-medium bottom-0 absolute w-full"
-    >
+    <div class="flex flex-col px-4 py-2 gap-4 text-gray-400 font-medium bottom-0 absolute w-full">
       <!-- role management  -->
       <div class="flex flex-col gap-4 items-center relative group">
         <!-- role management -->
@@ -64,25 +54,14 @@
         </div>
 
         <!-- role section -->
-        <transition
-          enter-from-class="transform opacity-0"
-          enter-active-class="duration-200 ease-in"
-          enter-to-class="opacity-100"
-          leave-from-class="opacity-100"
-          leave-active-class="duration-200 ease-out"
-          leave-to-class="transform opacity-0"
-        >
-          <div
-            v-if="roleOptions"
-            class="absolute -top-52 z-10 rounded-md shadow-dark shadow-md w-full p-2 bg-white"
-          >
+        <transition enter-from-class="transform opacity-0" enter-active-class="duration-200 ease-in"
+          enter-to-class="opacity-100" leave-from-class="opacity-100" leave-active-class="duration-200 ease-out"
+          leave-to-class="transform opacity-0">
+          <div v-if="roleOptions" class="absolute -top-52 z-10 rounded-md shadow-dark shadow-md w-full p-2 bg-white">
             <ul class="flex flex-col gap-2">
-              <li
-                v-for="item in $store.state.roleManagement.roles"
-                :key="item"
+              <li v-for="item in $store.state.roleManagement.roles" :key="item"
                 class="cursor-pointer hover:bg-gray-200 p-2 transition-colors duration-200 ease-out"
-                @click="changeRole(item)"
-              >
+                @click="changeRole(item)">
                 {{ item.name }}
               </li>
             </ul>
@@ -110,18 +89,10 @@
         </div>
 
         <!-- setting section -->
-        <transition
-          enter-from-class="transform opacity-0"
-          enter-active-class="duration-200 ease-in"
-          enter-to-class="opacity-100"
-          leave-from-class="opacity-100"
-          leave-active-class="duration-200 ease-out"
-          leave-to-class="transform opacity-0"
-        >
-          <div
-            v-if="isOpen"
-            class="absolute -top-20 rounded-md shadow-dark shadow-md w-full p-2 bg-white"
-          >
+        <transition enter-from-class="transform opacity-0" enter-active-class="duration-200 ease-in"
+          enter-to-class="opacity-100" leave-from-class="opacity-100" leave-active-class="duration-200 ease-out"
+          leave-to-class="transform opacity-0">
+          <div v-if="isOpen" class="absolute -top-20 rounded-md shadow-dark shadow-md w-full p-2 bg-white">
             <ul class="flex flex-col gap-2">
               <li class="cursor-pointer">Setting</li>
               <li class="cursor-pointer" @click="modalLogout">Logout</li>
@@ -192,36 +163,44 @@ export default {
     // console.log(this.$route);
   },
   methods: {
-    logout() {
-      this.$auth.logout()
+    async logout() {
+      try {
+        await this.$axios.post('/api/auth/logout/');
+        this.$router.push('/login'); // Ganti '/login' dengan rute halaman login yang sesuai
+      } catch (err) {
+        console.log('gagal');
+        console.log(err);
+      }
     },
+
     modalLogout() {
-      // show modal swal
-      this.$swal({
-        title: 'Keluar dari aplikasi',
-        text: 'Apakah anda yakin ingin keluar dari aplikasi ini?',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Ya',
-        cancelButtonText: 'Tidak',
-        reverseButtons: true,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        focusCancel: true,
-        preConfirm: () => {
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              resolve()
-            }, 200)
-          })
-        },
-      }).then((result) => {
-        if (result.value) {
-          this.logout()
-        }
+  // show modal swal
+  this.$swal({
+    title: 'Keluar dari aplikasi',
+    text: 'Apakah anda yakin ingin keluar dari aplikasi ini?',
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Ya',
+    cancelButtonText: 'Tidak',
+    reverseButtons: true,
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    allowEnterKey: false,
+    focusCancel: true,
+    preConfirm: () => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve()
+        }, 200)
       })
     },
+  }).then((result) => {
+    if (result.value) {
+      this.logout(); // Panggil metode logout setelah pengguna menekan "Ya"
+    }
+  })
+},
+
     toggleOpen() {
       this.isOpen = !this.isOpen
     },

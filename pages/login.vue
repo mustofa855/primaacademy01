@@ -82,10 +82,11 @@ export default {
     }
   },
   methods: {
+    // Login Method
     async login() {
       try {
         await this.$auth.loginWith('local', { data: this.items });
-        console.log("A");
+        console.log("Login Berhasil")
         this.$router.push('/dashboard');
       } catch (err) {
         const error = this.$errorMessages(err.response.data.errors);
@@ -95,6 +96,7 @@ export default {
           icon: 'error',
           confirmButtonText: 'Oke',
         });
+        this.$router.push('/login');
       }
       // this.$auth
       //   .loginWith('local', { data: this.items })

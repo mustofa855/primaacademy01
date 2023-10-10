@@ -1,24 +1,26 @@
 <template>
     <div v-if="datalist">
-        <!-- <pre>{{ datalist }}</pre> -->
+        <pre>{{ datalist }}</pre>
         <title-bar :title="title" />
         <table class="w-full border-collapse">
-            <link href="https://fonts.googleapis.com/css2?family=Your+Selected+Font&display=swap" rel="stylesheet">
+            <!-- <link href="https://fonts.googleapis.com/css2?family=Your+Selected+Font&display=swap" rel="stylesheet"> -->
             <thead>
                 <tr class="bg-gray-100">
-                    <th class="py-2 px-4 text-left">Nomor</th>
+                    <th class="py-2 px-4 text-left">ID</th>
+                    <th class="py-2 px-4 text-left">Nama Pengirim</th>
                     <th class="py-2 px-4 text-left">Nama file</th>
-                    <th class="py-2 px-4 text-left">Type</th>
+                    <th class="py-2 px-4 text-left">File</th>
                     <th class="py-2 px-4 text-left">Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr v-for="(item, index) in datalist" :key="index" class="border-t">
-                    <td class="py-2 px-4">{{item.id}}</td>
-                    <td class="py-2 px-4">{{item.nama}}</td>
-                    <td class="py-2 px-4">{{item.tanggal_lahir}}</td>
+            <tbody v-for="(item, index) in datalist" :key="index">
+                <tr v-for="file in item.secure_documents" :key="file.id" class="border-t">
+                    <td class="py-2 px-4">{{file.id}}</td>
+                    <td class="py-2 px-4">{{item.username}}</td>
+                    <td class="py-2 px-4">{{file.name}}</td>
+                    <td class="py-2 px-4">{{file.file}}</td>
                     <td class="py-2 px-4">
-                        <button class="text-blue-500 mr-2"  @click="toPage('/verification/doc-list/doc-list_ID/'+item.id)">
+                        <button class="text-blue-500 mr-2"  @click="getData(item.id)">
                             <img :src="(`/${icon_Part}`)" class="m-auto w-8" />
                         </button>
                     </td>
@@ -55,11 +57,11 @@ export default {
     return {
       title: 'Document Verification',
       subtitle: new Date(),
-      datalist: null,
+      datalist: {},
     }
   },
   mounted() {
-    this.getData();
+    this.getData("all");
   },
   methods: {
     toPage(route) {
@@ -68,17 +70,19 @@ export default {
       // Implement your navigation logic here using the 'route' prop
       // For example, you can use Vue Router to navigate to the specified route.
     },
-    
       
-    async getData() {
-        try {
-          const response = await this.$axios.get('https://bepssi.kunci.co.id/api/secure-documents/users?limit&page=1');
-          console.log(JSON.stringify(response.data));
-          this.datalist = response.data.data
-        } catch (error) {
-          console.error(error);
+    async getData(id) {
+      try {
+        const response = await this.$axios.get('https://bepssi.kunci.co.id/api/secure-documents/users');
+        // console.log(JSON.stringify(response.data.player));
+        this.datalist = response.data.data;
+        if (id !== "all"){
+          this.datalist = response.data.data.filter(e => {return e.id === id});
         }
-      },
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
   components: { TitleBar },
   layout: 'admin',

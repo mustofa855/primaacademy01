@@ -1,8 +1,7 @@
 <template>
-  <div v-if="dataretrieve">
+  <div>
     <title-bar :title="title" />
-    
-    <h1 class="text-2xl font-semibold">Halaman Verifikasi Dokumen {{ dataretrieve.nama }}</h1>
+    <h1 class="text-2xl font-semibold">Halaman Verifikasi Dokumen</h1>
 
     <div class="mt-4 mx-56 py-16 border rounded-lg shadow-md flex items-center pl-20">
       <!-- Gambar Dokumen -->
@@ -13,16 +12,16 @@
       <!-- Informasi Dokumen -->
       <div class="pl-36">
         <div class="mt-2">
-          <strong>Nama:</strong> {{ dataretrieve.nama }}
+          <strong>Nama:</strong> 
         </div>
         <div class="mt-2">
-          <strong>NPM:</strong> {{ dataretrieve.npm }}
+          <strong>NPM:</strong>
         </div>
         <div class="mt-2">
-          <strong>Tanggal Lahir:</strong> {{ dataretrieve.tanggal_lahir }}
+          <strong>Tanggal Lahir:</strong>
         </div>
         <div class="mt-2">
-          <strong>Jenis Kelamin:</strong> {{ dataretrieve.jenis_kelamin }}
+          <strong>Jenis Kelamin:</strong>
         </div>
       </div>
     </div>

@@ -11,7 +11,6 @@
     layout: 'admin',
     data() {
       return {
-        title: 'See Detail',
         subtitle: new Date(),
       }
     },

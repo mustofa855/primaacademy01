@@ -2198,6 +2198,11 @@
     "mustache" "^2.3.0"
     "stack-trace" "0.0.10"
 
+"@pdftron/webviewer@^10.4.0":
+  "integrity" "sha512-aJOuAYEnkxn/tCaB1m548VfxILbBesLB7Fd1S15/KvjklM9nCQjwJv4+R99zL+WaxvVet9kem5LVPoiGXDHXmg=="
+  "resolved" "https://registry.npmjs.org/@pdftron/webviewer/-/webviewer-10.4.0.tgz"
+  "version" "10.4.0"
+
 "@polka/url@^1.0.0-next.20":
   "integrity" "sha512-C16M+IYz0rgRhWZdCmK+h58JMv8vijAA61gmz2rspCSwKwzBebpdcsiUmwrtJRdphuY30i6BSLEOP8ppbNLyLg=="
   "resolved" "https://registry.npmjs.org/@polka/url/-/url-1.0.0-next.23.tgz"

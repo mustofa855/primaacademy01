@@ -17,7 +17,7 @@
           <td class="py-2 px-4">{{ item.username }}</td>
           <td class="py-2 px-4">{{ file.name }}.pdf</td>
           <td class="py-2 px-4">
-            <button class="text-blue-500 mr-2" @click="toPage('/storage/player/documents') + file.file" title="See Detail">
+            <button @click="openModal(file.file)" class="text-blue-500 mr-2" title="See Detail">
               <img :src="`/${icon_SeeDetail}`" class="m-auto w-8" />
             </button>
             <button class="Filter text-blue-500 mr-2" @click="getData(item.id)" title="Filter by Id User">
@@ -27,6 +27,42 @@
         </tr>
       </tbody>
     </table>
+    <ElementsModal
+          v-model="modal.status"
+          :title="modal.title"
+          :key="'modall'+modal.key"
+          :width="modal.width"
+          :show="true"
+      >
+          <!-- <div v-if="fileType==='pdf'">
+              {{ url }}
+              <ViewerPdf :path=url />
+          </div> -->
+          <!-- <div v-else-if="fileType==='av'">
+              <ViewerAv 
+                  :path="url"
+              />
+          </div> -->
+          <!-- <div v-else-if="fileType==='audio'" class="bg-black flex items-center justify-center h-96">
+              <audio controls autoplay>
+                  <source :src="url" >
+                  Your browser does not support the audio element.
+              </audio>
+
+          </div> -->
+          <!-- <div class="p-5"> -->
+            
+            {{ url }}
+              
+            <iframe
+              :src="url"
+              width="100%"
+              height="600"
+              frameborder="0"
+              allowfullscreen="true"
+            ></iframe>
+          <!-- </div> -->
+      </ElementsModal>
   </div>
 </template>
 
@@ -55,8 +91,16 @@ export default {
     return {
       title: 'Document Verification',
       subtitle: new Date(),
+      fileType: "pdf",
       datalist: {},
       activeFilterId: null, // variabel untuk melacak ID filter aktif
+      modal: {
+          status: false,
+          title: 'Detail File',
+          key: 0,
+          width: 'w-3/5'
+      },
+      url: "",
     }
   },
   mounted() {
@@ -85,6 +129,13 @@ export default {
       // Fungsi ini akan mengubah ikon filter saat tombol filter diklik
 
     },
+    openModal(file){
+      this.url = file
+      this.fileType = "pdf"
+      console.log(this.url)
+      this.modal.status = true
+      this.modal.key += 1
+    }
   },
   components: { TitleBar },
   layout: 'admin',

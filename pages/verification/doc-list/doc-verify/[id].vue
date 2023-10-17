@@ -1,7 +1,8 @@
 <template>
     <div>
       <!-- <pre>{{ this.dataretrieve }}</pre> -->
-      <title-bar :title="title" :dataretrieve=dataretrieve />
+      <title-bar :title="title" />
+      <div>{{ $route.params.id }}</div>
     </div>
   </template>
   

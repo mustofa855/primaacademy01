@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <title-bar :title="title" />
   </div>
@@ -47,4 +47,4 @@ export default {
   },
 }
 </script>
-  
+   -->

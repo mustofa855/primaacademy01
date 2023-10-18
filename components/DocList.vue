@@ -27,32 +27,32 @@
         </tr>
       </tbody>
     </table>
-    <ElementsModal
-          v-model="modal.status"
-          :title="modal.title"
-          :key="'modall'+modal.key"
-          :width="modal.width"
-          :show="true"
+    <ElementsModal>
+      <!-- :v-model="modal.status"  -->
+      <!-- :title="modal.title" -->
+      <!-- :key="'modall'+modal.key" -->
+      <!-- :width="modal.width" -->
+      <!-- :show="true"  -->
       >
-          <!-- <div v-if="fileType==='pdf'">
+      <!-- <div v-if="fileType==='pdf'">
               {{ url }}
               <ViewerPdf :path=url />
           </div> -->
-          <!-- <div v-else-if="fileType==='av'">
+      <!-- <div v-else-if="fileType==='av'">
               <ViewerAv 
                   :path="url"
               />
           </div> -->
-          <!-- <div v-else-if="fileType==='audio'" class="bg-black flex items-center justify-center h-96">
+      <!-- <div v-else-if="fileType==='audio'" class="bg-black flex items-center justify-center h-96">
               <audio controls autoplay>
                   <source :src="url" >
                   Your browser does not support the audio element.
               </audio>
 
           </div> -->
-          <!-- <div class="p-5"> -->
-            
-            {{ url }}
+      <!-- <div class="p-5"> -->
+
+      <!-- {{ url }}
               
             <iframe
               :src="url"
@@ -60,9 +60,17 @@
               height="600"
               frameborder="0"
               allowfullscreen="true"
-            ></iframe>
-          <!-- </div> -->
+            ></iframe> -->
+      <!-- </div> -->
+
+
+      <ElementsModal v-model="modal.status" :title="modal.title" :key="'modall' + modal.key" :width="modal.width"
+        :show="modal.status">
+        <div v-if="fileType === 'pdf'">
+          <iframe :src="url" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe>
+        </div>
       </ElementsModal>
+    </ElementsModal>
   </div>
 </template>
 
@@ -95,10 +103,10 @@ export default {
       datalist: {},
       activeFilterId: null, // variabel untuk melacak ID filter aktif
       modal: {
-          status: false,
-          title: 'Detail File',
-          key: 0,
-          width: 'w-3/5'
+        status: false,
+        title: 'Detail File',
+        key: 0,
+        width: 'w-3/5'
       },
       url: "",
     }
@@ -129,7 +137,7 @@ export default {
       // Fungsi ini akan mengubah ikon filter saat tombol filter diklik
 
     },
-    openModal(file){
+    openModal(file) {
       this.url = file
       this.fileType = "pdf"
       console.log(this.url)

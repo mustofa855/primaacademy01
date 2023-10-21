@@ -18,7 +18,9 @@
                         </svg>
                         </button>
                     </div>
+                    
                     <hr class="border-warna-lima my-4">
+                    
                     <!-- <div class="max-h-[calc(100vh-220px)] overflow-y-auto"> -->
                         <slot />
                     <!-- </div> -->

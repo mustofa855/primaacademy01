@@ -27,39 +27,39 @@
         </tr>
       </tbody>
     </table>
-    <ElementsModal
-          v-model="modal.status"
-          :title="modal.title"
-          :key="'modall'+modal.key"
-          :width="modal.width"
-          :show="true" 
-      >
-          <!-- <div v-if="fileType==='pdf'">
+    <ElementsModal v-model="modal.status" :title="modal.title" :key="'modall' + modal.key" :width="modal.width"
+      :show="true">
+      <!-- <div v-if="fileType==='pdf'">
               {{ url }}
               <ViewerPdf :path=url />
           </div> -->
-          <!-- <div v-else-if="fileType==='av'">
+      <!-- <div v-else-if="fileType==='av'">
               <ViewerAv 
                   :path="url"
               />
           </div> -->
-          <!-- <div v-else-if="fileType==='audio'" class="bg-black flex items-center justify-center h-96">
+      <!-- <div v-else-if="fileType==='audio'" class="bg-black flex items-center justify-center h-96">
               <audio controls autoplay>
                   <source :src="url" >
                   Your browser does not support the audio element.
               </audio>
 
           </div> -->
-          <!-- <div class="p-5"> -->
-            
-            <iframe
-              :src="url"
-              class="w-full h-5/6"
-              frameborder="0"
-              allowfullscreen="false"
-            ></iframe>
-          <!-- </div> -->
-      </ElementsModal>
+      <!-- <div class="p-5"> -->
+
+      <iframe :src="url" class="w-full h-5/6" frameborder="0" allowfullscreen="false"></iframe>
+      <div class="mt-4 flex justify-center space-x-4">
+        <button @click="terimaDokumen"
+          class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-200">
+          Terima
+        </button>
+        <button @click="tolakDokumen"
+          class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-200">
+          Tolak
+        </button>
+      </div>
+      <!-- </div> -->
+    </ElementsModal>
   </div>
 </template>
 
@@ -92,11 +92,11 @@ export default {
       datalist: {},
       activeFilterId: null, // variabel untuk melacak ID filter aktif
       modal: {
-          status: false,
-          title: '{Detail File}',
-          key: 0,
-          width: 'w-2/5',
-          height: 'h-2/5'
+        status: false,
+        title: '{Detail File}',
+        key: 0,
+        width: 'w-2/5',
+        height: 'h-2/5'
       },
       url: "",
     }
@@ -128,7 +128,8 @@ export default {
 
     },
     openModal(file, name) {
-      this.modal.title=name;
+      console.log("SINIIIIIII")
+      this.modal.title = name;
       this.url = `http://localhost:4000/proxy?url=${encodeURIComponent(file)}`; // Update the URL to use the proxy
       this.fileType = "pdf";
       this.modal.status = true;

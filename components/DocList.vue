@@ -49,7 +49,7 @@
 
       <iframe :src="url" class="w-full h-5/6" frameborder="0" allowfullscreen="false"></iframe>
       <div class="mt-4 flex justify-center space-x-4">
-        <button @click="terimaDokumen"
+        <button @click="terimaDokumen(item.id)"
           class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-200">
           Terima
         </button>
@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import TitleBar from '~/components/TitleBar.vue'
 export default {
   props: {
@@ -99,6 +100,7 @@ export default {
         height: 'h-2/5'
       },
       url: "",
+      item: {},
     }
   },
   mounted() {
@@ -125,7 +127,42 @@ export default {
         console.error(error);
       }
       // Fungsi ini akan mengubah ikon filter saat tombol filter diklik
-
+    },
+    async terimaDokumen(id) {
+      try {
+        // Kirim permintaan HTTP ke endpoint API untuk mengubah status verifikasi
+        const response = await axios.put(`https://bepssi.kunci.co.id/api/users/${id}`, {
+          verified: {
+            id: 1,
+            name: "Terverifikasi"
+          }
+        });
+        // Periksa apakah permintaan berhasil
+        if (response.status === 200) {
+          // Tambahkan logika lain jika diperlukan setelah berhasil
+          console.log(`Dokumen diterima untuk pengguna dengan ID ${id}`);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async tolakDokumen(id) {
+      try {
+        // Kirim permintaan HTTP ke endpoint API untuk menandai dokumen sebagai "Ditolak"
+        const response = await axios.put(`https://bepssi.kunci.co.id/api/users/${id}`, {
+          verified: {
+            id: 2, // Ganti ID status sesuai dengan yang sesuai
+            name: "Ditolak"
+          }
+        });
+        // Periksa apakah permintaan berhasil
+        if (response.status === 200) {
+          // Tambahkan logika lain jika diperlukan setelah berhasil
+          console.log(`Dokumen ditolak untuk pengguna dengan ID ${id}`);
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
     openModal(file, name) {
       console.log("SINIIIIIII")
@@ -136,6 +173,8 @@ export default {
       this.modal.key += 1;
     }
   },
+
+
   components: { TitleBar },
   layout: 'admin',
 }

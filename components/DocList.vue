@@ -1,6 +1,6 @@
 <template>
   <div v-if="datalist">
-    <pre>{{ datalist }}</pre>
+    <!-- <pre>{{ datalist }}</pre> -->
     <title-bar :title="title" />
     <table class="w-full border-collapse">
       <thead>
@@ -130,18 +130,30 @@ export default {
     },
     async terimaDokumen(id) {
       try {
-        // Kirim permintaan HTTP ke endpoint API untuk mengubah status verifikasi
-        const response = await axios.put(`https://bepssi.kunci.co.id/api/users/${id}`, {
-          verified: {
-            id: 1,
-            name: "Terverifikasi"
-          }
-        });
-        // Periksa apakah permintaan berhasil
-        if (response.status === 200) {
-          // Tambahkan logika lain jika diperlukan setelah berhasil
-          console.log(`Dokumen diterima untuk pengguna dengan ID ${id}`);
-        }
+        const dataVerifikasi = { 'status': '1' }
+
+        const config = {
+          method: 'patch',
+          maxBodyLength: Infinity,
+          url: 'https://bepssi.kunci.co.id/api/secure-documents/:id/update',
+          headers: {
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JlcHNzaS5rdW5jaS5jby5pZC9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTY5NTc5NzIxNywibmJmIjoxNjk1Nzk3MjE3LCJqdGkiOiI4Qmh3d3RoaHdISmtRYXpEIiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.eplSXLlhUeHHJW7O_XLCnwvMosBxZRgsOMKa3vG57rE',
+            'Cookie': 'XSRF-TOKEN=eyJpdiI6IjkxSno0TDdqZ0Y5d200dFRnRVErQkE9PSIsInZhbHVlIjoiL3ZUa05wWVJ4cXhuR3lmbHZBZ0tjWjJlUGZkUXJBa1hSWnY2azJkZGYxV3cydFVTY0ZnMWxROGM0QTBydWtIeHVINnJQaTl6ZEVnaXBwWXFXVHlBcEo3bU12Q3lTdkRNTzB3azlpbVZOS0tGVHZucG1kNXVTeE4vZkowYlFaOG0iLCJtYWMiOiJiMGQ5NjE1ZjgwYzRhNjgwY2FkYjg3ZDhhMGE1MDY3Y2ZiOTViNmY5MDgzYjU0NTY0N2MxMjY2YTJkZGQ3MGRjIiwidGFnIjoiIn0%3D; prima_academy_dev_session=eyJpdiI6ImhueTFCZzhMS1lURzFMQk1wbU5DUnc9PSIsInZhbHVlIjoiZ2RTT0VLNlYzYlVMcWx1bW5DTmFhbXNKYUVTTCtQZ3RNanBpOHI1SUo5VEtyV3ZtM2JLUmxTMTVGSWMwSWpZRG9PT3ptTkNzSGhhMUtqb2lQUWhRREx0dGRyZzV5MGxKQytkRkZYdHFCSGcxdXNoR3h3eWU1UmZFRWxnZ25jU2oiLCJtYWMiOiI3NGU5ODNjYzhjNWJjMGE1NzA1YmJiZGZjMzJmMWFlMzcwMjk3N2M5MmZjNzljMjg1MzUxNDRmMDk2ZmI3Y2QxIiwidGFnIjoiIn0%3D',
+            'Content-Type': 'application/json'
+          },
+          data: dataVerifikasi
+        };
+
+        await axios.request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+            // Setelah permintaan berhasil, arahkan pengguna kembali ke halaman saat ini
+            this.$router.push({ path: this.$route.path });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
       } catch (error) {
         console.error(error);
       }
@@ -160,6 +172,8 @@ export default {
           // Tambahkan logika lain jika diperlukan setelah berhasil
           console.log(`Dokumen ditolak untuk pengguna dengan ID ${id}`);
         }
+        // Setelah permintaan berhasil, arahkan pengguna kembali ke halaman saat ini
+        this.$router.push({ path: this.$route.path });
       } catch (error) {
         console.error(error);
       }

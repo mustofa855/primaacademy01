@@ -1,6 +1,7 @@
 <template>
     <div>
-      <title-bar :title="title" />
+      <title-bar :title="title"
+       />
     </div>
   </template>
   
@@ -11,8 +12,8 @@
     layout: 'admin',
     data() {
       return {
-        title: 'Dashboard',
-        subtitle: new Date(),
+        title: 'Verification',
+        subtitle: "Anda dapat melakukan verifikasi pada halaman ini. Anda dapat memilih menu di bawah ini.",
       }
     },
     methods: {

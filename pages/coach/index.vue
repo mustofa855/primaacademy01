@@ -99,7 +99,7 @@ export default {
     // fetch data
     async fetchData(currentPage) {
       await this.$axios
-        .$get('employee/get', {
+        .$get('https://bepssi.kunci.co.id/api/coach/1/club', {
           params: {
             page: currentPage || this.pagination.current_page,
             search: this.search,

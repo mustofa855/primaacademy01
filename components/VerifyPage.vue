@@ -1,30 +1,64 @@
 <template>
-  <div class="flex">
-     <!-- Card Dokumen -->
-    <div
-      class="hover:bg-gray-100 duration-200 ease-out transition max-w-xs w-80 bg-white p-4 shadow-md rounded-lg mr-4 flex items-center cursor-pointer"
-      :class="to === '/verification' ? 'cursor-pointer' : ''" @click="toPage('/verification/doc-list/')">
-       <!-- icon  -->
-      <div class="bg-primary rounded-full w-12 h-12 flex mr-4">
-        <img :src="(`/${icon_Doc}`)" class="m-auto w-8" />
+  <div>
+    <title-bar :title="title" />
+    <div class="flex flex-wrap gap-4">
+      <!-- Card Dokumen -->
+      <div
+        class="hover:bg-gray-100 duration-200 ease-out transition max-w-xs w-80 bg-white p-4 shadow-md rounded-lg  flex items-center cursor-pointer"
+        :class="to === '/verification' ? 'cursor-pointer' : ''" @click="toPage('/verification/doc-list/')">
+        <!-- icon  -->
+        <div class="bg-primary rounded-full w-12 h-12 flex mr-4">
+          <img :src="(`/${icon_Doc}`)" class="m-auto w-8" />
+        </div>
+        <h2 class="font-bold text-xl cursor-pointer">Dokumen</h2>
       </div>
-      <h2 class="font-bold text-xl cursor-pointer">Dokumen</h2>
+
+      <!-- Card Partner  -->
+      <div
+        class="hover:bg-gray-100 duration-200 ease-out transition max-w-xs w-80 bg-white p-4 shadow-md rounded-lg  flex items-center cursor-pointer"
+        :class="to === '/verification' ? 'cursor-pointer' : ''" @click="toPage('/verification/partner-list')">
+        <!-- icon   -->
+        <div class="bg-primary rounded-full w-12 h-12 flex mr-4">
+          <img :src="(`/${icon_Part}`)" class="m-auto w-8" />
+        </div>
+        <h2 class="font-bold text-xl cursor-pointer"><a href=""></a>Partner</h2>
+      </div>
+
+      <!-- Card Test Parameter  -->
+      <div
+        class="hover:bg-gray-100 duration-200 ease-out transition max-w-xs w-80 bg-white p-4 shadow-md rounded-lg flex items-center cursor-pointer"
+        :class="to === '/verification' ? 'cursor-pointer' : ''" @click="toPage('/verification/test-parameter')">
+        <!-- icon   -->
+        <div class="bg-primary rounded-full w-12 h-12 flex mr-4">
+          <img :src="(`/${icon_Param}`)" class="m-auto w-8" />
+        </div>
+        <h2 class="font-bold text-xl cursor-pointer"><a href=""></a>Test Parameter</h2>
+      </div>
+
+      <!-- Card Test Parameter  -->
+      <div
+        class="hover:bg-gray-100 duration-200 ease-out transition max-w-xs w-80 bg-white p-4 shadow-md rounded-lg flex items-center cursor-pointer"
+        :class="to === '/verification' ? 'cursor-pointer' : ''" @click="toPage('/verification/test-parameter')">
+        <!-- icon   -->
+        <div class="bg-primary rounded-full w-12 h-12 flex mr-4">
+          <img :src="(`/${icon_Param}`)" class="m-auto w-8" />
+        </div>
+        <h2 class="font-bold text-xl cursor-pointer"><a href=""></a>Test Parameter</h2>
+      </div>
+      <!-- Card Test Parameter  -->
+      <div
+        class="hover:bg-gray-100 duration-200 ease-out transition max-w-xs w-80 bg-white p-4 shadow-md rounded-lg flex items-center cursor-pointer"
+        :class="to === '/verification' ? 'cursor-pointer' : ''" @click="toPage('/verification/test-parameter')">
+        <!-- icon   -->
+        <div class="bg-primary rounded-full w-12 h-12 flex mr-4">
+          <img :src="(`/${icon_Param}`)" class="m-auto w-8" />
+        </div>
+        <h2 class="font-bold text-xl cursor-pointer"><a href=""></a>Test Parameter</h2>
+      </div>
     </div>
-
-    <!-- Card Partner  -->
-    <div
-      class="hover:bg-gray-100 duration-200 ease-out transition max-w-xs w-80 bg-white p-4 shadow-md rounded-lg flex items-center cursor-pointer"
-      :class="to === '/verification' ? 'cursor-pointer' : ''" @click="toPage('/verification/partner-list')">
-      <!-- icon   -->
-      <div class="bg-primary rounded-full w-12 h-12 flex mr-4">
-        <img :src="(`/${icon_Part}`)" class="m-auto w-8" />
-      </div>
-      <h2 class="font-bold text-xl cursor-pointer"><a href=""></a>Partner</h2>
-    </div> 
-
-
   </div>
 </template>
+
   
 <script>
 export default {
@@ -49,7 +83,11 @@ export default {
     },
     icon_Part: {
       type: String,
-      default: 'partimage.svg',
+      default: 'partner.svg',
+    },
+    icon_Param: {
+      type: String,
+      default: 'testparam.svg',
     },
     to: {
       type: String,
@@ -58,7 +96,7 @@ export default {
   },
   methods: {
     toPage(route) {
-      
+
       this.$router.push(route)
       // Implement your navigation logic here using the 'route' prop
       // For example, you can use Vue Router to navigate to the specified route.
@@ -67,7 +105,5 @@ export default {
 }
 </script>
   
-<style lang="scss" scoped>
-/* Add your scoped CSS styles here if needed */
-</style>
+<style lang="scss" scoped></style>
   

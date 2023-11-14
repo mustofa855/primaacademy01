@@ -2,10 +2,10 @@
   <div>
     <title-bar
       is-controlbar
-      :title="'Verifikasi Partner'"
-      :subtitle="'Pada menu ini anda dapat melakukan verifikasi partner.'"
+      :title="'List Pemain'"
+      :subtitle="'Pada menu ini anda dapat memilih pemain yang akan dilakukan test parameter'"
     />
-    <control-bar v-model="search" :button-name="'Tambah Pelatih Baru'" />
+    <control-bar v-model="search" :button-name="'Test Parameter'" />
     <!-- data tabel -->
     <kunci-table :header-table="tableHeader" :data="items">
       <template #no="{ index }">{{ index + pagination.from }}</template>
@@ -44,17 +44,17 @@ export default {
           key: 'no',
         },
         {
-          text: 'Nama pelatih',
+          text: 'Foto',
+          key: 'photo',
+        },
+        {
+          text: 'Nama Pemain',
           key: 'name',
         },
-        {
-          text: 'Email',
-          key: 'email',
-        },
-        {
-          text: 'Aksi',
-          key: 'action',
-        },
+        // {
+        //   text: 'Aksi',
+        //   key: 'action',
+        // },
       ],
       pagination: {
         current_page: 1,
@@ -99,7 +99,7 @@ export default {
     // fetch data
     async fetchData(currentPage) {
       await this.$axios
-        .$get('https://bepssi.kunci.co.id/api/partners', {
+        .$get('https://bepssi.kunci.co.id/api/club/players/1/list', {
           params: {
             page: currentPage || this.pagination.current_page,
             search: this.search,
@@ -109,6 +109,13 @@ export default {
         .then((res) => {
           if (res) {
             this.items = res.data
+            .map((item) => {
+              return {
+                name: item.player.name,
+                photo: item.player.photo
+              }
+            } )
+
             this.pagination.current_page = res.meta.current_page
             this.pagination.total = res.meta.total_items
             this.pagination.last_page = res.meta.last_page

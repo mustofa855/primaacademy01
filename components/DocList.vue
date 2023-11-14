@@ -17,7 +17,7 @@
           <td class="py-2 px-4">{{ item.username }}</td>
           <td class="py-2 px-4">{{ file.name }}.pdf</td>
           <td class="py-2 px-4">
-            <button @click="openModal(file.file, file.name)" class="text-blue-500 mr-2" title="See Detail">
+            <button @click="openModal(file.file, file.name, file.id)" class="text-blue-500 mr-2" title="See Detail">
               <img :src="`/${icon_SeeDetail}`" class="m-auto w-8" />
             </button>
             <button class="Filter text-blue-500 mr-2" @click="getData(item.id)" title="Filter by Id User">
@@ -49,7 +49,7 @@
 
       <iframe :src="url" class="w-full h-5/6" frameborder="0" allowfullscreen="false"></iframe>
       <div class="mt-4 flex justify-center space-x-4">
-        <button @click="terimaDokumen(item.id)"
+        <button @click="terimaDokumen()"
           class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-200">
           Terima
         </button>
@@ -90,6 +90,7 @@ export default {
       title: 'Document Verification',
       subtitle: new Date(),
       fileType: "pdf",
+      fileTerpilih: null,
       datalist: {},
       activeFilterId: null, // variabel untuk melacak ID filter aktif
       modal: {
@@ -128,17 +129,41 @@ export default {
       }
       // Fungsi ini akan mengubah ikon filter saat tombol filter diklik
     },
-    async terimaDokumen(id) {
+    async terimaDokumen() {
+      try {
+        const config = {
+          method: 'get',
+          maxBodyLength: Infinity,
+          url: 'https://bepssi.kunci.co.id/sanctum/csrf-cookie',
+          headers: {
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JlcHNzaS5rdW5jaS5jby5pZC9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTY5NTc5NzIxNywibmJmIjoxNjk1Nzk3MjE3LCJqdGkiOiI4Qmh3d3RoaHdISmtRYXpEIiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.eplSXLlhUeHHJW7O_XLCnwvMosBxZRgsOMKa3vG57rE',
+            'Content-Type': 'application/json'
+          },
+        };
+
+        await axios.request(config)
+          .then((response) => {
+            this.acceptData(this.fileTerpilih)
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async acceptData(id) {
       try {
         const dataVerifikasi = { 'status': '1' }
 
         const config = {
           method: 'patch',
           maxBodyLength: Infinity,
-          url: 'https://bepssi.kunci.co.id/api/secure-documents/:id/update',
+          url: 'https://bepssi.kunci.co.id/api/secure-documents/'+this.fileTerpilih+'/update',
           headers: {
             'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JlcHNzaS5rdW5jaS5jby5pZC9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTY5NTc5NzIxNywibmJmIjoxNjk1Nzk3MjE3LCJqdGkiOiI4Qmh3d3RoaHdISmtRYXpEIiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.eplSXLlhUeHHJW7O_XLCnwvMosBxZRgsOMKa3vG57rE',
-            'Cookie': 'XSRF-TOKEN=eyJpdiI6IjkxSno0TDdqZ0Y5d200dFRnRVErQkE9PSIsInZhbHVlIjoiL3ZUa05wWVJ4cXhuR3lmbHZBZ0tjWjJlUGZkUXJBa1hSWnY2azJkZGYxV3cydFVTY0ZnMWxROGM0QTBydWtIeHVINnJQaTl6ZEVnaXBwWXFXVHlBcEo3bU12Q3lTdkRNTzB3azlpbVZOS0tGVHZucG1kNXVTeE4vZkowYlFaOG0iLCJtYWMiOiJiMGQ5NjE1ZjgwYzRhNjgwY2FkYjg3ZDhhMGE1MDY3Y2ZiOTViNmY5MDgzYjU0NTY0N2MxMjY2YTJkZGQ3MGRjIiwidGFnIjoiIn0%3D; prima_academy_dev_session=eyJpdiI6ImhueTFCZzhMS1lURzFMQk1wbU5DUnc9PSIsInZhbHVlIjoiZ2RTT0VLNlYzYlVMcWx1bW5DTmFhbXNKYUVTTCtQZ3RNanBpOHI1SUo5VEtyV3ZtM2JLUmxTMTVGSWMwSWpZRG9PT3ptTkNzSGhhMUtqb2lQUWhRREx0dGRyZzV5MGxKQytkRkZYdHFCSGcxdXNoR3h3eWU1UmZFRWxnZ25jU2oiLCJtYWMiOiI3NGU5ODNjYzhjNWJjMGE1NzA1YmJiZGZjMzJmMWFlMzcwMjk3N2M5MmZjNzljMjg1MzUxNDRmMDk2ZmI3Y2QxIiwidGFnIjoiIn0%3D',
+            // 'Cookie': 'XSRF-TOKEN=eyJpdiI6IjkxSno0TDdqZ0Y5d200dFRnRVErQkE9PSIsInZhbHVlIjoiL3ZUa05wWVJ4cXhuR3lmbHZBZ0tjWjJlUGZkUXJBa1hSWnY2azJkZGYxV3cydFVTY0ZnMWxROGM0QTBydWtIeHVINnJQaTl6ZEVnaXBwWXFXVHlBcEo3bU12Q3lTdkRNTzB3azlpbVZOS0tGVHZucG1kNXVTeE4vZkowYlFaOG0iLCJtYWMiOiJiMGQ5NjE1ZjgwYzRhNjgwY2FkYjg3ZDhhMGE1MDY3Y2ZiOTViNmY5MDgzYjU0NTY0N2MxMjY2YTJkZGQ3MGRjIiwidGFnIjoiIn0%3D; prima_academy_dev_session=eyJpdiI6ImhueTFCZzhMS1lURzFMQk1wbU5DUnc9PSIsInZhbHVlIjoiZ2RTT0VLNlYzYlVMcWx1bW5DTmFhbXNKYUVTTCtQZ3RNanBpOHI1SUo5VEtyV3ZtM2JLUmxTMTVGSWMwSWpZRG9PT3ptTkNzSGhhMUtqb2lQUWhRREx0dGRyZzV5MGxKQytkRkZYdHFCSGcxdXNoR3h3eWU1UmZFRWxnZ25jU2oiLCJtYWMiOiI3NGU5ODNjYzhjNWJjMGE1NzA1YmJiZGZjMzJmMWFlMzcwMjk3N2M5MmZjNzljMjg1MzUxNDRmMDk2ZmI3Y2QxIiwidGFnIjoiIn0%3D',
             'Content-Type': 'application/json'
           },
           data: dataVerifikasi
@@ -178,9 +203,10 @@ export default {
         console.error(error);
       }
     },
-    openModal(file, name) {
+    openModal(file, name, id) {
       console.log("SINIIIIIII")
       this.modal.title = name;
+      this.fileTerpilih = id
       this.url = `http://localhost:4000/proxy?url=${encodeURIComponent(file)}`; // Update the URL to use the proxy
       this.fileType = "pdf";
       this.modal.status = true;

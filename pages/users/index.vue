@@ -44,12 +44,16 @@ export default {
           key: 'no',
         },
         {
-          text: 'Nama pelatih',
-          key: 'name',
+          text: 'Nama Pengguna',
+          key: 'username',
         },
         {
           text: 'Email',
           key: 'email',
+        },
+        {
+          text: 'Role',
+          key: 'role',
         },
         {
           text: 'Aksi',
@@ -99,7 +103,7 @@ export default {
     // fetch data
     async fetchData(currentPage) {
       await this.$axios
-        .$get('https://bepssi.kunci.co.id/api/coach/1/club', {
+        .$get('https://bepssi.kunci.co.id/api/users', {
           params: {
             page: currentPage || this.pagination.current_page,
             search: this.search,
@@ -109,6 +113,10 @@ export default {
         .then((res) => {
           if (res) {
             this.items = res.data
+            this.items.forEach(e => {
+              e.role = e.user_type === 1?"Official": 
+              e.user_type === 2?"Pemain":e.user_type === 3?"Club":""
+            })
             this.pagination.current_page = res.meta.current_page
             this.pagination.total = res.meta.total_items
             this.pagination.last_page = res.meta.last_page

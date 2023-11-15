@@ -84,6 +84,7 @@ export default {
     '@nuxtjs/moment',
 
     'vue-sweetalert2/nuxt',
+    "nuxt-lodash"
   ],
 
   // moment config
@@ -91,7 +92,18 @@ export default {
     defaultLocale: 'id',
     locales: ['id'],
   },
-
+  lodash: {
+    prefix: "_",
+    prefixSkip: ["string"],
+    upperAfterPrefix: false,
+    exclude: ["map"],
+    alias: [
+      ["camelCase", "stringToCamelCase"], // => stringToCamelCase
+      ["kebabCase", "stringToKebab"], // => stringToKebab
+      ["isDate", "isLodashDate"],
+      ["flatMap", "flatMap"],  // => _isLodashDate
+    ],
+  },
   sweetalert: {
     confirmButtonColor: '#04837B',
     cancelButtonColor: '#F12D2D',

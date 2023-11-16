@@ -9,6 +9,8 @@
     <!-- data tabel -->
     <kunci-table :header-table="tableHeader" :data="items">
       <template #no="{ index }">{{ index + pagination.from }}</template>
+      <template #name="{ item }">{{ item.employee.name }}</template>
+      <template #email="{ item }">{{ item.employee.user.email }}</template>
       <template #action="{ item }">
         <kunci-button
           :dense="true"
@@ -122,7 +124,7 @@ export default {
     // to detail
     toDetail(e) {
       this.$store.commit('employee/SET_ID', e.id)
-      this.$router.push(`/coach/detail`)
+      this.$router.push(`/verification/partner-list/detail`)
     },
   },
 }

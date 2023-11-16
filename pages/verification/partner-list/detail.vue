@@ -1,13 +1,13 @@
 <template>
   <div>
     <create-page
-      :title="'Detail Pengguna'"
-      :subtitle="'Pada menu ini anda dapat mengelola akun Pengguna.'"
-      :form-title="'Data Pengguna'"
+      :title="'Detail Pelatih'"
+      :subtitle="'Pada menu ini anda dapat mengelola akun Pelatih.'"
+      :form-title="'Data Pelatih'"
       :endpoint="`role/update/${$store.state.employee.id}`"
       :items="roles"
-      :redirect="'/users'"
-      :back="'/users'"
+      :redirect="'/coach'"
+      :back="'/coach'"
       :select2="true"
       label-button="Update"
       is-form-data
@@ -18,8 +18,8 @@
           <FormulateInput
             v-model="items.name"
             type="text"
-            label="Nama Pengguna"
-            placeholder="Nama Pengguna"
+            label="Nama Pelatih"
+            placeholder="Nama Pelatih"
             validation="required"
             error-behavior="live"
             disabled

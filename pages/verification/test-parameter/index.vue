@@ -2,13 +2,15 @@
   <div>
     <title-bar
       is-controlbar
-      :title="'List Pemain'"
-      :subtitle="'Pada menu ini anda dapat memilih pemain yang akan dilakukan test parameter'"
+      :title="'Verifikasi Test Parameter'"
+      :subtitle="'Pada menu ini anda dapat melakukan verifikasi test parameter.'"
     />
-    <control-bar v-model="search" :button-name="'Test Parameter'" />
+    <control-bar v-model="search"  />
     <!-- data tabel -->
     <kunci-table :header-table="tableHeader" :data="items">
       <template #no="{ index }">{{ index + pagination.from }}</template>
+      <template #name="{ item }">{{ item.player.name }}</template>
+      <template #created_at="{ item }">{{ formatDate(item.created_at) }}</template>
       <template #action="{ item }">
         <kunci-button
           :dense="true"
@@ -44,17 +46,17 @@ export default {
           key: 'no',
         },
         {
-          text: 'Foto',
-          key: 'photo',
-        },
-        {
           text: 'Nama Pemain',
           key: 'name',
         },
-        // {
-        //   text: 'Aksi',
-        //   key: 'action',
-        // },
+        {
+          text: 'Dibuat Pada',
+          key: 'created_at',
+        },
+        {
+          text: 'Aksi',
+          key: 'action',
+        },
       ],
       pagination: {
         current_page: 1,
@@ -99,7 +101,7 @@ export default {
     // fetch data
     async fetchData(currentPage) {
       await this.$axios
-        .$get('https://bepssi.kunci.co.id/api/club/players/1/list', {
+        .$get('https://bepssi.kunci.co.id/api/performance/tests', {
           params: {
             page: currentPage || this.pagination.current_page,
             search: this.search,
@@ -109,13 +111,6 @@ export default {
         .then((res) => {
           if (res) {
             this.items = res.data
-            .map((item) => {
-              return {
-                name: item.player.name,
-                photo: item.player.photo
-              }
-            } )
-
             this.pagination.current_page = res.meta.current_page
             this.pagination.total = res.meta.total_items
             this.pagination.last_page = res.meta.last_page
@@ -124,12 +119,22 @@ export default {
             this.pagination.to = res.meta.to
           }
         })
+        
+    },
+    
+    // FormatDate
+    formatDate(dateTimeString) {
+      const date = new Date(dateTimeString);
+      const year = date.getFullYear();
+      const month = `0${date.getMonth() + 1}`.slice(-2);
+      const day = `0${date.getDate()}`.slice(-2);
+      return `${year}-${month}-${day}`;
     },
 
     // to detail
     toDetail(e) {
       this.$store.commit('employee/SET_ID', e.id)
-      this.$router.push(`/coach/detail`)
+      this.$router.push(`/verification/partner-list/detail`)
     },
   },
 }

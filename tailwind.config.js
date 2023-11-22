@@ -2,6 +2,10 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   content: ['./formulate.config.js', './src/**/*.{html,js}'],
+  content: [
+    // other files...
+    "./node_modules/flowbite/**/*.{js,ts}"
+  ],
   experimental: {
     applyComplexClasses: true,
   },
@@ -50,4 +54,8 @@ module.exports = {
       },
     },
   },
+
+  plugins: [
+    require('flowbite/plugin')
+  ],
 }

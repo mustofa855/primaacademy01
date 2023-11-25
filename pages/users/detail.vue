@@ -4,7 +4,8 @@
       :title="'Detail Pengguna'"
       :subtitle="'Pada menu ini anda dapat mengelola akun Pengguna.'"
       :form-title="'Data Pengguna'"
-      :endpoint="`role/update/${$store.state.employee.id}`"
+      :item-update-id="($store.state.employee.id).toString()"
+      :endpoint="`/api/users`"
       :items="roles"
       :redirect="'/users'"
       :back="'/users'"
@@ -14,15 +15,15 @@
     >
       <div class="grid grid-cols-2 gap-4">
         <!-- section 1 -->
+        <!-- {{ items }} -->
         <div>
           <FormulateInput
-            v-model="items.name"
+            v-model="items.username"
             type="text"
             label="Nama Pengguna"
             placeholder="Nama Pengguna"
             validation="required"
             error-behavior="live"
-            disabled
           />
           <FormulateInput
             v-model="items.email"
@@ -31,7 +32,6 @@
             placeholder="Email"
             validation="required"
             error-behavior="live"
-            disabled
           />
           <FormulateInput
             v-model="items.phone_number"
@@ -40,7 +40,6 @@
             placeholder="No. Telepon"
             validation="required"
             error-behavior="live"
-            disabled
           />
           <FormulateInput
             v-model="items.nik"
@@ -49,15 +48,13 @@
             placeholder="NIK"
             validation="required|min:16,length"
             error-behavior="live"
-            disabled
           />
           <FormulateInput
-            v-model="items.national_id"
+            v-model="items.nationality"
             type="select"
             placeholder="Kewarganegaraan"
             validation="required"
             label="Kategori"
-            disabled
           />
         </div>
         <!-- section 2 -->
@@ -68,7 +65,6 @@
             placeholder="Kota"
             validation="required"
             label="Kota"
-            disabled
           />
           <FormulateInput
             v-model="items.address"
@@ -76,7 +72,6 @@
             label="Alamat"
             validation="required"
             error-behavior="live"
-            disabled
           />
           <FormulateInput
             v-model="items.club_id"
@@ -84,12 +79,11 @@
             placeholder="Klub"
             validation="required"
             label="Klub"
-            disabled
           />
           <div>
             <h3 class="font-semibold">Role</h3>
             <multiselect
-              v-model="role"
+              v-model="items.roles"
               class="rounded-full"
               placeholder="Pilih Role"
               label="name"
@@ -164,14 +158,14 @@ export default {
   methods: {
     fetchDetail() {
       this.$axios
-        .$get(`/employee/detail/${this.$store.state.employee.id}`)
+        .$get(`/api/users/detail/${this.$store.state.employee.id}`)
         .then(({ data }) => {
           this.items = data
         })
     },
     fetchHasRole() {
       this.$axios
-        .$get(`/role/list-user/${this.$store.state.employee.id}`, {
+        .$get(`/api/role/list-user/${this.$store.state.employee.id}`, {
           params: {
             employee: true,
           },

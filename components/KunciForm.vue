@@ -63,7 +63,7 @@ export default {
       if (this.itemUpdateId) {
         data.id = this.itemUpdateId
         this.$axios
-          .post(`${this.endpoint}/${this.itemUpdateId}`, formData)
+          .patch(`${this.endpoint}/${this.itemUpdateId}`, formData)
           .then((res) => {
             this.$emit('submit')
             this.$swal({

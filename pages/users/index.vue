@@ -1,12 +1,11 @@
 <template>
   <div>
-    <a href="#">Haloooo....</a>
     <title-bar
       is-controlbar
       :title="'Pengguna'"
       :subtitle="'Pada menu ini anda dapat mengelola akun Pengguna.'"
     />
-    <!-- <control-bar v-model="search" :button-name="'Tambah Pelatih Baru'" /> -->
+    <control-bar v-model="search" :button-name="'Tambah Pengguna Baru'" />
     <!-- data tabel -->
     <kunci-table :header-table="tableHeader" :data="items">
       <template #no="{ index }">{{ index + pagination.from }}</template>
@@ -30,12 +29,12 @@
 </template>
 
 <script>
-// import ControlBar from '~/components/ControlBar.vue'
+import ControlBar from '~/components/ControlBar.vue'
 import KunciTable from '~/components/KunciTable.vue'
 import Pagination from '~/components/Pagination.vue'
 import TitleBar from '~/components/TitleBar.vue'
 export default {
-  components: { TitleBar, KunciTable, Pagination },
+  components: { TitleBar, ControlBar, KunciTable, Pagination },
   layout: 'admin',
   data() {
     return {
@@ -131,7 +130,7 @@ export default {
     // to detail
     toDetail(e) {
       this.$store.commit('employee/SET_ID', e.id)
-      this.$router.push(`/users/detail`)
+      this.$router.push(`/users/detail/`)
     },
   },
 }

@@ -124,7 +124,7 @@ export default {
     // to detail
     toDetail(e) {
       this.$store.commit('employee/SET_ID', e.id)
-      this.$router.push(`/verification/partner-list/detail`)
+      this.$router.push(`/coach/profile`)
     },
   },
 }

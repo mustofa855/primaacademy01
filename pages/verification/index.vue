@@ -1,7 +1,6 @@
 <template>
     <div>
-      <title-bar :title="title"
-       />
+      <title-bar :title="title"/>
     </div>
   </template>
   

@@ -1,5 +1,11 @@
 <template>
   <div>
+    <title-bar
+      is-controlbar
+      :title="'Verifikasi Test Parameter'"
+      :subtitle="'Pada menu ini anda dapat melakukan verifikasi test parameter.'"
+    />
+    {{ items }}
     <Tabs></Tabs>
   </div>
 </template>
@@ -8,13 +14,15 @@
 // import CreatePage from '~/components/CreatePage.vue'
 // import InputSelect from '~/components/InputSelect.vue'
 // import KunciButton from '~/components/KunciButton.vue'
+import TitleBar from '~/components/TitleBar.vue'
 export default {
   components: {
     // InputSelect,
     // KunciButton,
     // CreatePage,
     // Tabs,
-    // Tab
+    // Tab,
+    TitleBar
   },
   layout: 'admin',
   data() {
@@ -41,6 +49,7 @@ export default {
         nik: null,
       },
       rolesList: [],
+      test: null,
       role: [],
     }
   },
@@ -56,10 +65,21 @@ export default {
     },
   },
   mounted() {
+    this.fetchDataDetail()
     this.fetchDetail()
     this.fetchHasRole()
   },
   methods: {
+    
+    fetchDataDetail() {
+        this.$axios
+        .$get(`https://bepssi.kunci.co.id/api/performance/tests/${this.$store.state.employee.id}`)
+        .then(({ data }) => {
+          this.test = data
+          console.log(this.test)
+        })
+
+    },
     fetchDetail() {
       this.$axios
         .$get(`/employee/detail/${this.$store.state.employee.id}`)

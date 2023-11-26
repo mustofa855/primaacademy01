@@ -84,6 +84,7 @@ export default {
     '@nuxtjs/moment',
 
     'vue-sweetalert2/nuxt',
+    'nuxt-highcharts',
     "nuxt-lodash"
   ],
 

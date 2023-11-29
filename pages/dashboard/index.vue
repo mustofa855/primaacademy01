@@ -1,16 +1,14 @@
 <template>
   <div>
     <title-bar :title="title" />
-    <LineChart/>
   </div>
 </template>
 
 <script>
 import TitleBar from '~/components/TitleBar.vue'
-import LineChart from '~/components/LineChart.vue'
 
 export default {
-  components: { TitleBar, LineChart},
+  components: { TitleBar},
   layout: 'admin',
   data() {
     return {

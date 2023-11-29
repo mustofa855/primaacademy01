@@ -204,7 +204,6 @@ export default {
       }
     },
     openModal(file, name, id) {
-      console.log("SINIIIIIII")
       this.modal.title = name;
       this.fileTerpilih = id
       this.url = `http://localhost:4000/proxy?url=${encodeURIComponent(file)}`; // Update the URL to use the proxy

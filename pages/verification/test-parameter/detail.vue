@@ -5,8 +5,21 @@
       :title="'Verifikasi Test Parameter'"
       :subtitle="'Pada menu ini anda dapat melakukan verifikasi test parameter.'"
     />
-    {{ items }}
-    <Tabs></Tabs>
+    <Tabs />
+    <!-- <create-page
+       :title="'Detail Test Paramter'"
+      :subtitle="'Pada menu ini anda dapat mengelola test parameter.'"
+      :form-title="'Test Parameter'"
+      :item-update-id="($store.state.employee.id).toString()"
+      :endpoint="`/api/users`"
+      :items="roles"
+      :redirect="'/test-parameter'"
+      :back="'/test-parameter'"
+      :select2="true"
+      label-button="Update"
+      is-form-data
+    >
+    </create-page> -->
   </div>
 </template>
 
@@ -14,15 +27,13 @@
 // import CreatePage from '~/components/CreatePage.vue'
 // import InputSelect from '~/components/InputSelect.vue'
 // import KunciButton from '~/components/KunciButton.vue'
-import TitleBar from '~/components/TitleBar.vue'
+import Tabs from '~/components/Tabs.vue'
 export default {
   components: {
     // InputSelect,
     // KunciButton,
     // CreatePage,
-    // Tabs,
-    // Tab,
-    TitleBar
+    Tabs
   },
   layout: 'admin',
   data() {
@@ -49,7 +60,6 @@ export default {
         nik: null,
       },
       rolesList: [],
-      test: null,
       role: [],
     }
   },
@@ -65,31 +75,13 @@ export default {
     },
   },
   mounted() {
-    this.fetchDataDetail()
-    this.fetchDetail()
+    // this.fetchDetail()
     this.fetchHasRole()
   },
   methods: {
-    
-    fetchDataDetail() {
-        this.$axios
-        .$get(`https://bepssi.kunci.co.id/api/performance/tests/${this.$store.state.employee.id}`)
-        .then(({ data }) => {
-          this.test = data
-          console.log(this.test)
-        })
-
-    },
-    fetchDetail() {
-      this.$axios
-        .$get(`/employee/detail/${this.$store.state.employee.id}`)
-        .then(({ data }) => {
-          this.items = data
-        })
-    },
     fetchHasRole() {
       this.$axios
-        .$get(`/role/list-user/${this.$store.state.employee.id}`, {
+        .$get(`/api/role/list-user/${this.$store.state.employee.id}`, {
           params: {
             employee: true,
           },

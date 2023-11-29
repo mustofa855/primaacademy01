@@ -5,7 +5,7 @@
       :title="'Verifikasi Test Parameter'"
       :subtitle="'Pada menu ini anda dapat melakukan verifikasi test parameter.'"
     />
-    <control-bar v-model="search"  />
+    <control-bar v-model="search" :button-name="'Tambah Pengguna Baru'"/>
     <!-- data tabel -->
     <kunci-table :header-table="tableHeader" :data="items">
       <template #no="{ index }">{{ index + pagination.from }}</template>
@@ -134,7 +134,7 @@ export default {
     // to detail
     toDetail(e) {
       this.$store.commit('employee/SET_ID', e.id)
-      this.$router.push(`/`)
+      this.$router.push(`/verification/test-parameter/detail`)
     },
   },
 }

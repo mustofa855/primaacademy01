@@ -12,19 +12,21 @@ export const mutations = {
   SET_ROLE(state, payload) {
     state.role = payload
   },
+  SET_USER(state, payload) {
+    state.user = payload
+  },
 }
 
 export const actions = {
   async nuxtServerInit({ commit }, context) {
-    await commit('SET_IS_AUTH', context.app.$auth.$state.loggedIn)
-    if (context.app.$auth.$state.user) {
-      commit('SET_ROLE', context.app.$auth.$state.role)
+    if (context.app.$auth && context.app.$auth.$state) {
+      const loggedIn = context.app.$auth.$state.loggedIn || false;
+      commit('SET_IS_AUTH', loggedIn);
+
+      if (context.app.$auth.$state.user) {
+        commit('SET_USER', context.app.$auth.$state.user);
+        commit('SET_ROLE', context.app.$auth.$state.role);
+      }
     }
   },
-  // async nuxtServerInit({ commit }, { req }) {
-  //   await commit('SET_IS_AUTH', context.app.$auth.$state.loggedIn)
-  //   if (req.session.user) {
-  //     commit('setUser', req.session.user)
-  //   }
-  // }
 }

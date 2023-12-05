@@ -55,7 +55,7 @@
                 <div class="px-4 py-5 flex-auto">
                     <div class="flex border-gray-900/10">
                         <div class="text-base font-semibold text-gray-900 py-1 px-2">
-                            <h2>Rekomendasi : </h2>
+                            <h5>Rekomendasi : </h5>
                         </div>
                         <div class="bg-gray-200 rounded-md py-1 px-2">
                             <p>Belum ada rekomendasi</p>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="flex border-gray-900/10 mt-3">
                         <div class="text-base font-semibold text-gray-900 py-1 px-2">
-                            <h2>Status : </h2>
+                            <h5>Status : </h5>
                         </div>
                         <div class="bg-yellow-200 rounded-md py-1 px-2">
                             <p>Menunggu</p>

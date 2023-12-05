@@ -89,6 +89,7 @@ export default {
         console.log("Login Berhasil")
         this.$router.push('/dashboard');
       } catch (err) {
+        console.log(err)
         const error = this.$errorMessages(err.response.data.errors);
         this.$swal.fire({
           title: 'Gagal',
@@ -98,22 +99,6 @@ export default {
         });
         this.$router.push('/login');
       }
-      // this.$auth
-      //   .loginWith('local', { data: this.items })
-      //   .then(() => {
-      //     console.log("A")
-      //     this.$router.push('/dashboard')
-      //   })
-      //   .catch((err) => {
-      //     const error = this.$errorMessages(err.response.data.errors)
-      //     // sweet alert
-      //     this.$swal.fire({
-      //       title: 'Gagal',
-      //       html: error,
-      //       icon: 'error',
-      //       confirmButtonText: 'Oke',
-      //     })
-      //   })
     },
     forgetPass() {
       // swal

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="items">
     <title-bar
       is-controlbar
       :title="'Pengguna'"
@@ -74,7 +74,7 @@ export default {
         total: 0,
       },
       search: null,
-      items: [],
+      items: null,
     }
   },
   watch: {

@@ -37,24 +37,22 @@
       <!-- role management  -->
       <div class="flex flex-col gap-4 items-center relative group">
         <!-- role management -->
-        <div class="w-full cursor-pointer" @click="toggleRole">
+        <!-- <div class="w-full cursor-pointer" @click="toggleRole">
           <div class="flex gap-4">
-            <!-- avatar -->
             <div class="rounded-full bg-primary">
               <img :src="'/support.svg'" alt="profile" class="m-aut w-12" />
             </div>
-            <!-- username and role -->
-            <div class="flex flex-col">
+            <div v-if="$store.state.roleManagement" class="flex flex-col">
               <div class="text-black font-semibold text-lg">
                 {{ $store.state.roleManagement.roleName }}
               </div>
               <div>Role Dipilih</div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- role section -->
-        <transition enter-from-class="transform opacity-0" enter-active-class="duration-200 ease-in"
+        <!-- <transition enter-from-class="transform opacity-0" enter-active-class="duration-200 ease-in"
           enter-to-class="opacity-100" leave-from-class="opacity-100" leave-active-class="duration-200 ease-out"
           leave-to-class="transform opacity-0">
           <div v-if="roleOptions" class="absolute -top-52 z-10 rounded-md shadow-dark shadow-md w-full p-2 bg-white">
@@ -66,7 +64,7 @@
               </li>
             </ul>
           </div>
-        </transition>
+        </transition> -->
       </div>
 
       <!-- account management -->
@@ -79,12 +77,12 @@
               <img :src="'/default.png'" alt="profile" class="m-auto" />
             </div>
             <!-- username and role -->
-            <div class="flex flex-col">
+            <!-- <div class="flex flex-col">
               <div class="text-black font-semibold text-lg">
                 {{ $store.state.auth.user.username }}
               </div>
               <div>{{ $store.state.roleManagement.roleName }}</div>
-            </div>
+            </div> -->
           </div>
         </div>
 

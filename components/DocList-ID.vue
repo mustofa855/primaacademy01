@@ -101,9 +101,6 @@ export default {
         ]
     }
   },
-    watch() {
-
-    },
     computed: {
         id () {
             return this.$route.params.id

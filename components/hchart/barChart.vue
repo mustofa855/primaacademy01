@@ -1,6 +1,6 @@
 <template>
     <div class="w-full">
-        <div v-if="forPdf && forPdf===true">
+        <div v-if="chart && chart===true">
             <highchart 
                 :options="chartOptions" :setOptions="disableAnimation"
             />
@@ -15,7 +15,7 @@
 
 <script>
     export default {
-        props: ['kategori', 'dataSeries','forPdf','height','noLegend'],
+        props: ['kategori', 'dataSeries','chart','height','noLegend'],
         data() {
             return {
                 // kategori: ['Produk', 'Acara', "Blog"],
@@ -80,7 +80,7 @@
                                 enabled: true,
                                 formatter:function() {
                                     var pct = (this.y / this.series.options.totalData) * 100;
-                                    return this.y + ' ' + ' / ' + Math.round(pct) + '%'
+                                    return this.y
                                 }
                             },
                             groupPadding: 0.1

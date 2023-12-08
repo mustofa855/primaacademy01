@@ -7,26 +7,19 @@
     <title-bar :title="title" />
     <div class="grid grid-cols-2 gap-4">
       <div class=" p-5 bg-white rounded-lgplus shadow-dashboard">
-        <!-- Konten Bagian Pertama -->
-        <!-- <pre>{{ dataChart }}</pre> -->
-        <div class="text-warna-tiga text-xl">Overview - Total Konten</div>
-        <div class="text-warna-tiga text-5xlplus">{{ dataSeries[0].totalData }}</div>
+        <!-- Konten Bagian Pertama-->
+        <!-- <pre>{{ dataChart }}</pre>
+        <pre>{{ kategori }}</pre>
+        <pre>{{ dataSeries }}</pre> -->
         <HchartBarChart :kategori="kategori" :dataSeries="dataSeries" />
       </div>
       <div class="p-5 bg-white rounded-lgplus shadow-dashboard">
         <!-- Konten Bagian Kedua -->
-        <HchartBarChart :kategori="kategori" :dataSeries="dataSeries" />
+        <!-- <pre>{{ dataSeriesDonut }}</pre> -->
+        <!-- <div class="text-warna-tiga text-5xlplus">{{ dataSeries[0].totalData }}</div> -->
+        <HchartDonatChart :seriesData="dataSeriesDonut.seriesData"  :seriesName="dataSeriesDonut.seriesName" :colors="dataSeriesDonut.colors" :legend="true" />
+        <!-- <HchartDonat v-if="reportInisiatif" :seriesData="reportInisiatif.seriesData" :seriesName="reportInisiatif.seriesName" :colors="reportInisiatif.colors" :legend="true" /> -->
         <!-- Konten untuk bagian kedua di sini -->
-      </div>
-      <div class="p-5 bg-white rounded-lgplus shadow-dashboard">
-        <!-- Konten Bagian Ketiga -->
-        <HchartBarChart :kategori="kategori" :dataSeries="dataSeries" />
-        <!-- Konten untuk bagian ketiga di sini -->
-      </div>
-      <div class="p-5 bg-white rounded-lgplus shadow-dashboard">
-        <!-- Konten Bagian Keempat -->
-        <HchartBarChart :kategori="kategori" :dataSeries="dataSeries" />
-        <!-- Konten untuk bagian keempat di sini -->
       </div>
     </div>
 
@@ -50,6 +43,18 @@ export default {
         data: [100, 25, 75],
         totalData: 200
       }],
+      
+      dataSeriesDonut: {
+          seriesData : [{
+                name: 'data1',
+                y: 20
+            }, {
+                name: 'data2',
+                y: 80
+            }],
+          seriesName : 'Overview - Total Konten',
+          colors: ['#C0392B', '#633974', '#21618C', '#1E8449', '#D4AC0D', '#D4AC0D','#D5F5E3', '#5DADE2']
+      },
       dataChart: null
     }
   },
@@ -64,13 +69,24 @@ export default {
       try {
         const response = await this.$axios.get('https://bepssi.kunci.co.id/api/dashboard/stats');
         this.dataChart = response.data.data;
-        this.kategori = Object.keys(response.data.data).map(this.snakeToSpace);
+        this.kategori = Object.keys(response.data.data).map(this.snakeToSpace).filter(e => e !== "total task" && "verified task count");
         this.dataSeries = [{
           name: 'Overview - Total User',
           data: Object.values(response.data.data),
           totalData: _.sum(Object.values(response.data.data))
         }]
-
+        // {
+        //     name: 'data1',
+        //     y: 20
+        // }
+        var dataKey = Object.keys(response.data.data).filter(e => e !== "total_task")
+        this.dataSeriesDonut.seriesData =  _.map(dataKey, function(e){
+          return {
+            name: e.replace(/_/g, ' '),
+            y:response.data.data[e]
+          }
+        })
+        console.log(this.dataSeriesDonut.seriesData)
       } catch (error) {
         console.error(error);
       }

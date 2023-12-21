@@ -14,15 +14,15 @@
       </div>
 
       <!-- Card Partner  -->
-      <div
+      <!-- <div
         class="hover:bg-gray-100 duration-200 ease-out transition max-w-xs w-80 bg-white p-4 shadow-md rounded-lg  flex items-center cursor-pointer"
-        :class="to === '/verification' ? 'cursor-pointer' : ''" @click="toPage('/verification/partner-list')">
+        :class="to === '/verification' ? 'cursor-pointer' : ''" @click="toPage('/verification/partner-list')"> -->
         <!-- icon   -->
-        <div class="bg-primary rounded-full w-12 h-12 flex mr-4">
+        <!-- <div class="bg-primary rounded-full w-12 h-12 flex mr-4">
           <img :src="(`/${icon_Part}`)" class="m-auto w-8" />
         </div>
         <h2 class="font-bold text-xl cursor-pointer"><a href=""></a>Partner</h2>
-      </div>
+      </div> -->
 
       <!-- Card Test Parameter  -->
       <div

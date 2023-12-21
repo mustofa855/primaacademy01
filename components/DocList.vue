@@ -13,7 +13,7 @@
       </thead>
       <tbody v-for="(item, index) in datalist" :key="index">
         <tr v-for="file in item.secure_documents" :key="file.id" class="border-t">
-          <td class="py-2 px-4">{{ file.id }}</td>
+          <td class="py-2 px-4">{{ index }}</td>
           <td class="py-2 px-4">{{ item.username }}</td>
           <td class="py-2 px-4">{{ file.name }}.pdf</td>
           <td class="py-2 px-4">

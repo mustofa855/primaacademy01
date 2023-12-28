@@ -85,9 +85,22 @@ export default {
     // Login Method
     async login() {
       try {
-        await this.$auth.loginWith('local', { data: this.items });
-        console.log("Login Berhasil")
-        this.$router.push('/dashboard');
+        await this.$auth.loginWith('local', { data: this.items }).then(({ data }) => {
+            console.log(_.flatMap(data.data.roles, "id").includes(1))
+            if (_.flatMap(data.data.roles, "id").includes(1)){
+              console.log("Login Berhasil")
+              this.$router.push('/dashboard');
+            } else {
+              const error = "Hanya Akun Administrator yang dapat login";
+              this.$swal.fire({
+                title: 'Gagal',
+                html: error,
+                icon: 'error',
+                confirmButtonText: 'Oke',
+              });
+              this.$router.push('/login');
+            }
+        });
       } catch (err) {
         console.log(err)
         const error = this.$errorMessages(err.response.data.errors);

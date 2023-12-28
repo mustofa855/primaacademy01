@@ -4,10 +4,10 @@ import axios from 'axios';
 const _ = require('lodash');
 require('dotenv').config();
 export default {
-  // server: {
-  //   port: 3000,
-  //   host: "0.0.0.0"
-  // },
+  server: {
+    port: 80,
+    host: "0.0.0.0"
+  },
 
   target: 'server', 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -107,7 +107,7 @@ export default {
     // moment module
     '@nuxtjs/moment',
 
-    // 'vue-sweetalert2/nuxt',
+    'vue-sweetalert2/nuxt',
     // "nuxt-lodash"
     
     '@nuxtjs/i18n',

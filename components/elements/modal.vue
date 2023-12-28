@@ -4,9 +4,9 @@
         <transition name="fadefast">
             <div v-if="statModal" aria-hidden="true"
                 class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 bottom-0 z-40 w-full lg:inset-0 h-modal lg:h-full flex  justify-center bg-gray-800/[.7] ">
-                <div v-click-outside="persistentAction" :class="width ? width : 'w-full lg:w-1/2'"
+                <div v-click-outside="persistentAction" :class="width ? width : 'w-full lg:w-2/3'"
                     class="fixed p-0 lg:p-4 z-20 lg:h-auto">
-                    <div class="relative bg-white lg:rounded-lg shadow lg:px-6 px-5 h-screen lg:h-fit py-10 ">
+                    <div class="relative bg-white lg:rounded-lg shadow lg:px-6 px-5  py-10 ">
                         <div class="flex items-center rounded-t ">
                             <h3 class="flex-auto text-xl md:text-2xlplus text-center leading-8 font-lato text-warna-empat"
                                 :class="show ? 'pl-[26px]' : 'pl-0'">

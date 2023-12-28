@@ -39,20 +39,23 @@
     <!-- pagination -->
     <pagination :pagination="pagination" @refetch="paginate" @paginate="paginate" />
 
-    <ElementsModal v-model="modal.status" :title="modal.title" :key="'modal' + modal.key" :width="'w-1/2'" :height="'h-1/2'" :show="true">
-      <iframe :src="url" class="w-full" frameborder="0" allowfullscreen="true"></iframe>
-      <div class="mt-4 flex justify-center space-x-4">
-        <button @click="terimaDokumen()"
-          class="px-4 py-2 bg-success text-white rounded-lg hover:hover:bg-success-shade focus:outline-none focus:ring focus:ring-blue-200">
-          Terima
-        </button>
-        <button @click="tolakDokumen"
-          class="px-4 py-2 bg-red-700 text-white rounded-lg hover:bg-red-800 focus:outline-none focus:ring focus:ring-red-200">
-          Tolak
-        </button>
-      </div>
-      <!-- </div> -->
-    </ElementsModal>
+    <div class="w-full h-full">
+      <ElementsModal v-model="modal.status" :title="modal.title" :key="'modal' + modal.key" :show="true">
+      <iframe :src="url" class="w-full h-[465px]" frameborder="0" allowfullscreen="true"></iframe>
+        <div class="mt-4 flex justify-center space-x-4">
+          <button @click="terimaDokumen()"
+            class="px-4 py-2 bg-success text-white rounded-lg hover:hover:bg-success-shade focus:outline-none focus:ring focus:ring-blue-200">
+            Terima
+          </button>
+          <button @click="tolakDokumen"
+            class="px-4 py-2 bg-red-700 text-white rounded-lg hover:bg-red-800 focus:outline-none focus:ring focus:ring-red-200">
+            Tolak
+          </button>
+        </div>
+        <!-- </div> -->
+      </ElementsModal>
+
+    </div>
   </div>
 </template>
   

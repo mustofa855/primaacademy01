@@ -1,12 +1,11 @@
 <template>
     <div class="flex flex-wrap justify-center items-center">
         <div class="shadow-lg">
-
             <div v-if="isYoutubeLink(videoPlay)">
-                <iframe :src="getEmbedLink(videoPlay)" frameborder="0" allowfullscreen class="w-600 h-50"></iframe>
+                <iframe :src="getEmbedLink(videoPlay)" frameborder="0" allowfullscreen class="w-[800px] h-[350px]"></iframe>
             </div>
             <div v-else>
-                <video :key="videoPlay" ref="videoPlayer" id="videoPlay" controls class="w-60 h-50">
+                <video :key="videoPlay" ref="videoPlayer" id="videoPlay" controls class="w-[800px] h-[350px]">
                     <source :src="videoPlay" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -53,20 +52,20 @@
 
             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                 <div class="px-4 py-5 flex-auto">
-                    <div class="flex border-gray-900/10">
-                        <div class="text-base font-semibold text-gray-900 py-1 px-2">
-                            <h5>Rekomendasi : </h5>
-                        </div>
-                        <div class="bg-gray-200 rounded-md py-1 px-2">
-                            <p>Belum ada rekomendasi</p>
+                    <div class="flexborder-gray-900/10 relative">
+                        <div class="relative text-base font-semibold text-gray-900 py-1 pr-10">
+                            <h5>Rekomendasi :</h5>
+                            <div class="relative top-0 left-0 bg-gray-200 rounded-md py-1 px-2 w-[600px]">
+                                <Dropdown :opsi="recom" :value="rekomendasi" placeholder="Pilih Rekomendasi" />
+                            </div>
                         </div>
                     </div>
                     <div class="flex border-gray-900/10 mt-3">
-                        <div class="text-base font-semibold text-gray-900 py-1 px-2">
+                        <div class="text-base font-semibold text-gray-900 py-1 pr-10">
                             <h5>Status : </h5>
                         </div>
                         <div class="bg-yellow-200 rounded-md py-1 px-2">
-                            <p>Menunggu</p>
+                            <p>{{ items.status.name }}</p>
                         </div>
                     </div>
                     <div class="tab-content tab-space">
@@ -82,8 +81,8 @@
                                                     class="block text-sm font-medium leading-6 text-gray-900">Realisasi</label>
                                                 <div class="mt-2">
                                                     <input type="number" name="realisasi" id="realisasi"
-                                                        v-model="item.realization"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
+                                                        v-model ="item.realization"
+                                                        class="pl-3 font-semibold block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
                                                 </div>
                                             </div>
 
@@ -93,8 +92,8 @@
                                                     Aktual</label>
                                                 <div class="mt-2">
                                                     <input type="number" name="aktual" id="aktual"
-                                                        v-model="item.actual_score"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
+                                                        v-model ="item.actual_score"
+                                                        class="pl-3 font-semibold block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
                                                 </div>
                                             </div>
 
@@ -133,8 +132,8 @@
                                                     class="block text-sm font-medium leading-6 text-gray-900">Realisasi</label>
                                                 <div class="mt-2">
                                                     <input type="number" name="realisasi" id="realisasi"
-                                                        v-model="item.realization"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
+                                                        v-model ="item.realization"
+                                                        class="pl-3 font-semibold block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
                                                 </div>
                                             </div>
 
@@ -144,8 +143,8 @@
                                                     Aktual</label>
                                                 <div class="mt-2">
                                                     <input type="number" name="aktual" id="aktual"
-                                                        v-model="item.actual_score"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
+                                                        v-model ="item.actual_score"
+                                                        class="pl-3 font-semibold block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
                                                 </div>
                                             </div>
 
@@ -179,24 +178,14 @@
                                     <div v-if="item.performance_item.performance_category.id === 3">
                                         <h5 class="font-bold mt-10 ">{{ item.performance_item.name }}</h5>
                                         <div class="grid grid-cols-1 gap-x-6 sm:grid-cols-6">
-                                            <div class="sm:col-span-2 sm:col-start-1">
-                                                <label for="realisasi"
-                                                    class="block text-sm font-medium leading-6 text-gray-900">Realisasi</label>
-                                                <div class="mt-2">
-                                                    <input type="number" name="realisasi" id="realisasi"
-                                                        v-model="item.realization"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
-                                                </div>
-                                            </div>
-
                                             <div class="sm:col-span-2">
                                                 <label for="aktual"
                                                     class="block text-sm font-medium leading-6 text-gray-900">
                                                     Aktual</label>
                                                 <div class="mt-2">
                                                     <input type="number" name="aktual" id="aktual"
-                                                        v-model="item.actual_score"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
+                                                        v-model ="item.actual_score"
+                                                        class="pl-3 font-semibold block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
                                                 </div>
                                             </div>
 
@@ -230,24 +219,14 @@
                                     <div v-if="item.performance_item.performance_category.id === 4">
                                         <h5 class="font-bold mt-10 ">{{ item.performance_item.name }}</h5>
                                         <div class="grid grid-cols-1 gap-x-6 sm:grid-cols-6">
-                                            <div class="sm:col-span-2 sm:col-start-1">
-                                                <label for="realisasi"
-                                                    class="block text-sm font-medium leading-6 text-gray-900">Realisasi</label>
-                                                <div class="mt-2">
-                                                    <input type="number" name="realisasi" id="realisasi"
-                                                        v-model="item.realization"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
-                                                </div>
-                                            </div>
-
                                             <div class="sm:col-span-2">
                                                 <label for="aktual"
                                                     class="block text-sm font-medium leading-6 text-gray-900">
                                                     Aktual</label>
                                                 <div class="mt-2">
                                                     <input type="number" name="aktual" id="aktual"
-                                                        v-model="item.actual_score"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
+                                                        v-model ="item.actual_score"
+                                                        class="pl-3 font-semibold block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
                                                 </div>
                                             </div>
 
@@ -275,25 +254,113 @@
                             </form>
                         </div>
                         <div v-bind:class="{ 'hidden': openTab !== 5, 'block': openTab === 5 }">
-                            <h1>{{items.totalMental}}</h1>
-                            <!-- <h1>{{_.flatMap(items.mental_tests, "score_scat")}}</h1> -->
+                            <div class="flex border-gray-900/10 mt-3">
+                                <div class="text-base font-semibold text-gray-900 py-1 pr-10">
+                                    <h5>Skor: </h5>
+                                </div>
+                                <div class="text-5xl font-semibold rounded-md py-1 px-2 text-green-500">
+                                    <p>{{ items.totalMental }}</p>
+                                </div>
+                            </div>
+                            <h1>{{items.score_scat}}</h1>
                             <form>
                                 <div class="grid grid-cols-1 gap-x-6 sm:grid-cols-6">
                                     <div class="sm:col-span-2 sm:col-start-1">
                                         <label for="realisasi"
-                                            class="block text-sm font-medium leading-6 text-gray-900">Realisasi</label>
+                                            class="block text-sm font-medium leading-6 text-gray-900 font-semibold">Rating Nilai</label>
                                         <div class="mt-2">
-                                            <input type="number" name="realisasi" id="realisasi" 
-                                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
+                                            <input type="number" name="realisasi" id="realisasi"
+                                                class="pl-3 font-semibold block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" v-model="items.scat_score" />
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </form>
+                            <!-- Tabs di dalam Tab "Mental" -->
+                            <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row sm:gap-y-2 ">
+                                <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                                    <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal cursor-pointer "
+                                        :title="'Sub Tab 1 dalam Mental'" v-on:click="toggleSubTabs(1)"
+                                        v-bind:class="{ 'text-gray-900 bg-white': subTab !== 1, 'text-white bg-red-700': subTab === 1 }">
+                                        1-16 = Low Level Anxiety
+                                    </a>
+                                </li>
+                                <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                                    <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal cursor-pointer"
+                                        :title="'Sub Tab 2 dalam Mental'" v-on:click="toggleSubTabs(2)"
+                                        v-bind:class="{ 'text-gray-900 bg-white': subTab !== 2, 'text-white bg-red-700': subTab === 2 }">
+                                        17-24 = Average Level Anxiety
+                                    </a>
+                                </li>
+                                <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                                    <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal cursor-pointer"
+                                        :title="'Sub Tab 2 dalam Mental'" v-on:click="toggleSubTabs(3)"
+                                        v-bind:class="{ 'text-gray-900 bg-white': subTab !== 3, 'text-white bg-red-700': subTab === 3 }">
+                                        >25 = High Level Anxiety
+                                    </a>
+                                </li>
+                                <!-- Dan seterusnya -->
+                            </ul>
+                            <div v-if="openTab === 5">
+                                <div v-show="subTab === 1">
+                                    <table class="w-full border-collapse text-center border border-black">
+                                        <thead class="border border-black">
+                                            <tr class="bg-red-700 border border-black">
+                                                <th class="py-2 px-4 text-center border border-black">Skor</th>
+                                                <th class="py-2 px-4 text-center border border-black">Rating</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="index in 16" :key="index" class="border-t">
+                                                <td class="py-2 px-4 border border-black">{{ index }}</td>
+                                                <td class="py-2 px-4 border border-black">{{ 100 - (index - 1) * 2 }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div v-show="subTab === 2">
+                                    <table class="w-full border-collapse text-center border border-black">
+                                        <thead class="border border-black">
+                                            <tr class="bg-red-700 border border-black">
+                                                <th class="py-2 px-4 text-center border border-black">Skor</th>
+                                                <th class="py-2 px-4 text-center border border-black">Rating</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="index in 8" :key="index + 16" class="border-t">
+                                                <td class="py-2 px-4 border border-black">{{ index + 16 }}</td>
+                                                <td class="py-2 px-4 border border-black">{{ 70 - index * 2 }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div v-show="subTab === 3">
+                                    <table class="w-full border-collapse text-center border border-black">
+                                        <thead class="border border-black">
+                                            <tr class="bg-red-700 border border-black">
+                                                <th class="py-2 px-4 text-center border border-black">Skor</th>
+                                                <th class="py-2 px-4 text-center border border-black">Rating</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="index in 21" :key="index + 24" class="border-t">
+                                                <template v-if="index !== 10">
+                                                    <!-- Memeriksa agar angka 10 tidak ditampilkan -->
+                                                    <td class="py-2 px-4 border border-black">{{ index + 24 }}</td>
+                                                    <td class="py-2 px-4 border border-black">{{ 54 - index * 2 }}</td>
+                                                </template>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- Dan seterusnya -->
+                            </div>
                         </div>
                     </div>
                     <div class="mt-6 flex items-center justify-end gap-x-6">
                         <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-                        <button type="submit"
+                        <button type="submit" @click="dataVerifikasi"
                             class="rounded-md bg-red-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">Verifikasi</button>
                     </div>
                 </div>
@@ -307,12 +374,16 @@ export default {
     data() {
         return {
             openTab: 1,
+            subTab: 1,
             videoPlay: "",
             items: null,
+            recom: null,
+            rekomendasi: "-"
         };
     },
     mounted() {
         this.fetchDetail()
+        this.fetchRecommendeds()
     },
     methods: {
         fetchDetail() {
@@ -331,6 +402,46 @@ export default {
                     console.log(this.items);
                 })
         },
+        
+        dataVerifikasi() {
+            var dataPostVerifikasi = {
+                recommended_id: this.items.id, 
+                scat_score: this.items.scat_score?this.items.scat_score:0, 
+                status: 1,
+                performance_tests: this.items.performance_tests.map(e => {
+                    return {
+                        performance_test_id: e.id, 
+                        actual_score: e.actual_score?e.actual_score:0, 
+                        realization: e.realization?e.realization:0
+                    }
+                })
+            }
+            let config = {
+                method: 'patch',
+                maxBodyLength: Infinity,
+                url: 'https://bepssi.kunci.co.id/api/performance/3/verify',
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JlcHNzaS5rdW5jaS5jby5pZC9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTY5NTc5NzIxNywibmJmIjoxNjk1Nzk3MjE3LCJqdGkiOiI4Qmh3d3RoaHdISmtRYXpEIiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.eplSXLlhUeHHJW7O_XLCnwvMosBxZRgsOMKa3vG57rE'
+                },
+                data : dataPostVerifikasi
+            };
+            this.$axios.request(config)
+                .then((response) => {
+                console.log(JSON.stringify(response.data));
+            })
+                .catch((error) => {
+                console.log(error);
+            });
+        },
+        fetchRecommendeds() {
+            this.$axios
+                .$get(`https://bepssi.kunci.co.id/api/recommendeds`)
+                .then(({ data }) => {
+                    this.recom = data
+                    console.log(this.recom);
+                })
+        },
         isYoutubeLink(link) {
             return link.includes('youtu.be') || link.includes('youtube.com');
         },
@@ -344,10 +455,12 @@ export default {
         toggleTabs(tabNumber) {
             this.openTab = tabNumber;
         },
+        toggleSubTabs(tabNumber) {
+            this.subTab = tabNumber;
+        },
         playVideos(link) {
             this.videoPlay = link
-            console.log(this.videoPlay)
-        }
+        },
     },
 };
 </script>

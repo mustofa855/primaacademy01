@@ -81,7 +81,7 @@
                                                     class="block text-sm font-medium leading-6 text-gray-900">Realisasi</label>
                                                 <div class="mt-2">
                                                     <input type="number" name="realisasi" id="realisasi"
-                                                        v-model ="item.realization"
+                                                        v-model="item.realization"
                                                         class="pl-3 font-semibold block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
                                                 </div>
                                             </div>
@@ -92,7 +92,7 @@
                                                     Aktual</label>
                                                 <div class="mt-2">
                                                     <input type="number" name="aktual" id="aktual"
-                                                        v-model ="item.actual_score"
+                                                        v-model="item.actual_score"
                                                         class="pl-3 font-semibold block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
                                                 </div>
                                             </div>
@@ -132,7 +132,7 @@
                                                     class="block text-sm font-medium leading-6 text-gray-900">Realisasi</label>
                                                 <div class="mt-2">
                                                     <input type="number" name="realisasi" id="realisasi"
-                                                        v-model ="item.realization"
+                                                        v-model="item.realization"
                                                         class="pl-3 font-semibold block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
                                                 </div>
                                             </div>
@@ -143,7 +143,7 @@
                                                     Aktual</label>
                                                 <div class="mt-2">
                                                     <input type="number" name="aktual" id="aktual"
-                                                        v-model ="item.actual_score"
+                                                        v-model="item.actual_score"
                                                         class="pl-3 font-semibold block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
                                                 </div>
                                             </div>
@@ -184,7 +184,7 @@
                                                     Aktual</label>
                                                 <div class="mt-2">
                                                     <input type="number" name="aktual" id="aktual"
-                                                        v-model ="item.actual_score"
+                                                        v-model="item.actual_score"
                                                         class="pl-3 font-semibold block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
                                                 </div>
                                             </div>
@@ -225,7 +225,7 @@
                                                     Aktual</label>
                                                 <div class="mt-2">
                                                     <input type="number" name="aktual" id="aktual"
-                                                        v-model ="item.actual_score"
+                                                        v-model="item.actual_score"
                                                         class="pl-3 font-semibold block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" />
                                                 </div>
                                             </div>
@@ -262,15 +262,17 @@
                                     <p>{{ items.totalMental }}</p>
                                 </div>
                             </div>
-                            <h1>{{items.score_scat}}</h1>
+                            <h1>{{ items.score_scat }}</h1>
                             <form>
                                 <div class="grid grid-cols-1 gap-x-6 sm:grid-cols-6">
                                     <div class="sm:col-span-2 sm:col-start-1">
                                         <label for="realisasi"
-                                            class="block text-sm font-medium leading-6 text-gray-900 font-semibold">Rating Nilai</label>
+                                            class="block text-sm font-medium leading-6 text-gray-900 font-semibold">Rating
+                                            Nilai</label>
                                         <div class="mt-2">
                                             <input type="number" name="realisasi" id="realisasi"
-                                                class="pl-3 font-semibold block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6" v-model="items.scat_score" />
+                                                class="pl-3 font-semibold block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6"
+                                                v-model="items.scat_score" />
                                         </div>
                                     </div>
                                 </div>
@@ -402,37 +404,46 @@ export default {
                     console.log(this.items);
                 })
         },
-        
+
         dataVerifikasi() {
             var dataPostVerifikasi = {
-                recommended_id: this.items.id, 
-                scat_score: this.items.scat_score?this.items.scat_score:0, 
+                recommended_id: this.items.id,
+                scat_score: this.items.scat_score ? this.items.scat_score : 0,
                 status: 1,
                 performance_tests: this.items.performance_tests.map(e => {
                     return {
-                        performance_test_id: e.id, 
-                        actual_score: e.actual_score?e.actual_score:0, 
-                        realization: e.realization?e.realization:0
+                        performance_test_id: e.id,
+                        actual_score: e.actual_score ? e.actual_score : 0,
+                        realization: e.realization ? e.realization : 0
                     }
                 })
             }
             let config = {
                 method: 'patch',
                 maxBodyLength: Infinity,
-                url: 'https://bepssi.kunci.co.id/api/performance/3/verify',
-                headers: { 
-                    'Content-Type': 'application/json', 
+                url: `https://bepssi.kunci.co.id/api/performance/${this.$store.state.employee.id}/verify`,
+                headers: {
+                    'Content-Type': 'application/json',
                     'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JlcHNzaS5rdW5jaS5jby5pZC9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTY5NTc5NzIxNywibmJmIjoxNjk1Nzk3MjE3LCJqdGkiOiI4Qmh3d3RoaHdISmtRYXpEIiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.eplSXLlhUeHHJW7O_XLCnwvMosBxZRgsOMKa3vG57rE'
                 },
-                data : dataPostVerifikasi
+                data: dataPostVerifikasi
             };
             this.$axios.request(config)
                 .then((response) => {
-                console.log(JSON.stringify(response.data));
-            })
+                    console.log(JSON.stringify(response.data));
+                    this.$swal({
+                        title: 'Data Terverifikasi',
+                        text: 'Data telah berhasil diverifikasi!',
+                        icon: 'success',
+                        button: 'OK'
+                    }).then(() => {
+                        // Pindah halaman ke halaman test-parameter
+                        this.$router.push('/verification'); // Ubah '/test-parameter' sesuai dengan rute halaman test-parameter Anda
+                    });
+                })
                 .catch((error) => {
-                console.log(error);
-            });
+                    console.log(error);
+                });
         },
         fetchRecommendeds() {
             this.$axios

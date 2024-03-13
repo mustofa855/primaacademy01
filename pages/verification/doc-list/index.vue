@@ -39,10 +39,12 @@
     <!-- pagination -->
     <pagination :pagination="pagination" @refetch="paginate" @paginate="paginate" />
 
+
     <div class="w-full h-full">
-      <ElementsModal v-model="modal.status" :title="modal.title" :key="'modal' + modal.key" :show="true">
-      <iframe :src="url" class="w-full h-[470px]" frameborder="0" allowfullscreen="true"></iframe>
-        <div class="mt-4 flex justify-center space-x-4">
+      <ElementsModal v-model="modal.status" :title="modal.title" :key="'modal' + modal.key" :show="true"
+        :username="modal.username">
+        <iframe :src="url" class="w-full h-[470px]" frameborder="0" allowfullscreen="true"></iframe>
+        <div v-if="modal.statusDokumen !== 'Terverifikasi'" class="mt-4 flex justify-center space-x-4">
           <button @click="acceptData"
             class="px-4 py-2 bg-success text-white rounded-lg hover:hover:bg-success-shade focus:outline-none focus:ring focus:ring-blue-200">
             Terima
@@ -56,6 +58,7 @@
       </ElementsModal>
 
     </div>
+
   </div>
 </template>
   
@@ -79,6 +82,7 @@ export default {
       activeFilterId: null, // variabel untuk melacak ID filter aktif
       modal: {
         status: false,
+        statusDokumen: 0,
         title: '{Detail File}',
         key: 0,
       },
@@ -126,6 +130,14 @@ export default {
       search: null,
       items: null,
     }
+  },
+  computed: {
+    // Buat computed property untuk mengembalikan item yang belum terverifikasi atau ditolak
+    filteredItems() {
+      return _.filter(this.items, (item) => {
+        return item.secure_documents.some(doc => doc.status.name === 'Menunggu');
+      });
+    },
   },
   watch: {
     pagination: {
@@ -189,11 +201,21 @@ export default {
           data: dataVerifikasi
         };
 
+
         await this.$axios.request(config)
           .then((response) => {
             console.log(JSON.stringify(response.data));
-            // Setelah permintaan berhasil, arahkan pengguna kembali ke halaman saat ini
-            this.$router.push({ path: this.$route.path });
+            // Menampilkan pop-up dokumen diterima
+            this.$swal({
+              title: 'Data Terverifikasi',
+              text: 'Data telah berhasil diverifikasi!',
+              icon: 'success',
+              button: 'OK'
+            }).then(() => {
+              // Setelah permintaan berhasil, arahkan pengguna kembali ke halaman saat ini
+              this.$router.push({ path: this.$route.path });
+            });
+
           })
           .catch((error) => {
             console.log(error);
@@ -222,8 +244,16 @@ export default {
         await this.$axios.request(config)
           .then((response) => {
             console.log(JSON.stringify(response.data));
-            // Setelah permintaan berhasil, arahkan pengguna kembali ke halaman saat ini
-            this.$router.push({ path: this.$route.path });
+            // Menampilkan pop-up dokumen ditolak
+            this.$swal({
+              title: 'Dokumen Ditolak',
+              text: 'Data telah berhasil ditolak!',
+              icon: 'error',
+              button: 'OK'
+            }).then(() => {
+              // Setelah permintaan berhasil, arahkan pengguna kembali ke halaman saat ini
+              this.$router.push({ path: this.$route.path });
+            });
           })
           .catch((error) => {
             console.log(error);
@@ -254,6 +284,7 @@ export default {
               })
               return e.secure_documents
             })
+            // .filter(e => {return e.status !== "Terverifikasi"})
             this.res.data.forEach(e => {
               e.role = e.user_type === 1 ? "Official" :
                 e.user_type === 2 ? "Pemain" : e.user_type === 3 ? "Club" : ""
@@ -272,7 +303,9 @@ export default {
       this.url = `http://localhost:4000/proxy?url=${encodeURIComponent(e.file)}`; // Update the URL to use the proxy
       this.fileType = "pdf";
       this.modal.status = true;
+      this.modal.statusDokumen = e.status;
       this.modal.key += 1;
+      this.modal.username = e.username;
     },
   },
 }

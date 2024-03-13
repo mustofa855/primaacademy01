@@ -83,7 +83,8 @@ export default {
 
         this.kategori = Object.keys(response.data.data)
           .map(this.snakeToSpace)
-          .filter(e => e !== 'total task')
+          // .filter(e => e !== 'total task')
+
         this.dataSeries = [
           {
             name: 'Overview - Total User',

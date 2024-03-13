@@ -5,7 +5,6 @@
       :title="'Verifikasi Test Parameter'"
       :subtitle="'Pada menu ini anda dapat melakukan verifikasi test parameter.'"
     />
-    <control-bar v-model="search" :button-name="'Tambah Pengguna Baru'"/>
     <!-- data tabel -->
     <kunci-table :header-table="tableHeader" :data="items">
       <template #no="{ index }">{{ index + pagination.from }}</template>

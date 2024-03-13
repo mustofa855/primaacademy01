@@ -10,7 +10,7 @@
                         <div class="flex items-center rounded-t ">
                             <h3 class="flex-auto text-xl md:text-2xlplus text-center leading-8 font-lato text-warna-empat"
                                 :class="show ? 'pl-[26px]' : 'pl-0'">
-                                {{ title }}
+                                {{ title }} {{ getUsername() }}
                             </h3>
                             <button v-if="show" @click="tutupModal" class="flex-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -36,7 +36,7 @@
 </template>
 <script>
 export default {
-    props: ['value', 'title', 'persistent', 'width', 'show'],
+    props: ['value', 'title', 'persistent', 'width', 'show', 'username'],
     data() {
         return {
             statModal: false
@@ -78,7 +78,11 @@ export default {
                 this.tutupModal()
             }
         },
+        getUsername() {
+            return this.username ? ` - ${this.username}` : ''; // Kembalikan username jika prop username ada
+        },
 
-    }
+    },
+
 }
 </script>

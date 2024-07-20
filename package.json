@@ -10,7 +10,7 @@
     "deploy": "pm2 deploy ecosystem.config.js production"
   },
   "dependencies": {
-    "@braid/vue-formulate": "^2.5.2",
+    "@braid/vue-formulate": "^2.5.3",
     "@nuxtjs/auth-next": "^5.0.0-1667386184.dfbbb54",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/dayjs": "^1.4.1",
@@ -24,6 +24,7 @@
     "cookie-universal-nuxt": "^2.2.2",
     "core-js": "^3.25.3",
     "crypto-js": "^4.1.1",
+    "date-fns": "^3.6.0",
     "dotenv": "16.0.3",
     "express": "^4.18.2",
     "flowbite": "^2.2.0",
@@ -60,7 +61,8 @@
     "vue2-filters": "^0.14.0",
     "vuex-persistedstate": "^4.1.0",
     "webpack": "^4.46.0",
-    "write-excel-file": "^1.4.27"
+    "write-excel-file": "^1.4.27",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@nuxt/postcss8": "^1.1.3",

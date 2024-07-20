@@ -177,7 +177,9 @@ export default {
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: "https://bepssi.kunci.co.id/",
+    // baseURL: "https://bepssi.kunci.co.id/",
+    // baseURL: process.env.baseUrl,
+    baseUrl: "be.olahraga.kunci.co.id",
     headers: {
       "Content-Type": "application/json",
     },
@@ -186,11 +188,11 @@ export default {
   },
 
   auth: {
-    redirect: {
-      login: '/login', // Specify your login route
-      logout: '/login', // Specify your logout route
-      home: '/dashboard', // Specify your home/dashboard route
-    },
+    // redirect: {
+    //   login: '/login', // Specify your login route
+    //   logout: '/login', // Specify your logout route
+    //   home: '/dashboard', // Specify your home/dashboard route
+    // },
     // Options
     strategies: {
       local: {
@@ -213,10 +215,10 @@ export default {
         },
       },
     },
-    // redirect: {
-    //   login: '/dashboard',
-    //   logout: '/login',
-    // },
+    redirect: {
+      login: '/dashboard',
+      logout: '/login',
+    },
     cookie: {
       options: {
         secure: true,

@@ -1,5 +1,89 @@
 <template>
   <div>
+    <title-bar
+      :title="'Tambah Video untuk Kelas ' + className"
+      :subtitle="'Tambahkan video baru untuk kelas ' + className"
+    />
+    <p>Halooooo</p>
+    <!-- Form Tambah Video -->
+    <form @submit.prevent="handleSubmit">
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Judul Video</label>
+        <input v-model="form.judul_video" type="text" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Deskripsi Video</label>
+        <textarea v-model="form.deskripsi_video" required rows="3" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Link Video</label>
+        <input v-model="form.link_video" type="url" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Jenis Video</label>
+        <select v-model="form.isTask_video" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+          <option value="1">Tugas</option>
+          <option value="2">Video Pelajaran</option>
+        </select>
+      </div>
+
+      <div class="flex justify-end">
+        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md">Simpan</button>
+      </div>
+    </form>
+  </div>
+</template>
+
+<script>
+import TitleBar from '~/components/TitleBar.vue';
+
+export default {
+  layout: 'admin',
+  components: { TitleBar },
+  data() {
+    return {
+      className: '', // Nama kelas akan di-set sebelum navigasi ke halaman ini
+      form: {
+        judul_video: '',
+        deskripsi_video: '',
+        link_video: '',
+        isTask_video: 1, // Default: Tugas
+      }
+    };
+  },
+  methods: {
+    async handleSubmit() {
+      // Simulasi pengiriman data ke backend atau penyimpanan lokal
+      console.log('Data Video yang akan disimpan:', this.form);
+
+      // Setelah penyimpanan sukses, bisa diarahkan kembali ke halaman detail kelas
+      this.$router.push(`/class/detail/${this.$route.params.id}`);
+    }
+  },
+  created() {
+    // Ambil nama kelas dari data prop atau pengaturan lain sebelum menavigasi ke halaman ini
+    this.className = 'Nama Kelas'; // Ganti dengan pengambilan data yang sesuai
+  }
+};
+</script>
+
+<style scoped>
+.form-control {
+  margin-bottom: 1.5rem;
+}
+</style>
+
+
+
+
+
+
+
+<!-- <template>
+  <div>
     <create-page
       :title="'Tambah Video Baru'"
       :subtitle="'Tambah Video Baru'"
@@ -11,9 +95,9 @@
       :select2="true"
       :is-form-data="true"
     >
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-2 gap-4"> -->
         <!-- section 1 -->
-        <div>
+        <!-- <div>
           <FormulateInput
             v-model="items.name"
             type="text"
@@ -47,9 +131,9 @@
               error-behavior="live"
             />
           </div>
-        </div>
+        </div> -->
         <!-- section 2 -->
-        <div class="flex flex-col gap-4">
+        <!-- <div class="flex flex-col gap-4">
           <!-- input accept only video -->
           <!-- <FormulateInput
             type="file"
@@ -58,10 +142,10 @@
             @input="image"
           /> -->
 
-          <div>
-            <h3 class="font-semibold">Pilih Video</h3>
+          <!-- <div>
+            <h3 class="font-semibold">Pilih Video</h3> -->
             <!-- input video -->
-            <video v-show="items.video != ''" id="video-preview" controls />
+            <!-- <video v-show="items.video != ''" id="video-preview" controls />
             <input type="file" accept="video/*" @change="handleFileUpload" />
           </div>
           <div>
@@ -84,16 +168,16 @@
       </div>
     </create-page>
   </div>
-</template>
-
+</template> -->
+<!-- 
 <script>
 import CreatePage from '~/components/CreatePage.vue'
 // import InputSelect from '~/components/InputSelect.vue'
-// import KunciButton from '~/components/KunciButton.vue'
+// import TombolButton from '~/components/TombolButton.vue'
 export default {
   components: {
     // InputSelect,
-    // KunciButton,
+    // TombolButton,
     CreatePage,
   },
   layout: 'admin',
@@ -185,4 +269,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style></style> -->

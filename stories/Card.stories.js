@@ -26,7 +26,7 @@ CardTitle.args = {
 export const CardActions = (args, { argTypes }) => ({
   // components: { Card },
   props: Object.keys(argTypes),
-  template: '<card v-bind="$props" ><template #actions><kunci-button>button</kunci-button> </template></card>'
+  template: '<card v-bind="$props" ><template #actions><tombol-button>button</tombol-button> </template></card>'
 })
 CardActions.args = {
   title: 'Card Title',

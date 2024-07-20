@@ -16,17 +16,17 @@
 
     <!-- action button -->
     <div v-if="!disabledButton">
-      <kunci-button color="secondary" @click="click">{{
+      <tombol-button color="secondary" @click="click">{{
         buttonName
-      }}</kunci-button>
+      }}</tombol-button>
     </div>
   </div>
 </template>
 
 <script>
-import KunciButton from './KunciButton.vue'
+import TombolButton from './TombolButton.vue'
 export default {
-  components: { KunciButton },
+  components: { TombolButton },
   props: {
     buttonName: {
       type: String,

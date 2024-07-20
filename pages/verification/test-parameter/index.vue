@@ -1,142 +1,167 @@
 <template>
   <div>
+    <!-- Title Bar -->
     <title-bar
       is-controlbar
       :title="'Verifikasi Test Parameter'"
       :subtitle="'Pada menu ini anda dapat melakukan verifikasi test parameter.'"
     />
-    <!-- data tabel -->
-    <kunci-table :header-table="tableHeader" :data="items">
+
+    <!-- Tombol Tampilkan Semua Parameter Tes -->
+    <div class="flex justify-between mb-4">
+      <tombol-button @click="$router.push('/verification')" class="bg-success text-white kembali-button">
+        Kembali
+      </tombol-button>
+      <button @click="toggleShowAll"
+        class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark focus:outline-none focus:ring focus:ring-blue-200">
+        {{ showAll ? 'Tampilkan Tes yang Belum Diverifikasi' : 'Tampilkan Semua Tes' }}
+      </button>
+    </div>
+
+    <!-- Table Content -->
+    <tabel :header-table="tableHeader" :data="paginatedParams">
       <template #no="{ index }">{{ index + pagination.from }}</template>
-      <template #name="{ item }">{{ item.player.name }}</template>
-      <template #created_at="{ item }">{{ formatDate(item.created_at) }}</template>
+      <template #fullname="{ item }">{{ item.fullname }}</template>
+      <template #tgl_dibuat="{ item }">{{ formatDate(item.tgl_dibuat) }}</template>
+      <template #status_param="{ item }">{{ getStatusParam(item.status_param) }}</template>
       <template #action="{ item }">
-        <kunci-button
-          :dense="true"
-          class="bg-success hover:bg-success-shade"
-          @click="toDetail(item)"
-        >
+        <tombol-button :dense="true" class="bg-success hover:bg-success-shade" @click="toDetailParam(item)">
           <img class="w-4" :src="'/eye.svg'" />
-        </kunci-button>
+        </tombol-button>
       </template>
-    </kunci-table>
+    </tabel>
+
     <!-- pagination -->
-    <pagination
-      :pagination="pagination"
-      @refetch="paginate"
-      @paginate="paginate"
+    <pagination 
+      :pagination="pagination" 
+      @paginate="paginate" 
     />
   </div>
 </template>
 
 <script>
-import ControlBar from '~/components/ControlBar.vue'
-import KunciTable from '~/components/KunciTable.vue'
-import Pagination from '~/components/Pagination.vue'
 import TitleBar from '~/components/TitleBar.vue'
+import Tabel from '~/components/Tabel.vue'
+import Pagination from '~/components/Pagination.vue'
+import TombolButton from '~/components/TombolButton.vue'
+
 export default {
-  components: { TitleBar, ControlBar, KunciTable, Pagination },
+  components: { TitleBar, Tabel, Pagination, TombolButton },
   layout: 'admin',
   data() {
     return {
+      params: [],
+      showAll: false,
       tableHeader: [
-        {
-          text: 'No',
-          key: 'no',
-        },
-        {
-          text: 'Nama Pemain',
-          key: 'name',
-        },
-        {
-          text: 'Dibuat Pada',
-          key: 'created_at',
-        },
-        {
-          text: 'Aksi',
-          key: 'action',
-        },
+        { text: 'No', key: 'no' },
+        { text: 'Nama pengirim', key: 'fullname' },
+        { text: 'Tanggal Dibuat', key: 'tgl_dibuat' },
+        { text: 'Status', key: 'status_param' },
+        { text: 'Aksi', key: 'action' },
       ],
       pagination: {
         current_page: 1,
-        first_page_url: '',
         from: 1,
-        last_page: 1,
-        last_page_url: '',
-        next_page_url: null,
-        path: '',
+        to: 10,
         per_page: 10,
-        prev_page_url: null,
-        to: 2,
         total: 0,
+        last_page: 1,
       },
-      search: null,
-      items: [],
+      filteredParamsCount: 0,
     }
   },
   watch: {
     pagination: {
       handler() {
-        this.fetchData(this.pagination.current_page)
-      },
-      deep: true,
-    },
-    search: {
-      handler() {
-        this.fetchData(this.pagination.current_page)
+        this.updatePagination();
       },
       deep: true,
     },
   },
-  mounted() {
-    this.fetchData()
+  computed: {
+    filteredParams() {
+      const filtered = this.showAll
+        ? this.params
+        : this.params.filter(param => param.status_param !== 1 && param.status_param !== 2);
+      this.filteredParamsCount = filtered.length;
+      return filtered;
+    },
+    paginatedParams() {
+      const start = (this.pagination.current_page - 1) * this.pagination.per_page;
+      const end = this.pagination.current_page * this.pagination.per_page;
+      return this.filteredParams.slice(start, end);
+    }
   },
   methods: {
-    // for pagination
-    paginate(e) {
-      this.pagination.current_page = e
+    async fetchParams() {
+      try {
+        const response = await this.$axios.$get('https://6672a1756ca902ae11b1155d.mockapi.io/api/test-parameter');
+        this.params = response || [];
+        this.params = (response || []).sort((a, b) => new Date(b.tgl_dibuat) - new Date(a.tgl_dibuat));
+        this.updateFilteredParamsCount();
+        this.pagination.total = this.filteredParamsCount;
+        this.pagination.last_page = Math.ceil(this.filteredParamsCount / this.pagination.per_page);
+        this.updatePagination();
+      } catch (error) {
+        console.error('Error fetching test parameter:', error);
+      }
     },
-
-    // fetch data
-    async fetchData(currentPage) {
-      await this.$axios
-        .$get('https://bepssi.kunci.co.id/api/performance/tests', {
-          params: {
-            page: currentPage || this.pagination.current_page,
-            search: this.search,
-            limit: this.pagination.per_page,
-          },
-        })
-        .then((res) => {
-          if (res) {
-            this.items = res.data
-            this.pagination.current_page = res.meta.current_page
-            this.pagination.total = res.meta.total_items
-            this.pagination.last_page = res.meta.last_page
-
-            this.pagination.from = res.meta.from
-            this.pagination.to = res.meta.to
-          }
-        })
-        
+    updatePagination() {
+      this.pagination.from = (this.pagination.current_page - 1) * this.pagination.per_page + 1;
+      this.pagination.to = Math.min(this.pagination.current_page * this.pagination.per_page, this.filteredParamsCount);
     },
-    
-    // FormatDate
-    formatDate(dateTimeString) {
-      const date = new Date(dateTimeString);
+    paginate(page) {
+      this.pagination.current_page = page;
+      this.updatePagination();
+    },
+    toggleShowAll() {
+      this.showAll = !this.showAll;
+      this.pagination.current_page = 1;
+      this.updateFilteredParamsCount();
+      this.pagination.total = this.filteredParamsCount;
+      this.pagination.last_page = Math.ceil(this.filteredParamsCount / this.pagination.per_page);
+      this.updatePagination();
+    },
+    updateFilteredParamsCount() {
+      this.filteredParamsCount = this.showAll
+        ? this.params.length
+        : this.params.filter(param => param.status_param !== 1 && param.status_param !== 2).length;
+    },
+    getStatusParam(statusCode) {
+      switch (statusCode) {
+        case 1:
+          return 'Diterima';
+        case 2:
+          return 'Ditolak';
+        case 3:
+          return 'Menunggu';
+        default:
+          return 'Tidak Diketahui';
+      }
+    },
+    toDetailParam(param) {
+      this.$router.push(`/verification/test-parameter/${param.id}`);
+    },
+    formatDate(dateString) {
+      const months = [
+        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+      ];
+      const date = new Date(dateString);
+      const day = date.getDate();
+      const month = months[date.getMonth()];
       const year = date.getFullYear();
-      const month = `0${date.getMonth() + 1}`.slice(-2);
-      const day = `0${date.getDate()}`.slice(-2);
-      return `${year}-${month}-${day}`;
-    },
-
-    // to detail
-    toDetail(e) {
-      this.$store.commit('employee/SET_ID', e.id)
-      this.$router.push(`/verification/test-parameter/detail`)
-    },
+      return `${day} ${month} ${year}`;
+    }
   },
+  created() {
+    this.fetchParams();
+  }
 }
 </script>
 
-<style></style>
+<style scoped>
+.kembali-button:hover {
+  background-color: #045C57;
+}
+</style>

@@ -5,10 +5,12 @@
       <a
         href="#"
         class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+        @click.prevent="prevPage"
       >Sebelumnya</a>
       <a
         href="#"
         class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+        @click.prevent="nextPage"
       >Selanjutnya</a>
     </div>
 
@@ -31,7 +33,7 @@
         >
           <button
             class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-            @click="firstPage()"
+            @click.prevent="firstPage"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +50,7 @@
           </button>
           <button
             class="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-            @click="prevPage()"
+            @click.prevent="prevPage"
           >
             <svg
               class="h-5 w-5"
@@ -70,12 +72,12 @@
               aria-current="page"
               :class="page === pagination.current_page ? active : noActive"
               :disabled="page === pagination.current_page"
-              @click="$emit('paginate', page)"
+              @click.prevent="$emit('paginate', page)"
             >{{ page }}</button>
           </div>
           <button
             class="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-            @click="nextPage()"
+            @click.prevent="nextPage"
           >
             <svg
               class="h-5 w-5"
@@ -93,7 +95,7 @@
           </button>
           <button
             class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-            @click="lastPage()"
+            @click.prevent="lastPage"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -124,21 +126,19 @@ export default {
   props: {
     pagination: {
       type: Object,
-      default: () => {
-        return {
-          current_page: 1,
-          first_page_url: '',
-          from: 0,
-          last_page: 1,
-          last_page_url: '',
-          next_page_url: null,
-          path: '',
-          per_page: 10,
-          prev_page_url: null,
-          to: 0,
-          total: 0,
-        }
-      },
+      default: () => ({
+        current_page: 1,
+        first_page_url: '',
+        from: 0,
+        last_page: 1,
+        last_page_url: '',
+        next_page_url: null,
+        path: '',
+        per_page: 10,
+        prev_page_url: null,
+        to: 0,
+        total: 0,
+      }),
     },
   },
   data() {
@@ -171,7 +171,6 @@ export default {
               text-sm
               font-medium
             `,
-
       maxPaginate: 5,
     }
   },
@@ -190,20 +189,24 @@ export default {
   },
   methods: {
     nextPage() {
-      if (this.pagination.current_page !== this.pagination.last_page)
-        this.$emit('refetch', this.pagination.current_page + 1)
+      if (this.pagination.current_page < this.pagination.last_page) {
+        this.$emit('paginate', this.pagination.current_page + 1)
+      }
     },
     prevPage() {
-      if (this.pagination.current_page !== 1)
-        this.$emit('refetch', this.pagination.current_page - 1)
+      if (this.pagination.current_page > 1) {
+        this.$emit('paginate', this.pagination.current_page - 1)
+      }
     },
     firstPage() {
-      if (this.pagination.current_page !== 1)
-        this.$emit('refetch', 1)
+      if (this.pagination.current_page !== 1) {
+        this.$emit('paginate', 1)
+      }
     },
     lastPage() {
-      if (this.pagination.current_page !== this.pagination.last_page)
-        this.$emit('refetch', this.pagination.last_page)
+      if (this.pagination.current_page !== this.pagination.last_page) {
+        this.$emit('paginate', this.pagination.last_page)
+      }
     },
   },
 }

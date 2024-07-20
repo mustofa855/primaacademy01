@@ -1,139 +1,179 @@
 <template>
   <div>
-    <create-page
-      :title="'Tambah Kelas'"
-      :subtitle="'Anda dapat menambah Kelas baru.'"
-      :form-title="'Form Tambah Kelas'"
-      endpoint="classes/insert"
-      :items="items"
-      :redirect="'/class'"
-      :back="'/class'"
-      :select2="true"
-      is-form-data
-    >
-      <div class="grid grid-cols-2 gap-4">
-        <!-- section 1 -->
-        <div>
-          <FormulateInput
-            v-model="items.name"
-            type="text"
-            label="Nama Kelas"
-            placeholder="Nama Kelas"
-            validation="required"
-            error-behavior="live"
-          />
-          <FormulateInput
-            v-model="items.description"
-            type="textarea"
-            label="Deskripsi Kelas"
-            validation="required"
-            error-behavior="live"
-          />
-          <FormulateInput
-            v-model="items.class_category_id"
-            :options="category"
-            type="select"
-            placeholder="Pilih Kategori"
-            validation="required"
-            label="Kategori"
-          />
-          <FormulateInput
-            v-model="items.is_premium"
-            :options="{ 2: 'Tidak' }"
-            type="checkbox"
-            label="Premium Kelas?"
-            input-class="flex items-start"
-            validation="required"
-            error-behavior="live"
-          />
-          <FormulateInput
-            v-model="items.class_level_id"
-            :options="level"
-            type="select"
-            placeholder="Pilih Level"
-            validation="required"
-            label="Level"
-          />
-        </div>
-        <!-- section 2 -->
-        <div>
-          <FormulateInput
-            class="maxh"
-            type="image"
-            label="Thumbnail Kelas"
-            help="Select a png, jpg or gif to upload."
-            validation="mime:image/jpeg,image/png|required"
-            file-image-preview-image-class="max-h-96"
-            @input="image"
-          />
+    <!-- Title Bar -->
+    <title-bar is-controlbar :title="'Buat Kelas'" :subtitle="'Pada menu ini anda dapat membuat kelas.'" />
+
+    <!-- Tombol Kembali -->
+    <tombol-button @click="$router.push('/class')" class="bg-success text-white kembali-button mb-4 hover:bg-success-shade">
+      Kembali ke Daftar Kelas
+    </tombol-button>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-5 py-5 mt-8 bg-white w-full shadow-lg rounded-xl">
+      <!-- Nama Kelas -->
+      <div class="form-group">
+        <label for="nama_kelas" class="block font-bold mb-2">Nama Kelas</label>
+        <input type="text" id="nama_kelas" name="nama_kelas" placeholder="Pelatihan Teknik Jumping"
+          v-model="newClass.nama_kelas" class="w-full p-2 border border-gray-300 rounded mb-4 outline-none">
+      </div>
+      <!-- Deskripsi -->
+      <div class="form-group">
+        <label for="deskripsi_kelas" class="block font-bold mb-2">Deskripsi Kelas</label>
+        <textarea type="text" id="deskripsi_kelas" name="deskripsi_kelas" placeholder="Kelas ini akan menampilkan"
+          v-model="newClass.deskripsi_kelas"
+          class="w-full p-2 border border-gray-300 rounded mb-4 outline-none"></textarea>
+      </div>
+      <!-- Level Kelas -->
+      <div class="form-group">
+        <label for="level_kelas" class="block font-bold mb-2">Level Kelas</label>
+        <select id="level_kelas" name="level_kelas" v-model="newClass.level_kelas"
+          class="w-full p-2 border border-gray-300 rounded mb-4 outline-none">
+          <option value="Pemula">Pemula</option>
+          <option value="Menengah">Menengah</option>
+          <option value="Lanjutan">Lanjutan</option>
+          <option value="Ahli">Ahli</option>
+        </select>
+      </div>
+      <!-- Kategori Kelas -->
+      <div class="form-group">
+        <label for="kategori_kelas" class="block font-bold mb-2">Kategori Kelas</label>
+        <select id="kategori_kelas" name="kategori_kelas" v-model="newClass.kategori_kelas"
+          class="w-full p-2 border border-gray-300 rounded mb-4 outline-none">
+          <option value="S.A.Q">S.A.Q</option>
+          <option value="Strength">Strength</option>
+          <option value="Endurance">Endurance</option>
+          <option value="Agility">Agility</option>
+          <option value="Speed">Speed</option>
+          <option value="Mental">Mental</option>
+          <option value="Punching">Punching</option>
+          <option value="Blocking">Blocking</option>
+          <option value="Control">Control</option>
+          <option value="Quickness">Quickness</option>
+          <option value="Transition">Transition</option>
+          <option value="Dive">Dive</option>
+          <option value="Defending">Defending</option>
+          <option value="Attacking">Attacking</option>
+          <option value="Catching">Catching</option>
+          <option value="Ball Mastery">Ball Mastery</option>
+          <option value="Passing">Passing</option>
+          <option value="Dribbling">Dribbling</option>
+          <option value="Shooting">Shooting</option>
+          <option value="Prima x BJB">Prima x BJB</option>
+        </select>
+      </div>
+      <!-- Thumbnail Kelas -->
+      <div class="form-group">
+        <label for="thumbnail_kelas" class="block font-bold mb-2">URL Thumbnail Kelas</label>
+        <input type="text" id="thumbnail_kelas" name="thumbnail_kelas" placeholder="www.example.com"
+          v-model="newClass.thumbnail_kelas" class="w-full p-2 border border-gray-300 rounded mb-4 outline-none">
+      </div>
+      <!-- Status Kelas -->
+      <div class="form-group">
+        <label for="status_kelas" class="block font-bold mb-2">Status Kelas</label>
+        <select id="status_kelas" name="status_kelas" v-model="newClass.status_kelas"
+          class="w-full p-2 border border-gray-300 rounded mb-4 outline-none">
+          <option value="1">Aktif</option>
+          <option value="2">Non Aktif</option>
+        </select>
+      </div>
+      <!-- Premium Kelas -->
+      <div class="form-group">
+        <label class="block font-bold mb-2">Premium Kelas</label>
+        <div class="flex justify-between gap-4">
+          <button v-for="premiumOption in premiumOptions" :key="premiumOption.value" type="button"
+            @click="setPremium(premiumOption.value)"
+            :class="['w-full rounded-full px-4 py-2 text-sm font-semibold text-black transition duration-150 ease-in-out', { 'bg-red-700 text-white': newClass.isPremium === premiumOption.value, 'bg-gray-300': newClass.isPremium !== premiumOption.value }]">
+            {{ premiumOption.label }}
+          </button>
         </div>
       </div>
-    </create-page>
+    </div>
+
+    <!-- Tombol Simpan dan Batal -->
+    <div class="flex justify-end mt-4 px-5 md:px-0">
+      <button type="submit" @click="confirmCreate"
+        class="rounded-md bg-teal-600 px-7 py-3 text-md mr-1 font-semibold text-white shadow-sm hover:bg-teal-700 transition duration-150 ease-out hover:ease-in">Simpan</button>
+      <button type="button" @click="cancelCreate"
+        class="rounded-md bg-red-600 px-7 py-3 text-md ml-1 font-semibold text-white shadow-sm hover:bg-red-700 transition duration-150 ease-out hover:ease-in">Batal</button>
+    </div>
   </div>
 </template>
 
 <script>
-import CreatePage from '~/components/CreatePage.vue'
-// import InputSelect from '~/components/InputSelect.vue'
-// import KunciButton from '~/components/KunciButton.vue'
+import Swal from 'sweetalert2';
+import TitleBar from '~/components/TitleBar.vue'
+import ControlBar from '~/components/ControlBar.vue'
+
 export default {
-  components: {
-    // InputSelect,
-    // KunciButton,
-    CreatePage,
-  },
+  components: { TitleBar, ControlBar },
   layout: 'admin',
   data() {
     return {
-      items: {
-        name: '',
-        description: '',
-        is_premium: '',
-        class_level_id: '',
-        class_category_id: '',
-        thumbnail: '',
+      newClass: {
+        nama_kelas: '',
+        deskripsi_kelas: '',
+        status_kelas: 1,
+        level_kelas: 'Pemula', // default to 'Pemula'
+        isPremium: 1, // default to 'Gratis'
+        jumlahPemain: 0, // default to 0
+        rating_kelas: 0, // default to 0
+        kategori_kelas: 'S.A.Q', // default to 'S.A.Q'
+        thumbnail_kelas: '',
+        videos: [], // default empty array for videos
       },
-      category: [],
-      level: [],
-    }
-  },
-  mounted() {
-    this.getCategory()
-    this.getLevel()
+      premiumOptions: [
+        { label: 'Gratis', value: 2 },
+        { label: 'Premium', value: 1 },
+      ],
+    };
   },
   methods: {
-    image(e) {
-      if (e) {
-        // convert to base64
-        const reader = new FileReader()
-        reader.readAsDataURL(e.fileList[0])
-        reader.onload = (e) => {
-          this.items.thumbnail = e.target.result
+    async confirmCreate() {
+      const { value } = await Swal.fire({
+        title: 'Yakin akan membuat kelas?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya',
+        cancelButtonText: 'Tidak',
+      });
+
+      if (value) {
+        try {
+          const response = await fetch('https://667994bf18a459f6395091e1.mockapi.io/api/class', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.newClass),
+          });
+
+          if (response.ok) {
+            const responseData = await response.json();
+            console.log('Class created:', responseData); // Log respons API
+            await Swal.fire('Sukses!', 'Kelas berhasil dibuat.', 'success');
+            this.$router.push('/class');
+            this.$nextTick(this.fetchClasses);
+          } else {
+            await Swal.fire('Gagal!', 'Terjadi kesalahan saat membuat kelas.', 'error');
+          }
+        } catch (error) {
+          console.error('Error creating class:', error);
+          await Swal.fire('Gagal!', 'Terjadi kesalahan saat membuat kelas.', 'error');
         }
       }
     },
-    getCategory() {
-      this.$axios.$get('class_category/get').then((res) => {
-        this.category = res.data.map((e) => {
-          return {
-            value: e.id,
-            label: e.name,
-          }
-        })
-      })
+
+    cancelCreate() {
+      this.$router.push('/class');
     },
-    getLevel() {
-      this.$axios.$get('class_level/get').then((res) => {
-        this.level = res.data.map((e) => {
-          return {
-            value: e.id,
-            label: e.name,
-          }
-        })
-      })
+    setPremium(value) {
+      this.newClass.isPremium = value;
     },
   },
-}
+};
 </script>
 
-<style></style>
+<style scoped>
+.form-group {
+  margin-bottom: 1rem;
+}
+</style>

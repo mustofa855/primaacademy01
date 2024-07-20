@@ -1,13 +1,10 @@
 <template>
   <div class="min-h-screen w-full bg flex items-center justify-center">
     <div>
-      <card class="flex flex-col gap-4 p-8 px-16">
-        <div>
-          <kunci-button text @click="$router.push('/pendaftaran-asesmen')">Kembali</kunci-button>
-        </div>
+      <Card class="flex flex-col gap-4 p-8 px-16">
         <!-- image section -->
         <div class="flex flex-1">
-          <img :src="'/logo-prima.svg'" alt="Kunci Transformasi Digital" class="max-w-52 mx-auto" />
+          <img :src="'/logo-prima.svg'" alt="Logo Prima" class="max-w-52 mx-auto" />
         </div>
         <!-- title section -->
         <div class="text-center">
@@ -15,7 +12,7 @@
             Selamat Datang di
             <span class="text-primary">Prima Academy</span>
           </h1>
-          <p class="text-justify text-gray-900">
+          <p class="text-justify text-xl text-gray-900">
             Selamat datang di
             <span class="text-primary">Prima Academy</span>. Silahkan login dengan
             akun masing - masing dibawah ini.
@@ -23,21 +20,12 @@
         </div>
         <!-- form section -->
         <div>
-          <form class="flex flex-col gap-4" @submit.prevent="login">
-            <FormulateInput v-model="items.username" type="text" label="Username" placeholder="Username"
+          <form class="flex flex-col gap-4 text-xl" @submit.prevent="login">
+            <FormulateInput v-model="username" type="text" label="Username" placeholder="Username" for="username"
               validation="required" error-behavior="live" />
-            <FormulateInput v-model="items.password" type="password" label="Password" placeholder="Password"
-              validation="required|min:8,length" error-behavior="live" />
-            <!-- lupa password -->
-            <div class="flex flex-row justify-between">
-              <div class="flex flex-row gap-2 justify-center items-center">
-                <input type="checkbox" value="true" />Ingatkan Password
-              </div>
-              <div class="hover:cursor-pointer" @click="forgetPass">
-                Lupa Password?
-              </div>
-            </div>
-            <kunci-button type="submit">Login</kunci-button>
+            <FormulateInput v-model="password" type="password" label="Password" placeholder="Password" for="password"
+              validation="required" error-behavior="live" />
+            <TombolButton type="submit">Login</TombolButton>
           </form>
         </div>
         <template #actions>
@@ -45,64 +33,55 @@
             &copy; Copyright Prima Academy 2024
           </div>
         </template>
-      </card>
+      </Card>
     </div>
   </div>
 </template>
 
 <script>
-import Card from '~/components/Card.vue'
-import KunciButton from '~/components/KunciButton.vue'
+import Card from '~/components/Card.vue';
+import TombolButton from '~/components/TombolButton.vue';
+
 export default {
-  components: { Card, KunciButton },
-  auth: false,
+  components: { Card, TombolButton },
   data() {
     return {
-      items: { username: '', password: '' },
-    }
+      username: '',
+      password: '',
+      errorMessage: ''
+    };
   },
   methods: {
-    // Login Method
-    async login() {
-      try {
-        await this.$auth.loginWith('local', { data: this.items }).then(({ data }) => {
-          console.log(_.flatMap(data.data.roles, "id").includes(1))
-          if (_.flatMap(data.data.roles, "id").includes(1)) {
-            console.log("Login Berhasil")
-            this.$router.push('/dashboard');
+    login() {
+      this.$axios.get('https://6662bec962966e20ef09d5d2.mockapi.io/api/users')
+        .then(response => {
+          const users = response.data;
+          const user = users.find(u => u.username === this.username && u.password === this.password);
+
+          if (user) {
+            if (user.user_role === 1) {
+              localStorage.setItem('user', JSON.stringify(user));
+              this.$router.push('/dashboard');
+            } else {
+              this.showErrorAlert('Akses ditolak. Hanya pengguna dengan user admin yang bisa login.');
+            }
           } else {
-            const error = "Hanya Akun Administrator yang dapat login";
-            this.$swal.fire({
-              title: 'Gagal',
-              html: error,
-              icon: 'error',
-              confirmButtonText: 'Oke',
-            });
-            this.$router.push('/login');
+            this.showErrorAlert('Username atau password salah.');
           }
+        })
+        .catch(error => {
+          this.showErrorAlert('Terjadi kesalahan saat memproses login.');
         });
-      } catch (err) {
-        console.log(err)
-        const error = this.$errorMessages(err.response.data.errors);
-        this.$swal.fire({
-          title: 'Gagal',
-          html: error,
-          icon: 'error',
-          confirmButtonText: 'Oke',
-        });
-        this.$router.push('/login');
-      }
     },
-    forgetPass() {
-      // swal
+    showErrorAlert(message) {
       this.$swal.fire({
-        title: 'Lupa Password?',
-        text: 'Relax dan tenang, coba untuk menarik napas dan mengingat kembali password anda 😉',
-        icon: 'info',
-        confirmButtonText: 'Oke',
-      })
-    },
-  },
+        title: 'Login Gagal',
+        text: message,
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    }
+  }
 }
 </script>
 

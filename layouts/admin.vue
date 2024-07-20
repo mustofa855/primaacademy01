@@ -1,6 +1,6 @@
 <template>
   <div>
-    <kunci-sidebar />
+    <side-bar />
     <div class="bg-latar min-h-screen pl-72 pt-8 pr-5 overflow-auto">
       <Nuxt />
     </div>
